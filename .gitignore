@@ -1,68 +1,44 @@
 # Ignore Gradle build directory
-composeApp/build/
-build/
+/build/
 .gradle/
 
-# Android App packaging
-*.apk
-*.ap_
-*.aab
-
-# Android Studio
-captures/
-.navigation/
-*.ipr
-*~
-*.swp
-*.iml
+# Ignore IntelliJ IDEA/Android Studio project files
 .idea/
-!/gradle/wrapper/gradle-wrapper.jar
-
-.idea/workspace.xml
-app/build/
-
-# NDK
-obj/
-
-# Xcode
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata/
-/*.gcno
-**/xcshareddata/WorkspaceSettings.xcsettings
-*.xcuserstate
-*.xcscheme
-*.xcworkspace
-xcuserdata/
-
-# CocoaPods
-Pods/
+*.iml
 
 # Ignore local configuration files
 local.properties
 
 # Ignore Android specific files
+*.apk
+*.ap_
 *.dex
-
+*.class
 *.so
 *.jar
 *.war
 *.ear
 
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore log files
+*.log
 
 # Ignore temporary files
 *.tmp
 *.temp
-
-# Gradle files
-.gradle
+*.swp
 
 # Ignore generated files
 /buildConfig/
 generated/
-bin/
-gen/
+
+# Ignore Kotlin/Java specific files
+*.class
+*.jar
+*.war
+*.ear
 
 # Ignore Compose Desktop specific files
 *.dmg
@@ -71,130 +47,3 @@ gen/
 
 # Ignore test results
 /test-results/
-
-# IntelliJ IDEA
-out/
-
-# IntelliJ
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
-.idea/**/aws.xml
-.idea/**/contentModel.xml
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
-.idea/**/gradle.xml
-.idea/**/libraries
-.idea/**/sonarlint/
-.idea/httpRequests
-.idea/caches/build_file_checksums.ser
-
-# Java
-*.class
-*.log
-*.ctxt
-.mtj.tmp/
-*.nar
-*.zip
-*.tar.gz
-*.rar
-hs_err_pid*
-replay_pid*
-
-# XcodeInjection
-iOSInjectionProject/
-
-# Android
-
-.externalNativeBuild/
-.cxx/
-output.json
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
-.signing/
-proguard/
-
-# Keystore files
-*.jks
-*.keystore
-
-# Google Services
-google-services.json
-
-# Android Profiling
-*.hprof
-
-# Kotlin
-# Compiled class file
-# Log file
-# BlueJ files
-# Mobile Tools for Java (J2ME)
-# Package Files
-# virtual machine crash logs
-
-# JetBrains
-# User-specific stuff
-# AWS User-specific
-# Generated files
-# Sensitive or high-churn files
-# Gradle
-# Gradle and Maven with auto-import
-# CMake
-# Mongo Explorer plugin
-# File-based project format
-# IntelliJ
-# mpeltonen/sbt-idea plugin
-# JIRA plugin
-# Cursive Clojure plugin
-# SonarLint plugin
-# Crashlytics plugin
-# Editor-based Rest Client
-# Android studio 3.1+ serialized cache file
-
-# Objective-C
-# Xcode
-# User settings
-# Obj-C/Swift specific
-# App packaging
-# Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Swift Package Manager
-.build/
-
-# Carthage
-Carthage/Build/
-
-# fastlane
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
