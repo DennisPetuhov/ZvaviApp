@@ -1,17 +1,49 @@
+# Ignore Gradle build directory
+/build/
+.gradle/
 
+# Ignore IntelliJ IDEA/Android Studio project files
+.idea/
 *.iml
-.gradle
-.idea
-.kotlin
-.DS_Store
-build
-*/build
-captures
-.externalNativeBuild
-.cxx
+
+# Ignore local configuration files
 local.properties
-xcuserdata/
-Pods/
-*.jks
-*.gpg
-*yarn.lock
+
+# Ignore Android specific files
+*.apk
+*.ap_
+*.dex
+*.class
+*.so
+*.jar
+*.war
+*.ear
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.swp
+
+# Ignore generated files
+/buildConfig/
+generated/
+
+# Ignore Kotlin/Java specific files
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore Compose Desktop specific files
+*.dmg
+*.msi
+*.deb
+
+# Ignore test results
+/test-results/
