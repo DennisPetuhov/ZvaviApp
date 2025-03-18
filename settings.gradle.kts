@@ -1,7 +1,6 @@
 rootProject.name = "ZvaviApp"
 
 pluginManagement {
-    includeBuild("build-logic/base")
     repositories {
         google {
             content {
