@@ -1,12 +1,38 @@
 # Ignore Gradle build directory
 /build/
 .gradle/
-composeApp/build/
 **/build/
+composeApp/build/
 
-# Ignore IntelliJ IDEA/Android Studio project files
-.idea/
+# Android App packaging
+*.apk
+*.ap_
+*.aab
+
+# Android Studio
+captures/
+.navigation/
+*.ipr
+*~
+*.swp
 *.iml
+.idea/
+!/gradle/wrapper/gradle-wrapper.jar
+
+### Xcode ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata/
+/*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
+*.xcuserstate
+*.xcscheme
+*.xcworkspace
+xcuserdata/
+
+# CocoaPods
+Pods/
 
 # Ignore local configuration files
 local.properties
@@ -32,9 +58,21 @@ local.properties
 *.temp
 *.swp
 
+# Gradle files
+.gradle
+.gradle/
+build/
+
+# Local configuration file
+local.properties
+
 # Ignore generated files
 /buildConfig/
 generated/
+bin/
+gen/
+*.class
+*.dex
 
 # Ignore Kotlin/Java specific files
 *.class
