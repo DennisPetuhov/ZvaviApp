@@ -1,6 +1,8 @@
 # Ignore Gradle build directory
 /build/
 .gradle/
+composeApp/build/
+**/build/
 
 # Ignore IntelliJ IDEA/Android Studio project files
 .idea/
