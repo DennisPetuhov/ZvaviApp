@@ -15,7 +15,6 @@ plugins {
 //    id("kmp.base.config")
 
 }
-
 kotlin {
     jvmToolchain(17)// this is for compiler
 //    androidTarget ()
