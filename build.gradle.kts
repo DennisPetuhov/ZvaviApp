@@ -7,3 +7,4 @@ plugins {
     alias(libs.plugins.buildConfig).apply(false)
     id("base.plugin")
 }
+

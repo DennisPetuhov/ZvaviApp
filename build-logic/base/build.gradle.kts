@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins { `kotlin-dsl` }
 
 group = "extensions"
-
 dependencies {
     implementation(libs.gradleplugin.android)
     implementation(libs.gradleplugin.compose)

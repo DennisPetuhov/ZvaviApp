@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import extensions.debugImplementation
 import extensions.androidTestImplementation
 import extensions.libs
-
 kotlinAndroidTarget {
     instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
 }
