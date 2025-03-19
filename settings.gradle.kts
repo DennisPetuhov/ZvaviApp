@@ -1,6 +1,7 @@
 rootProject.name = "ZvaviApp"
 
 pluginManagement {
+    includeBuild("build-logic/base")
     repositories {
         google {
             content {
@@ -14,7 +15,6 @@ pluginManagement {
         mavenCentral()
     }
 }
-
 dependencyResolutionManagement {
     repositories {
         google {
