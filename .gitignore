@@ -2,6 +2,7 @@
 composeApp/build/
 build/
 .gradle/
+ .kotlin/
 
 # Android App packaging
 *.apk

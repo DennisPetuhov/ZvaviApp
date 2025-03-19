@@ -7,9 +7,11 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 fun DependencyHandlerScope.implementation(dependency: Provider<MinimalExternalModuleDependency>) {
     add("implementation", dependency)
 }
+
 fun DependencyHandlerScope.debugImplementation(dependency: Provider<MinimalExternalModuleDependency>) {
     add("debugImplementation", dependency)
 }
+
 fun DependencyHandlerScope.androidTestImplementation(dependency: Provider<MinimalExternalModuleDependency>) {
     add("androidTestImplementation", dependency)
 }

@@ -8,16 +8,19 @@ fun Project.commonMainDependencies(block: KotlinDependencyHandler.() -> Unit) {
         sourceSets.commonMain.dependencies(block)
     }
 }
+
 fun Project.commonTestDependencies(block: KotlinDependencyHandler.() -> Unit) {
     kotlinMultiplatformConfig {
         sourceSets.commonTest.dependencies(block)
     }
 }
+
 fun Project.androidMainDependencies(block: KotlinDependencyHandler.() -> Unit) {
     kotlinMultiplatformConfig {
         sourceSets.androidMain.dependencies(block)
     }
 }
+
 fun Project.jvmMainDependencies(block: KotlinDependencyHandler.() -> Unit) {
     kotlinMultiplatformConfig {
         sourceSets.jvmMain.dependencies(block)

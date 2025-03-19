@@ -27,6 +27,7 @@ private typealias AndroidExtensions = CommonExtension<
         out ProductFlavor,
         out AndroidResources,
         out Installation>
+
 private val Project.androidExtension: AndroidExtensions
     get() = extensions.findByType(BaseAppModuleExtension::class)
         ?: extensions.findByType(LibraryExtension::class)

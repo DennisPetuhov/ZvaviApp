@@ -6,7 +6,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun Project.iosRegularFramework(
     block: Framework.() -> Unit
-) {    kotlinMultiplatformConfig {
+) {
+    kotlinMultiplatformConfig {
         targets
             .filterIsInstance<KotlinNativeTarget>()
             .forEach { nativeTarget -> nativeTarget.binaries.framework(configure = block) }
