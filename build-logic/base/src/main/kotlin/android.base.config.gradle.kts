@@ -1,9 +1,5 @@
-import extensions.androidConfig
 import extensions.android
-import extensions.kotlinJvmCompilerOptions
 import extensions.libs
-import extensions.projectJavaVersion
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
