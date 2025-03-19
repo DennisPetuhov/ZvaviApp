@@ -7,7 +7,6 @@ plugins {
     id("kmp.base.config")
     id("android.base.config")
 }
-
 kotlin {
     sourceSets {
         commonMain.dependencies {
