@@ -1,9 +1,11 @@
 package ge.avalanche.zvavi
 
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -32,12 +34,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import ge.avalanche.zvavi.theme.LocalThemeIsDark
+import ge.avalanche.zvavi.designsystem.theme.LocalThemeIsDark
+import ge.avalanche.zvavi.designsystem.theme.ZvaviAppTheme
+import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import kotlinx.coroutines.isActive
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import ge.avalanche.zvavi.designsystem.theme.ZvaviAppTheme
 import zvaviapp.composeapp.generated.resources.IndieFlower_Regular
 import zvaviapp.composeapp.generated.resources.Res
 import zvaviapp.composeapp.generated.resources.cyclone
@@ -49,17 +52,16 @@ import zvaviapp.composeapp.generated.resources.open_github
 import zvaviapp.composeapp.generated.resources.run
 import zvaviapp.composeapp.generated.resources.stop
 import zvaviapp.composeapp.generated.resources.theme
-import ge.avalanche.zvavi.theme.AppTheme
 
 
 @Composable
-internal fun App() = AppTheme {
+internal fun App() = ZvaviAppTheme {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp).background(color = ZvaviTheme.colors.absinthe800),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = stringResource(Res.string.cyclone),

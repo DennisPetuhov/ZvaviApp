@@ -15,7 +15,7 @@ val LocalColorProvider =
     staticCompositionLocalOf<ZvaviColors> { error("No default implementation") }
 
 @Immutable
-data class ZvaviColors(
+ class ZvaviColors(
     val brand100: ZvaviColor,
     val brand200: ZvaviColor,
     val brand300: ZvaviColor,
