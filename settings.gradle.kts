@@ -29,3 +29,6 @@ dependencyResolutionManagement {
     }
 }
 include(":composeApp")
+include(":common:feature:bulletin:presentation")
+include(":common:core:foundation")
+include(":common:core:designsystem")
