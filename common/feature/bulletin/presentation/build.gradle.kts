@@ -11,6 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":common:core:foundation"))
+                implementation(libs.ui.util)
 //                implementation(project(":common:core:designsystem"))
             }
         }

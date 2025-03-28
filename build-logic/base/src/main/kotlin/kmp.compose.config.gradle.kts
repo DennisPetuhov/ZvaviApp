@@ -14,7 +14,9 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+//            implementation(compose.components.uiToolingPreview)
+//            implementation(libs.ui.util)
+
 //            implementation(libs.kermit)
 //            implementation(libs.kotlinx.coroutines.core)
 //            implementation(libs.ktor.client.core)
@@ -31,6 +33,7 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.multiplatformSettings)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.androidx.ui.text.google.fonts)
         }
 
 //        commonTest.dependencies {
@@ -43,6 +46,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.uiTooling)
             implementation(libs.androidx.runtime.android)
+            implementation(libs.androidx.ui.text.google.fonts)
+
 //            implementation(libs.androidx.activityCompose)
 //            implementation(libs.kotlinx.coroutines.android)
 //            implementation(libs.ktor.client.okhttp)
@@ -52,6 +57,7 @@ kotlin {
             implementation(compose.desktop.currentOs)
 //            implementation(libs.kotlinx.coroutines.swing)
 //            implementation(libs.ktor.client.okhttp)
+            implementation(libs.ui.util)
         }
 //
         iosMain.dependencies {

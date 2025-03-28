@@ -15,6 +15,6 @@ class AppActivity : ComponentActivity() {
     }
 }
 
-@Preview
-@Composable
-fun AppPreview() { App() }
+//@Preview
+//@Composable
+//fun AppPreview() { App() }

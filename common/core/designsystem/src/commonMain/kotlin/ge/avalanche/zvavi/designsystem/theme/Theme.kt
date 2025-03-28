@@ -10,8 +10,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import ge.avalanche.zvavi.designsystem.effect.DarkShadow
+import ge.avalanche.zvavi.designsystem.effect.LightShadow
+import ge.avalanche.zvavi.designsystem.effect.LocalShadowColorProvider
 
- val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
+val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
 
 @Composable
@@ -21,14 +24,13 @@ fun ZvaviAppTheme(
     val systemIsDark = isSystemInDarkTheme()
     val isDarkState = remember(systemIsDark) { mutableStateOf(systemIsDark) }
     val isDark by isDarkState
-    val colors = if (!isDark) lightPalette else darkPalette
+    val colors = if (!isDark) LightColors else DarkColors
+    val shadow = if (!isDark) LightShadow else DarkShadow
     CompositionLocalProvider(
         LocalThemeIsDark provides isDarkState,
-        LocalColorProvider provides colors
+        LocalColorProvider provides colors,
+        LocalShadowColorProvider provides shadow
     ) {
         Surface(modifier = Modifier.fillMaxSize()) { content() }
     }
 }
-
-//@Composable
-//internal expect fun SystemAppearance(isDark: Boolean)
