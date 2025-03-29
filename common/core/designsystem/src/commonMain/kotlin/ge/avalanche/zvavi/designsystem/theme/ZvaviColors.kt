@@ -1,20 +1,10 @@
 package ge.avalanche.zvavi.designsystem.theme
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
-import ge.avalanche.zvavi.designsystem.effect.LocalShadowColorProvider
-import ge.avalanche.zvavi.designsystem.effect.ZvaviShadowColor
 import ge.avalanche.zvavi.designsystem.opacity.ZvaviOpacity
 import androidx.compose.ui.graphics.Color as ZvaviColor
 
-object ZvaviTheme {
-    val colors: ZvaviColors
-        @Composable
-        get() = LocalColorProvider.current
-    val shadowColor: ZvaviShadowColor
-        @Composable get() = LocalShadowColorProvider.current
-}
 
 val LocalColorProvider =
     staticCompositionLocalOf<ZvaviColors> { error("No default implementation") }

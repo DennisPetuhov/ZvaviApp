@@ -46,7 +46,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.uiTooling)
             implementation(libs.androidx.runtime.android)
-            implementation(libs.androidx.ui.text.google.fonts)
+//            implementation(libs.androidx.ui.text.google.fonts)
 
 //            implementation(libs.androidx.activityCompose)
 //            implementation(libs.kotlinx.coroutines.android)

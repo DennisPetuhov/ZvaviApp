@@ -1,12 +1,14 @@
 package ge.avalanche.zvavi.designsystem
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import androidx.compose.ui.graphics.Color as ZvaviColor
 
+@Immutable
 data object Radius {
     val radius200 = 4.dp
     val radius300 = 8.dp
@@ -18,6 +20,7 @@ data object Radius {
     val radius999 = 999.dp
 }
 
+@Immutable
 data object Size {
     val size40 = 8.dp
     val size60 = 10.dp
@@ -37,6 +40,7 @@ data object Size {
     val size900 = 80.dp
 }
 
+@Immutable
 data object Spacing {
     val spacing0 = 0.dp
     val spacing25 = 1.dp
@@ -60,6 +64,7 @@ data object Spacing {
     val spacing900 = 80.dp
 }
 
+@Immutable
 data object Stroke {
     val stroke0 = 0.dp
     val stroke100 = 1.dp
@@ -67,6 +72,7 @@ data object Stroke {
     val stroke400 = 4.dp
 }
 
+@Immutable
 object Shadows {
     val shadow100: Shadow
         @Composable get() = Shadow(
@@ -88,5 +94,4 @@ object Shadows {
             offset = Offset(0f, 4f),
             blurRadius = 8f
         )
-
 }

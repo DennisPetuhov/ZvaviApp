@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.designsystem.effect.DarkShadow
 import ge.avalanche.zvavi.designsystem.effect.LightShadow
 import ge.avalanche.zvavi.designsystem.effect.LocalShadowColorProvider
+import ge.avalanche.zvavi.designsystem.effect.ZvaviShadowColor
 
 val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
-
 @Composable
-fun ZvaviAppTheme(
+fun AppTheme(
     content: @Composable () -> Unit
 ) {
     val systemIsDark = isSystemInDarkTheme()
@@ -26,11 +26,25 @@ fun ZvaviAppTheme(
     val isDark by isDarkState
     val colors = if (!isDark) LightColors else DarkColors
     val shadow = if (!isDark) LightShadow else DarkShadow
+    val typography: ZvaviTypography = CreateZvaviTypography()
+
     CompositionLocalProvider(
         LocalThemeIsDark provides isDarkState,
         LocalColorProvider provides colors,
-        LocalShadowColorProvider provides shadow
+        LocalShadowColorProvider provides shadow,
+        LocalTypographyProvider provides typography
     ) {
         Surface(modifier = Modifier.fillMaxSize()) { content() }
     }
+}
+
+
+object ZvaviTheme {
+    val colors: ZvaviColors
+        @Composable
+        get() = LocalColorProvider.current
+    val shadowColor: ZvaviShadowColor
+        @Composable get() = LocalShadowColorProvider.current
+    val typography: ZvaviTypography
+        @Composable get() = LocalTypographyProvider.current
 }
