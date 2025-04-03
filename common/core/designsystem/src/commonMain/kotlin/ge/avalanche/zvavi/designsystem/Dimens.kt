@@ -9,7 +9,7 @@ import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import androidx.compose.ui.graphics.Color as ZvaviColor
 
 @Immutable
-data object Radius {
+data object ZvaviRadius {
     val radius200 = 4.dp
     val radius300 = 8.dp
     val radius400 = 12.dp
@@ -21,10 +21,11 @@ data object Radius {
 }
 
 @Immutable
-data object Size {
+data object ZvaviSize {
     val size40 = 8.dp
     val size60 = 10.dp
     val size80 = 12.dp
+    val size90 = 13.dp
     val size100 = 16.dp
     val size150 = 20.dp
     val size200 = 24.dp
@@ -41,27 +42,28 @@ data object Size {
 }
 
 @Immutable
-data object Spacing {
-    val spacing0 = 0.dp
-    val spacing25 = 1.dp
-    val spacing50 = 2.dp
-    val spacing100 = 4.dp
-    val spacing150 = 6.dp
-    val spacing200 = 8.dp
-    val spacing250 = 10.dp
-    val spacing300 = 12.dp
-    val spacing350 = 16.dp
-    val spacing400 = 20.dp
-    val spacing450 = 24.dp
-    val spacing500 = 28.dp
-    val spacing550 = 32.dp
-    val spacing600 = 36.dp
-    val spacing650 = 40.dp
-    val spacing700 = 48.dp
-    val spacing750 = 56.dp
-    val spacing800 = 64.dp
-    val spacing850 = 72.dp
-    val spacing900 = 80.dp
+data object ZvaviSpacing {
+    // Spacing tokens from design system
+    val spacing0 = 0.dp    // "0": { "value": "0" }
+    val spacing25 = 1.dp   // "25": { "value": "1" }
+    val spacing50 = 2.dp   // "50": { "value": "2" }
+    val spacing100 = 4.dp  // "100": { "value": "4" }
+    val spacing150 = 6.dp  // "150": { "value": "6" }
+    val spacing200 = 8.dp  // "200": { "value": "8" }
+    val spacing250 = 10.dp // "250": { "value": "10" }
+    val spacing300 = 12.dp // "300": { "value": "12" }
+    val spacing350 = 16.dp // "350": { "value": "16" }
+    val spacing400 = 20.dp // "400": { "value": "20" }
+    val spacing450 = 24.dp // "450": { "value": "24" }
+    val spacing500 = 28.dp // "500": { "value": "28" }
+    val spacing550 = 32.dp // "550": { "value": "32" }
+    val spacing600 = 36.dp // "600": { "value": "36" }
+    val spacing650 = 40.dp // "650": { "value": "40" }
+    val spacing700 = 48.dp // "700": { "value": "48" }
+    val spacing750 = 56.dp // "750": { "value": "56" }
+    val spacing800 = 64.dp // "800": { "value": "64" }
+    val spacing850 = 72.dp // "850": { "value": "72" }
+    val spacing900 = 80.dp // "900": { "value": "80" }
 }
 
 @Immutable
@@ -95,3 +97,8 @@ object Shadows {
             blurRadius = 8f
         )
 }
+
+
+
+
+

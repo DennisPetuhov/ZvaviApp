@@ -1,4 +1,4 @@
-package bulletin.models
+package ge.avalanche.zvavi.bulletin.presentation.models
 
 data class BulletinViewState(
     val emailValue: String = "",

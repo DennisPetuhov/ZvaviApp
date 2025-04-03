@@ -1,4 +1,4 @@
-package bulletin.models
+package ge.avalanche.zvavi.bulletin.presentation.models
  
 sealed class BulletinAction {
     data object OpenMainScreen : BulletinAction()

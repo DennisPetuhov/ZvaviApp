@@ -1,4 +1,4 @@
-package bulletin.models
+package ge.avalanche.zvavi.bulletin.presentation.models
 
 sealed class BulletinEvent {
     class EmailChanged(val newValue: String) : BulletinEvent()

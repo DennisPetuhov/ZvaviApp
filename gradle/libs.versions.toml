@@ -25,6 +25,8 @@ compileSdk = "35"
 runtimeAndroid = "1.7.8"
 uiTextGoogleFonts = "1.7.8"
 uiTextAndroid = "1.7.8"
+uiAndroid = "1.7.8"
+composeTesting = "1.0.0-alpha03"
 
 
 [libraries]
@@ -64,6 +66,8 @@ androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 androidx-ui-text-android = { group = "androidx.compose.ui", name = "ui-text-android", version.ref = "uiTextAndroid" }
 ui-util = { module = "org.jetbrains.compose.ui:ui-util", version.ref = "compose-multiplatform" }
+androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
+androidx-compose-testing = { group = "androidx.xr.compose", name = "compose-testing", version.ref = "composeTesting" }
 
 [plugins]
 
