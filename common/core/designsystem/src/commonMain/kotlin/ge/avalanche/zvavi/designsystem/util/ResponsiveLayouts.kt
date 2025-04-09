@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.designsystem.layout
+package ge.avalanche.zvavi.designsystem.util
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 
 @Composable
 fun ResponsiveContainer(

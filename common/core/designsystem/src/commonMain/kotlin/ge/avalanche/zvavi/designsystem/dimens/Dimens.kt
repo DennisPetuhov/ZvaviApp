@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.designsystem
+package ge.avalanche.zvavi.designsystem.dimens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -96,6 +96,11 @@ object Shadows {
             offset = Offset(0f, 4f),
             blurRadius = 8f
         )
+}
+
+object ZvaviAngle {
+    val angle0 = 0f
+    val angleMinus90 = -90f
 }
 
 

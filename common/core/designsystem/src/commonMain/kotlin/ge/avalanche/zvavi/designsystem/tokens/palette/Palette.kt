@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.designsystem.theme
+package ge.avalanche.zvavi.designsystem.tokens.palette
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color as ZvaviColor

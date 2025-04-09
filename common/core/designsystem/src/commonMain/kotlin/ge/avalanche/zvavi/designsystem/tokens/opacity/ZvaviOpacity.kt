@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.designsystem.opacity
+package ge.avalanche.zvavi.designsystem.tokens.opacity
 
 import androidx.compose.runtime.Immutable
 

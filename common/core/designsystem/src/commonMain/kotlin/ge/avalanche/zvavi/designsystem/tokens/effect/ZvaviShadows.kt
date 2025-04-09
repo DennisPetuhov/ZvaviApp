@@ -1,8 +1,8 @@
-package ge.avalanche.zvavi.designsystem.effect
+package ge.avalanche.zvavi.designsystem.tokens.effect
 
 import androidx.compose.runtime.staticCompositionLocalOf
-import ge.avalanche.zvavi.designsystem.opacity.ZvaviOpacity
-import ge.avalanche.zvavi.designsystem.theme.LightPalette
+import ge.avalanche.zvavi.designsystem.tokens.opacity.ZvaviOpacity
+import ge.avalanche.zvavi.designsystem.tokens.palette.LightPalette
 import androidx.compose.ui.graphics.Color as ZvaviColor
 
 val LocalShadowColorProvider =

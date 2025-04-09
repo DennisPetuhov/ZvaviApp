@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.designsystem.theme
+package ge.avalanche.zvavi.designsystem.typography
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable

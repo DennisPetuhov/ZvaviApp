@@ -1,8 +1,10 @@
-package ge.avalanche.zvavi.designsystem.theme
+package ge.avalanche.zvavi.designsystem.colors
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
-import ge.avalanche.zvavi.designsystem.opacity.ZvaviOpacity
+import ge.avalanche.zvavi.designsystem.tokens.opacity.ZvaviOpacity
+import ge.avalanche.zvavi.designsystem.tokens.palette.DarkPalette
+import ge.avalanche.zvavi.designsystem.tokens.palette.LightPalette
 import androidx.compose.ui.graphics.Color as ZvaviColor
 
 
@@ -136,7 +138,7 @@ val DarkColors = ZvaviColors(
     overlayNeutral = DarkPalette.goose500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark),
     overlayBrand = DarkPalette.brand500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark),
 
-//    overlayAttention = darkPalette.attention500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark)
+//    overlayAttention = DarkPalette.attention500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark),
     overlayPositive = DarkPalette.absinthe500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark),
     overlayWarning = DarkPalette.prosecco500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark),
     overlayNegative = DarkPalette.negroni500.copy(alpha = ZvaviOpacity.opacityOverlayPrimaryDark),

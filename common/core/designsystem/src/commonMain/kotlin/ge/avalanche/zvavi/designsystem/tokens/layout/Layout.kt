@@ -1,8 +1,8 @@
-package ge.avalanche.zvavi.designsystem.zvaviLayout
+package ge.avalanche.zvavi.designsystem.tokens.layout
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.dp
-import ge.avalanche.zvavi.designsystem.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 
 // layout folder in json
 @Immutable
@@ -14,9 +14,9 @@ internal object Layout {
         val breakpointXl = 1200.dp
 
         val colNumberSm = 12
-        val colNumberMd = 12
-        val colNumberLg = 12
-        val colNumberXl = 12
+        const val colNumberMd = 12
+        const val colNumberLg = 12
+        const val colNumberXl = 12
 
         val colWidthSm = 0.dp
         val colWidthMd = 0.dp
@@ -44,7 +44,7 @@ internal object Layout {
         val heightXl = breakpointLg
     }
 
-    internal object Apple {
+    internal object IOS {
         val breakpointSm = 440.dp
         val breakpointMd = 768.dp
         val breakpointLg = 1024.dp
@@ -126,5 +126,4 @@ internal object Layout {
         val heightLg = 800.dp
         val heightXl = 800.dp
     }
-
 }

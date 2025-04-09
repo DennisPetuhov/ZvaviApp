@@ -7,7 +7,5 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 class BulletinViewModel(): BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(
     BulletinViewState.EMPTY) {
     override fun obtainEvent(viewEvent: BulletinEvent) {
-
     }
-
 }
