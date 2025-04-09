@@ -6,54 +6,22 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
-
     alias(libs.plugins.android.application)
-//    alias(libs.plugins.android.application)
-////    id("kmp.base.config")
-//    alias(libs.plugins.kotlinx.serialization)
-//    alias(libs.plugins.buildConfig)
-//    id("kmp.compose.config")
-
-//    alias(libs.plugins.multiplatform)
     id("kmp.base.config")
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
-
     alias(libs.plugins.kotlinx.serialization)
     id("android.base.config")
 
 }
 kotlin {
-//    jvmToolchain(17)
-//    androidTarget {
-//        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-//        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-//    }
-//
-//    jvm()
-//
-//    wasmJs {
-//        browser()
-//        binaries.executable()
-//    }
-//
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach {
-//        it.binaries.framework {
-//            baseName = "ComposeApp"
-//            isStatic = true
-//        }
-//    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
-//            implementation(compose.components.uiToolingPreview)
             implementation(libs.kermit)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
@@ -72,7 +40,6 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(project(":common:core:designsystem"))
             implementation(project(":common:feature:bulletin:presentation"))
-//            implementation(libs.ui.util)
         }
 
         commonTest.dependencies {

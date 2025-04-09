@@ -80,6 +80,7 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     needCorrectionX = true,
                     content = { StyledPyramidText("Moderate") },
                     modifier = Modifier
+//                          .weight(2.1f, fill = false),
                 )
             },
             innerTextWeight = 0.4f,
