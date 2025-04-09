@@ -17,7 +17,7 @@ import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
 @Composable
-fun StyledPyramideText(text: String) {
+fun StyledPyramidText(text: String) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier

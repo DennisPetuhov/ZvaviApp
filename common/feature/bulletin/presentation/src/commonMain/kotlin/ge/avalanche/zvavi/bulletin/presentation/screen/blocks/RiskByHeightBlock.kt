@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.screen.PentagonView
 import ge.avalanche.zvavi.bulletin.presentation.screen.RectangleView
-import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramideText
+import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
@@ -46,7 +46,7 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                 PentagonView(
                     canvasWidth = (152f * 1.4f).dp,
                     canvasHeight = (100f * 1.4f).dp,
-                    content = { StyledPyramideText("Moderate") },
+                    content = { StyledPyramidText("Moderate") },
                     modifier = Modifier,
                 )
             }
@@ -60,7 +60,7 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     canvasWidth = (182f * 1.4f).dp,
                     canvasHeight = (50f * 1.4f).dp,
                     needCorrectionX = true,
-                    content = { StyledPyramideText("Moderate") },
+                    content = { StyledPyramidText("Moderate") },
                     modifier = Modifier
                 )
             }
@@ -75,7 +75,7 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     canvasWidth = (214f * 1.4f).dp,
                     canvasHeight = (50f * 1.4f).dp,
                     needCorrectionX = true,
-                    content = { StyledPyramideText("Moderate") }
+                    content = { StyledPyramidText("Moderate") }
                 )
             }
         )
