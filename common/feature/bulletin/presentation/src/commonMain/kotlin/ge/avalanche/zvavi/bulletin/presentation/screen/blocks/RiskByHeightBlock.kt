@@ -3,8 +3,10 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.blocks
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,7 +41,7 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                 end = ZvaviSpacing.spacing100
             )
     ) {
-        RiskRow(
+        RiskRowPentagon(
             "Risk by height",
             "High Alpine",
             view = {
@@ -49,25 +51,26 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     content = { StyledPyramidText("Moderate") },
                     modifier = Modifier,
                 )
-            }
+            }, modifier = Modifier
         )
-        Spacer(modifier = Modifier.size(2.dp))
-        RiskRow(
+        RiskRowRectangle(
             "2 600",
             "Alpine",
             view = {
                 RectangleView(
                     canvasWidth = (182f * 1.4f).dp,
                     canvasHeight = (50f * 1.4f).dp,
-                    needCorrectionX = true,
+//                    needCorrectionX = true,
                     content = { StyledPyramidText("Moderate") },
                     modifier = Modifier
+//                        .weight(2.15f, fill = false)
                 )
-            }
+            },
+            innerTextWeight = 0.8f,
+            modifier = Modifier
         )
-//        Spacer(modifier = Modifier.size(2.dp))
 
-        RiskRow(
+        RiskRowRectangle(
             "2 000",
             "Sub Alpine",
             view = {
@@ -75,26 +78,38 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     canvasWidth = (214f * 1.4f).dp,
                     canvasHeight = (50f * 1.4f).dp,
                     needCorrectionX = true,
-                    content = { StyledPyramidText("Moderate") }
+                    content = { StyledPyramidText("Moderate") },
+                    modifier = Modifier
                 )
-            }
+            },
+            innerTextWeight = 0.4f,
+            modifier = Modifier
         )
-//        Spacer(modifier = Modifier.size(2.dp))
-        Text(
-            "0",
-            style = ZvaviTheme.typography.compact200Default,
-            color = ZvaviTheme.colors.contentNeutralSecondary,
-            modifier = Modifier.wrapContentSize()
-        )
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth().wrapContentHeight()
+        ) {
+            Text(
+                "0",
+                style = ZvaviTheme.typography.compact200Default,
+                color = ZvaviTheme.colors.contentNeutralSecondary,
+                modifier = Modifier.wrapContentSize()
+            )
+        }
     }
 }
 
+
 @Composable
-private fun RiskRow(title: String, subtitle: String, view: @Composable () -> Unit) {
+private fun RiskRowPentagon(
+    title: String, subtitle: String, modifier: Modifier,
+    view: @Composable RowScope.() -> Unit
+) {
     Row(
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
+        // before fillmaxwidth
+        modifier = modifier.fillMaxSize()
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
@@ -104,15 +119,65 @@ private fun RiskRow(title: String, subtitle: String, view: @Composable () -> Uni
         ) {
             Text(
                 title,
-                style = ZvaviTheme.typography.compact200Default,
+                style = ZvaviTheme.typography.display400Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                 color = ZvaviTheme.colors.contentNeutralSecondary,
-                modifier = Modifier.wrapContentSize()
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Start)
+                    .padding(vertical = ZvaviSpacing.spacing100)
             )
             Spacer(modifier = Modifier.height(ZvaviSpacing.spacing650))
             Text(
                 subtitle,
                 style = ZvaviTheme.typography.compact200Default,
                 color = ZvaviTheme.colors.contentNeutralTertiary,
+                modifier = Modifier.wrapContentSize(),
+                minLines = 1
+            )
+            HorizontalDivider(
+                thickness = 2.dp,
+                color = ZvaviTheme.colors.borderNeutralSecondary,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        Spacer(modifier = Modifier.size(16.dp))
+        view()
+    }
+}
+
+@Composable
+private fun RiskRowRectangle(
+    elevation: String,
+    elevationName: String,
+    modifier: Modifier,
+    innerTextWeight: Float,
+    view: @Composable RowScope.() -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+                .fillMaxWidth().wrapContentHeight()
+                .weight(weight = innerTextWeight, fill = false)
+        ) {
+
+            Text(
+                elevation,
+                style = ZvaviTheme.typography.compact200Default,
+                color = ZvaviTheme.colors.contentNeutralSecondary,
+                minLines = 1,
+                modifier = Modifier.wrapContentSize()
+            )
+            Spacer(modifier = Modifier.height(ZvaviSpacing.spacing650))
+            Text(
+                elevationName,
+                style = ZvaviTheme.typography.compact200Default,
+                color = ZvaviTheme.colors.contentNeutralTertiary,
+                minLines = 1,
                 modifier = Modifier.wrapContentSize()
             )
             HorizontalDivider(
