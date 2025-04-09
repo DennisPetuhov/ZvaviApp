@@ -1,30 +1,21 @@
-package ge.avalanche.zvavi.bulletin.presentation.screen.views
+package ge.avalanche.zvavi.bulletin.presentation.screen
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
-import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
-import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import kotlin.math.PI
 import kotlin.math.tan
 
@@ -33,7 +24,7 @@ private fun toRadians(degree: Double): Double = degree * (PI / 180)
 private fun getTan30(): Float = tan(toRadians(30.0)).toFloat()
 
 @Composable
-fun PentagonView(
+internal fun PentagonView(
     canvasWidth: Dp = 225.dp,
     canvasHeight: Dp = 150.dp,
     modifier: Modifier = Modifier,
@@ -79,18 +70,18 @@ fun PentagonView(
 }
 
 @Composable
-fun RectangleView(
-    modifier: Modifier = Modifier,
+internal fun RectangleView(
     canvasWidth: Dp,
     canvasHeight: Dp,
     needCorrectionX: Boolean = false,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
             .wrapContentSize()
             .padding(bottom = ZvaviSpacing.spacing50),
-        contentAlignment = Alignment.Center
     ) {
         Canvas(
             modifier = Modifier
@@ -129,23 +120,5 @@ fun RectangleView(
         ) {
             content.invoke()
         }
-    }
-}
-
-@Composable
-fun StyledBoxWithText(text: String) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .widthIn(ZvaviSize.size250)
-            .heightIn(ZvaviSize.size250)
-            .clip(RoundedCornerShape(ZvaviRadius.radius300))
-            .background(color = ZvaviTheme.colors.backgroundStaticLightHigh)
-            .padding(horizontal = ZvaviSpacing.spacing150)
-    ) {
-        Text(
-            text,
-            style = ZvaviTheme.typography.compact300Numeric.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-        )
     }
 }
