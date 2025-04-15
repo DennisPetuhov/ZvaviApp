@@ -31,12 +31,6 @@ fun RiskBoard(
 ) {
     val layoutConfig = LocalLayoutConfig.current
 
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-//            .height(IntrinsicSize.Min)
-            .wrapContentHeight()
-    ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
@@ -71,4 +65,3 @@ fun RiskBoard(
             )
         }
     }
-}

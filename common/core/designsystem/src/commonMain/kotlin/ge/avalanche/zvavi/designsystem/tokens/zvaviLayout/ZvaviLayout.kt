@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.Dp
 import ge.avalanche.zvavi.designsystem.tokens.base.BaseDesktopLayout
 import ge.avalanche.zvavi.designsystem.tokens.base.BaseMobileLayout
 import ge.avalanche.zvavi.designsystem.tokens.base.BaseTabletLayout
+import ge.avalanche.zvavi.designsystem.tokens.base.BaseTabletLandscapeLayout
 import ge.avalanche.zvavi.designsystem.getPlatform
 import ge.avalanche.zvavi.designsystem.tokens.layout.Layout
 
@@ -91,7 +92,7 @@ object ZvaviLayout {
     }
 
     @Immutable
-    object ZvaviTabletLandscape : BaseTabletLayout() {
+    object ZvaviTabletLandscape : BaseTabletLandscapeLayout() {
         override val breakpoint = "tablet-landscape"
         override val minWidth = getPlatformLayout(
             Layout.Android.maxWidthLg, // 1200.dp

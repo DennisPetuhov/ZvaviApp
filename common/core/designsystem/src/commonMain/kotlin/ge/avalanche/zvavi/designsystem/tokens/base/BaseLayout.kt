@@ -16,13 +16,20 @@ abstract class BaseMobileLayout : ZvaviLayoutContract {
 @Immutable
 abstract class BaseTabletLayout : ZvaviLayoutContract {
     override val marginHorizontal = ZvaviSpacing.spacing400
-    override val contentCompensation = ZvaviSpacing.spacing0
+    override val contentCompensation = ZvaviSpacing.spacing500
+    override val ignoreMarginHorizontal = -marginHorizontal
+}
+
+@Immutable
+abstract class BaseTabletLandscapeLayout : ZvaviLayoutContract {
+    override val marginHorizontal = ZvaviSpacing.spacing500
+    override val contentCompensation = ZvaviSpacing.spacing600
     override val ignoreMarginHorizontal = -marginHorizontal
 }
 
 @Immutable
 abstract class BaseDesktopLayout : ZvaviLayoutContract {
     override val marginHorizontal = ZvaviSpacing.spacing700
-    override val contentCompensation = ZvaviSpacing.spacing0
+    override val contentCompensation = ZvaviSpacing.spacing700
     override val ignoreMarginHorizontal = -marginHorizontal
 }
