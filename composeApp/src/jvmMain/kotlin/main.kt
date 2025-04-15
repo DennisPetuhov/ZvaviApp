@@ -8,10 +8,10 @@ import ge.avalanche.zvavi.App
 fun main() = application {
     Window(
         title = "ZvaviApp",
-        state = rememberWindowState(width = 800.dp, height = 600.dp),
+        state = rememberWindowState(width = 450.dp, height = 800.dp),
         onCloseRequest = ::exitApplication,
     ) {
-        window.minimumSize = Dimension(500, 800)
+        window.minimumSize = Dimension(450, 800)
         App()
     }
 }

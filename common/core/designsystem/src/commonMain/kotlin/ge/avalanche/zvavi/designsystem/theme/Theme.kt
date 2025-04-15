@@ -1,6 +1,7 @@
 package ge.avalanche.zvavi.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -51,10 +52,10 @@ fun AppTheme(
         ProvideLayoutConfig(productType = productType) {
             Surface(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxHeight()
                     .width(ProductDimensions.getWidth(productType, getCurrentScreenSize()))
-                    .height(ProductDimensions.getHeight(productType, getCurrentScreenSize()))
             ) {
+                println("***** ${getCurrentScreenSize()}")
                 content()
             }
         }

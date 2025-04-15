@@ -5,9 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -16,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
@@ -32,16 +32,16 @@ fun RiskBoard(
     val layoutConfig = LocalLayoutConfig.current
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
         modifier = modifier
             .fillMaxWidth()
+//            .height(IntrinsicSize.Min)
             .wrapContentHeight()
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
+                .fillMaxHeight()
                 .clip(RoundedCornerShape(ZvaviRadius.radius550))
                 .background(color = backgroundColor)
                 .padding(
@@ -51,7 +51,7 @@ fun RiskBoard(
         ) {
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.weight(1f, fill = false)
+                modifier = Modifier.weight(3.5f, fill = false)
             ) {
                 Text(
                     text = "Overall risk level",
@@ -67,9 +67,7 @@ fun RiskBoard(
             Image(
                 imageVector = avalancheRiskLevel,
                 contentDescription = "danger level 4",
-                modifier = Modifier
-                    .size(80.dp)
-                    .weight(1f, fill = false)
+                modifier = Modifier.weight(1f, fill = false).aspectRatio(1f)
             )
         }
     }

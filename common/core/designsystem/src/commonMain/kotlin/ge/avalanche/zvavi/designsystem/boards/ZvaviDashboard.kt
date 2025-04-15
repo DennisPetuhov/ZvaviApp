@@ -20,7 +20,7 @@ import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
 @Composable
-fun ZvaviDashBoard(
+fun ZvaviDashboard(
     name: String = "Size and distribution",
     mainBlock: @Composable () -> Unit,
     modifier: Modifier = Modifier

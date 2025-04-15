@@ -5,8 +5,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalDensity
 
- actual fun getPlatform():String{return "Desktop"}
+actual fun getPlatform():String{return "Desktop"}
 
 actual class PlatformScreenDimensions(
     actual val width: Dp,
@@ -16,8 +17,17 @@ actual class PlatformScreenDimensions(
 @Composable
 actual fun getPlatformScreenDimensions(): PlatformScreenDimensions {
     val containerSize = LocalWindowInfo.current.containerSize
-    return ge.avalanche.zvavi.designsystem.PlatformScreenDimensions(
-        width = (containerSize.width).toFloat().dp,
-        height = (containerSize.height).toFloat().dp
+    val density = LocalDensity.current.density
+    
+    // Convert raw pixels to density-independent pixels (dp)
+    val widthDp = (containerSize.width / density).dp
+    val heightDp = (containerSize.height / density).dp
+    
+    println("JVM raw width: ${containerSize.width}, density: $density, widthDp: $widthDp")
+    println("JVM raw height: ${containerSize.height}, density: $density, heightDp: $heightDp")
+    
+    return PlatformScreenDimensions(
+        width = widthDp,
+        height = heightDp
     )
 }

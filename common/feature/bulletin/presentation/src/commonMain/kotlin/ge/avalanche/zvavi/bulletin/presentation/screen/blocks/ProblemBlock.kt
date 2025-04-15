@@ -17,7 +17,9 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 fun ProblemBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),
-        modifier = modifier.fillMaxWidth().wrapContentHeight()
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
             .padding(top = ZvaviSpacing.spacing350)
     ) {
         Text(
@@ -39,10 +41,10 @@ fun ProblemBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier.fillMaxWidth().wrapContentHeight()
         ) {
-            ZvaviProblemBoard(layoutConfig = layoutConfig)
-            ZvaviProblemBoard(layoutConfig = layoutConfig)
-            ZvaviProblemBoard(layoutConfig = layoutConfig)
-            ZvaviProblemBoard(layoutConfig = layoutConfig)
+            ZvaviProblemBoard(text = "Deep persistent slab", layoutConfig = layoutConfig)
+            ZvaviProblemBoard(text = "Deep",layoutConfig = layoutConfig)
+            ZvaviProblemBoard(text = "Deep slab",layoutConfig = layoutConfig)
+            ZvaviProblemBoard(text = "Deep persistent slab",layoutConfig = layoutConfig)
         }
 
     }

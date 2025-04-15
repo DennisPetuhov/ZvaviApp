@@ -33,6 +33,12 @@ sealed class ProductType {
             else -> Layout.Web.widthXl
         }
 
+        val widthXxl = when (currentPlatform) {
+            "ANDROID" -> Layout.Android.widthXxl
+            "iOS" -> Layout.IOS.widthXxl
+            else -> Layout.Web.widthXxl
+        }
+
         val heightSm = when (currentPlatform) {
             "ANDROID" -> Layout.Android.heightSm
             "iOS" -> Layout.IOS.heightSm
@@ -55,6 +61,12 @@ sealed class ProductType {
             "ANDROID" -> Layout.Android.heightXl
             "iOS" -> Layout.IOS.heightXl
             else -> Layout.Web.heightXl
+        }
+
+        val heightXxl = when (currentPlatform) {
+            "ANDROID" -> Layout.Android.heightXxl
+            "iOS" -> Layout.IOS.heightXxl
+            else -> Layout.Web.heightXxl
         }
     }
 
@@ -83,6 +95,12 @@ sealed class ProductType {
             else -> Layout.Web.widthXl
         }
 
+        val widthXxl = when (currentPlatform) {
+            "ANDROID" -> Layout.Android.widthXxl
+            "iOS" -> Layout.IOS.widthXxl
+            else -> Layout.Web.widthXxl
+        }
+
         val heightSm = when (currentPlatform) {
             "ANDROID" -> Layout.Android.heightSm
             "iOS" -> Layout.IOS.heightSm
@@ -105,6 +123,12 @@ sealed class ProductType {
             "ANDROID" -> Layout.Android.heightXl
             "iOS" -> Layout.IOS.heightXl
             else -> Layout.Web.heightXl
+        }
+
+        val heightXxl = when (currentPlatform) {
+            "ANDROID" -> Layout.Android.heightXxl
+            "iOS" -> Layout.IOS.heightXxl
+            else -> Layout.Web.heightXxl
         }
     }
 
@@ -135,6 +159,12 @@ sealed class ProductType {
             else -> Layout.Web.widthXl
         }
 
+        val widthXxl = when (currentPlatform) {
+            "ANDROID" -> Layout.Android.widthXxl
+            "iOS" -> Layout.IOS.widthXxl
+            else -> Layout.Web.widthXxl
+        }
+
         val heightSm = when (currentPlatform) {
             "ANDROID" -> Layout.Android.heightSm
             "iOS" -> Layout.IOS.heightSm
@@ -158,6 +188,12 @@ sealed class ProductType {
             "iOS" -> Layout.IOS.heightXl
             else -> Layout.Web.heightXl
         }
+
+        val heightXxl = when (currentPlatform) {
+            "ANDROID" -> Layout.Android.heightXxl
+            "iOS" -> Layout.IOS.heightXxl
+            else -> Layout.Web.heightXxl
+        }
     }
 
     object Web : ProductType() {
@@ -165,9 +201,11 @@ sealed class ProductType {
         val widthMd = Layout.Web.breakpointMd
         val widthLg = Layout.Web.breakpointLg
         val widthXl = Layout.Web.breakpointXl
+        val widthXxl = Layout.Web.breakpointXxl
         val heightSm = 800.dp
         val heightMd = 800.dp
         val heightLg = 800.dp
         val heightXl = 800.dp
+        val heightXxl = 800.dp
     }
 }

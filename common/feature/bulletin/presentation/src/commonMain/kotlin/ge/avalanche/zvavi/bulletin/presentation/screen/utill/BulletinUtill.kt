@@ -21,11 +21,11 @@ fun StyledPyramidText(text: String) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .widthIn(ZvaviSize.size250)
-            .heightIn(ZvaviSize.size250)
+//            .widthIn(ZvaviSize.size250)
+//            .heightIn(ZvaviSize.size250)
             .clip(RoundedCornerShape(ZvaviRadius.radius300))
             .background(color = ZvaviTheme.colors.backgroundStaticLightHigh)
-            .padding(horizontal = ZvaviSpacing.spacing150)
+            .padding(horizontal = ZvaviSpacing.spacing150, vertical = ZvaviSpacing.spacing150)
     ) {
         Text(
             text,

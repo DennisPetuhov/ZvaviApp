@@ -5,6 +5,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
+import ge.avalanche.zvavi.designsystem.getPlatform
+import ge.avalanche.zvavi.designsystem.getPlatformScreenDimensions
 import ge.avalanche.zvavi.designsystem.tokens.product.ProductDimensions
 import ge.avalanche.zvavi.designsystem.tokens.product.ProductType
 import ge.avalanche.zvavi.designsystem.tokens.zvaviLayout.ZvaviLayout
@@ -53,15 +55,43 @@ fun ProvideLayoutConfig(
     content: @Composable () -> Unit
 ) {
     val windowSize = rememberWindowSize()
+    val screenWidth = getPlatformScreenDimensions().width
+    val screenHeight = getPlatformScreenDimensions().height
+    val platform = getPlatform()
 
     val size = getCurrentScreenSize()
     val layoutConfig = when (windowSize) {
-        WindowSize.COMPACT -> {
-            val layout = ZvaviLayout.ZvaviMobile
+        WindowSize.SMALL -> {
+            val layout = when (platform) {
+                "ANDROID" -> ZvaviLayout.ZvaviAndroid
+                "iOS" -> ZvaviLayout.ZvaviApple
+                else -> ZvaviLayout.ZvaviMobile
+            }
             LayoutConfig(
                 breakpoint = layout.breakpoint,
                 minWidth = ProductDimensions.getWidth(productType, size),
-                maxWidth = ProductDimensions.getWidth(productType, size),
+                maxWidth = screenWidth,
+                width = ProductDimensions.getWidth(productType, size),
+                height = ProductDimensions.getHeight(productType, size),
+                colNumber = layout.colNumber,
+                colWidth = layout.colWidth,
+                gutter = layout.gutter,
+                marginHorizontal = layout.marginHorizontal,
+                contentCompensation = layout.contentCompensation,
+                ignoreMarginHorizontal = layout.ignoreMarginHorizontal
+            )
+        }
+
+        WindowSize.MEDIUM -> {
+            val layout = when (platform) {
+                "ANDROID" -> ZvaviLayout.ZvaviAndroid
+                "iOS" -> ZvaviLayout.ZvaviApple
+                else -> ZvaviLayout.ZvaviMobile
+            }
+            LayoutConfig(
+                breakpoint = layout.breakpoint,
+                minWidth = ProductDimensions.getWidth(productType, size),
+                maxWidth = screenWidth,
                 width = ProductDimensions.getWidth(productType, size),
                 height = ProductDimensions.getHeight(productType, size),
                 colNumber = layout.colNumber,
@@ -78,7 +108,7 @@ fun ProvideLayoutConfig(
             LayoutConfig(
                 breakpoint = layout.breakpoint,
                 minWidth = ProductDimensions.getWidth(productType, size),
-                maxWidth = ProductDimensions.getWidth(productType, size),
+                maxWidth = screenWidth,
                 width = ProductDimensions.getWidth(productType, size),
                 height = ProductDimensions.getHeight(productType, size),
                 colNumber = layout.colNumber,
@@ -95,7 +125,7 @@ fun ProvideLayoutConfig(
             LayoutConfig(
                 breakpoint = layout.breakpoint,
                 minWidth = ProductDimensions.getWidth(productType, size),
-                maxWidth = ProductDimensions.getWidth(productType, size),
+                maxWidth = screenWidth,
                 width = ProductDimensions.getWidth(productType, size),
                 height = ProductDimensions.getHeight(productType, size),
                 colNumber = layout.colNumber,
@@ -112,7 +142,7 @@ fun ProvideLayoutConfig(
             LayoutConfig(
                 breakpoint = layout.breakpoint,
                 minWidth = ProductDimensions.getWidth(productType, size),
-                maxWidth = ProductDimensions.getWidth(productType, size),
+                maxWidth = screenWidth,
                 width = ProductDimensions.getWidth(productType, size),
                 height = ProductDimensions.getHeight(productType, size),
                 colNumber = layout.colNumber,

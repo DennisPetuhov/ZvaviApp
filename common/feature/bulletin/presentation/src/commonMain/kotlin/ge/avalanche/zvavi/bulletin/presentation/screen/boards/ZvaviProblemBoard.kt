@@ -4,12 +4,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -24,14 +23,17 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
-import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @Composable
-fun ZvaviProblemBoard(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
+fun ZvaviProblemBoard(
+    text: String,
+    layoutConfig: LayoutConfig,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -45,7 +47,6 @@ fun ZvaviProblemBoard(layoutConfig: LayoutConfig, modifier: Modifier = Modifier)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing250),
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -53,21 +54,33 @@ fun ZvaviProblemBoard(layoutConfig: LayoutConfig, modifier: Modifier = Modifier)
         ) {
             Image(
                 ZvaviIcons.AvalancheProblemWetLoose, "persistent slab",
-                modifier = Modifier.size(ZvaviSize.size500)
-                    .border(BorderStroke(1.dp, color = ZvaviTheme.colors.contentNeutralTertiary))
+                modifier = Modifier
+                    .weight(0.6f, fill = false)
+                    .aspectRatio(1f)
                     .clip(RoundedCornerShape(ZvaviRadius.radius550))
+                    .border(BorderStroke(1.dp, ZvaviTheme.colors.contentNeutralTertiary))
             )
+            Spacer(modifier = Modifier.weight(0.12f))
+
             Text(
-                "Deep persistent slab",
+                text = text,
                 style = ZvaviTheme.typography.compact300Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
-                modifier = Modifier.heightIn(ZvaviSize.size200).fillMaxWidth()
-                    .padding(vertical = ZvaviSpacing.spacing150).weight(1f)
+                maxLines = 1,
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .weight(2f)
+                    .padding(vertical = ZvaviSpacing.spacing150)
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowDown,
                 contentDescription = "expanded arrow",
                 tint = ZvaviTheme.colors.contentNeutralSecondary,
-                modifier = Modifier.graphicsLayer(rotationZ = ZvaviAngle.angleMinus90)
+                modifier = Modifier
+                    .padding(start = ZvaviSpacing.spacing200)
+                    .graphicsLayer(rotationZ = ZvaviAngle.angleMinus90)
             )
         }
     }
