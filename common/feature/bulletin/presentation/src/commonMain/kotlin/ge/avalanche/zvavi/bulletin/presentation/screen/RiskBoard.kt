@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,7 +32,7 @@ fun RiskBoard(
 ) {
     val layoutConfig = LocalLayoutConfig.current
 
-        Row(
+        Row( verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
@@ -45,7 +46,7 @@ fun RiskBoard(
         ) {
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.weight(3.5f, fill = false)
+                modifier = Modifier.fillMaxHeight().weight(3.5f, fill = false)
             ) {
                 Text(
                     text = "Overall risk level",
