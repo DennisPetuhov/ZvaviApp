@@ -7,4 +7,4 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.BulletinView
 
 
 @Composable
-internal fun App() = AppTheme { BulletinView() }
+internal fun App() = ZvaviApp()

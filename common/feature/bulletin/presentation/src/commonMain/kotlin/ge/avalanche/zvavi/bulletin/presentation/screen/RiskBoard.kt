@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,37 +31,38 @@ fun RiskBoard(
 ) {
     val layoutConfig = LocalLayoutConfig.current
 
-        Row( verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .clip(RoundedCornerShape(ZvaviRadius.radius550))
-                .background(color = backgroundColor)
-                .padding(
-                    vertical = ZvaviSpacing.spacing350,
-                    horizontal = layoutConfig.contentCompensation
-                )
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .clip(RoundedCornerShape(ZvaviRadius.radius550))
+            .background(color = backgroundColor)
+            .padding(
+                vertical = ZvaviSpacing.spacing350,
+                horizontal = layoutConfig.contentCompensation
+            )
+    ) {
+        Column(
+            verticalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxHeight().weight(3.5f, fill = false)
         ) {
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxHeight().weight(3.5f, fill = false)
-            ) {
-                Text(
-                    text = "Overall risk level",
-                    style = ZvaviTheme.typography.text250Default.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-                    modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
-                )
-                Text(
-                    text = "High",
-                    style = ZvaviTheme.typography.display500Accent.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-                    modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
-                )
-            }
-            Image(
-                imageVector = avalancheRiskLevel,
-                contentDescription = "danger level 4",
-                modifier = Modifier.weight(1f, fill = false).aspectRatio(1f)
+            Text(
+                text = "Overall risk level",
+                style = ZvaviTheme.typography.text250Default.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
+                modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
+            )
+            Text(
+                text = "High",
+                style = ZvaviTheme.typography.display500Accent.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
+                modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
             )
         }
+        Image(
+            imageVector = avalancheRiskLevel,
+            contentDescription = "danger level 4",
+            modifier = Modifier.weight(1f, fill = false).aspectRatio(1f)
+        )
     }
+}

@@ -4,6 +4,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,12 +25,13 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 
 
 @Composable
-fun BulletinView(modifier: Modifier = Modifier) {
+fun BulletinView(paddingValues: PaddingValues, modifier: Modifier = Modifier) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
     Column(
         modifier = modifier
             .fillMaxSize()
+            .padding(paddingValues)
             .background(ZvaviTheme.colors.layerFloor0)
     ) {
         DataLocationBlock(
@@ -48,16 +50,16 @@ fun BulletinView(modifier: Modifier = Modifier) {
 private fun ContentBlocks(layoutConfig: LayoutConfig, scrollState: ScrollState) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxWidth().fillMaxHeight()
             .padding(
-                vertical = layoutConfig.contentCompensation,
+                vertical = ZvaviSpacing.spacing350,
                 horizontal = layoutConfig.marginHorizontal
             )
             .verticalScroll(scrollState)
     ) {
         OverallRisksBlock()
         RiskByHeightBlock(layoutConfig)
-        AvalanchesSnowpackWeatherBlock(layoutConfig)
         ProblemBlock(layoutConfig)
+        AvalanchesSnowpackWeatherBlock(layoutConfig)
     }
 }

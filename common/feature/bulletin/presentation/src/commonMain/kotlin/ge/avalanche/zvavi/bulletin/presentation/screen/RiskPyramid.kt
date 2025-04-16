@@ -84,8 +84,7 @@ internal fun RectangleView(
             .padding(bottom = ZvaviSpacing.spacing50),
     ) {
         Canvas(
-            modifier = Modifier
-                .size(canvasWidth, canvasHeight)
+            modifier = Modifier.size(canvasWidth, canvasHeight)
         ) {
             val width = size.width
             val height = size.height
