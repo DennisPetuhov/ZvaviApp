@@ -16,7 +16,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 @Composable
 fun ProblemBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),
+        verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),        // fix after network implementation
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()

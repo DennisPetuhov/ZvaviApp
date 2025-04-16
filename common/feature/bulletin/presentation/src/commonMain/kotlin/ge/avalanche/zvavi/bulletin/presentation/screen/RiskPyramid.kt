@@ -31,7 +31,7 @@ internal fun PentagonView(
     content: @Composable () -> Unit = {}
 ) {
     Box(
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.BottomCenter,
         modifier = modifier
             .wrapContentSize()
             .padding(bottom = ZvaviSpacing.spacing50),

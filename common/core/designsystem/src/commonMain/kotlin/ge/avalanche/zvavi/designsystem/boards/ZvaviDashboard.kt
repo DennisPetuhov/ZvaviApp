@@ -79,12 +79,12 @@ private fun DashboardHeader(name: String) {
             onClick = {},
             modifier = Modifier.size(ZvaviSize.size150).weight(0.1f)
         ) {
-            Icon(
-                imageVector = ZvaviIcons.InfoIcon,
-                contentDescription = "Info",
-                tint = ZvaviTheme.colors.contentNeutralTertiary,
-                modifier = Modifier.size(16.dp)
-            )
+//            Icon(
+//                imageVector = ZvaviIcons.InfoIcon,
+//                contentDescription = "Info",
+//                tint = ZvaviTheme.colors.contentNeutralTertiary,
+//                modifier = Modifier.size(16.dp)
+//            )
         }
     }
 }

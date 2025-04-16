@@ -26,12 +26,12 @@ enum class WindowSize(val breakpoint: Dp) {
     /**
      * Small phones (~320dp width)
      */
-    SMALL(320.dp),
+    SMALL(360.dp),
 
     /**
      * Medium phones (~360-480dp width)
      */
-    MEDIUM(360.dp),
+    MEDIUM(361.dp),
 
     /**
      * Tablets in portrait (~600dp width)

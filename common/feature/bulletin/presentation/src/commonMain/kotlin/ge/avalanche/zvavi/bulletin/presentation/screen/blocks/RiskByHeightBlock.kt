@@ -2,6 +2,7 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.blocks
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -20,22 +21,17 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.RectangleView
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
-import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
+import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 
 @Composable
-fun RiskByHeightBlock(modifier: Modifier = Modifier) {
-    val layoutConfig = LocalLayoutConfig.current
-
+fun RiskByHeightBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
     Column(
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.End,
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(
-                start = layoutConfig.contentCompensation,
-                end = ZvaviSpacing.spacing100
-            )
+            .padding(start = layoutConfig.contentCompensation, end = ZvaviSpacing.spacing100)
     ) {
         RiskRow(
             topText = {
@@ -43,20 +39,20 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     text = "Risk by height",
                     style = ZvaviTheme.typography.display400Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                     color = ZvaviTheme.colors.contentNeutralSecondary,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = ZvaviSpacing.spacing100)
+                    modifier = Modifier.fillMaxWidth().padding(vertical = ZvaviSpacing.spacing100)
                 )
             },
             bottomText = "High Alpine",
-            view = {
+            riskView = {
                 PentagonView(
-                    canvasWidth = (152f * 1.4f).dp,
-                    canvasHeight = (100f * 1.4f).dp,
+                    canvasWidth = (152f * layoutConfig.canvasScale).dp,
+                    canvasHeight = (100f * layoutConfig.canvasScale).dp,
                     content = { StyledPyramidText("Moderate") },
                     modifier = Modifier,
                 )
-            }, modifier = Modifier
+            },
+            layoutConfig = layoutConfig,
+            modifier = Modifier
         )
         RiskRow(
             topText = {
@@ -67,17 +63,15 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                     minLines = 1,
                     modifier = Modifier.wrapContentSize()
                 )
-            },
-            bottomText = "Alpine",
-            view = {
+            }, bottomText = "Alpine", riskView = {
                 RectangleView(
-                    canvasWidth = (182f * 1.4f).dp,
-                    canvasHeight = (50f * 1.4f).dp,
+                    canvasWidth = (182f * layoutConfig.canvasScale).dp,
+                    canvasHeight = (50f * layoutConfig.canvasScale).dp,
                     content = { StyledPyramidText("Moderate") },
                     modifier = Modifier
                 )
             },
-
+            layoutConfig = layoutConfig,
             modifier = Modifier
         )
 
@@ -92,17 +86,15 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
                 )
             },
             bottomText = "Sub Alpine",
-            view = {
+            riskView = {
                 RectangleView(
-                    canvasWidth = (214f * 1.4f).dp,
-                    canvasHeight = (50f * 1.4f).dp,
+                    canvasWidth = (212f * layoutConfig.canvasScale).dp,
+                    canvasHeight = (50f * layoutConfig.canvasScale).dp,
                     needCorrectionX = true,
                     content = { StyledPyramidText("Moderate") },
-                    modifier = Modifier
                 )
             },
-
-            modifier = Modifier
+            layoutConfig = layoutConfig,
         )
         Row(
             horizontalArrangement = Arrangement.Start,
@@ -120,10 +112,11 @@ fun RiskByHeightBlock(modifier: Modifier = Modifier) {
 
 @Composable
 private fun RiskRow(
+    layoutConfig: LayoutConfig,
     bottomText: String,
-    modifier: Modifier,
-    view: @Composable RowScope.() -> Unit,
-    topText: @Composable () -> Unit
+    modifier: Modifier= Modifier,
+    riskView: @Composable RowScope.() -> Unit,
+    topText: @Composable ColumnScope.() -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.Bottom,
@@ -131,14 +124,15 @@ private fun RiskRow(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing650),
+            verticalArrangement = Arrangement.spacedBy(layoutConfig.pyramidSpacing),
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
                 .weight(weight = 1f, fill = false)
         ) {
             topText()
+            Spacer(modifier = Modifier.weight(1f, fill = false))
             Column(
+                verticalArrangement = Arrangement.Bottom,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
@@ -156,6 +150,6 @@ private fun RiskRow(
             }
         }
         Spacer(modifier = Modifier.weight(0.05f, fill = false))
-        view()
+        riskView()
     }
 }

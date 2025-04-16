@@ -8,7 +8,7 @@ object ZvaviOpacity {
     val opacityContentSecondaryDark: Float = 0.6f
 
     val opacityOverlayPrimaryLight: Float = 0.12f
-    val opacityOverlayPrimaryDark: Float = 0.08f
+    val opacityOverlayPrimaryDark: Float = 0.2f
     val opacityOverlayPrimaryStatic: Float = 0.6f
 
     val opacityOverlaySecondaryLight: Float = 0.12f

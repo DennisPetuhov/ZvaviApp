@@ -61,7 +61,6 @@ fun ZvaviProblemBoard(
                     .border(BorderStroke(1.dp, ZvaviTheme.colors.contentNeutralTertiary))
             )
             Spacer(modifier = Modifier.weight(0.12f))
-
             Text(
                 text = text,
                 style = ZvaviTheme.typography.compact300Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
@@ -71,9 +70,7 @@ fun ZvaviProblemBoard(
                     .weight(2f)
                     .padding(vertical = ZvaviSpacing.spacing150)
             )
-
             Spacer(modifier = Modifier.weight(1f))
-
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowDown,
                 contentDescription = "expanded arrow",

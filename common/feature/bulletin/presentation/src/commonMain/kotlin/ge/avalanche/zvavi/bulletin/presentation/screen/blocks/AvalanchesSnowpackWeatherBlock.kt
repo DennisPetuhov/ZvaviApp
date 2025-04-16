@@ -91,7 +91,8 @@ fun ZvaviExpandableText(
         modifier = modifier
             .fillMaxWidth()
             .clickable(interactionSource, null) { onExpandedChange(!isExpanded) }
-            .wrapContentHeight().padding(vertical =ZvaviSpacing.spacing150 )
+            .wrapContentHeight()
+            .padding(vertical =ZvaviSpacing.spacing150 )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

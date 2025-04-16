@@ -19,7 +19,6 @@ fun OverallRisksBlock() {
     RiskBoard(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
     )
     Row(
         modifier = Modifier
@@ -41,7 +40,6 @@ fun OverallRisksBlock() {
         Spacer(
             modifier = Modifier
                 .weight(0.02f)
-                .fillMaxHeight()
         )
         ZvaviDashboard(
             name = "LikelyHood",

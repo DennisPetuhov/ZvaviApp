@@ -23,10 +23,9 @@ fun DataLocationBlock(modifier: Modifier = Modifier) {
 
     Column(
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing50),
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight()
             .padding(horizontal = layoutConfig.marginHorizontal, vertical = ZvaviSpacing.spacing100)
     ) {
         LocationText(

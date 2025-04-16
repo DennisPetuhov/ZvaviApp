@@ -5,6 +5,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
+import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.getPlatform
 import ge.avalanche.zvavi.designsystem.getPlatformScreenDimensions
 import ge.avalanche.zvavi.designsystem.tokens.product.ProductDimensions
@@ -33,6 +34,8 @@ interface LayoutConfigContract {
     val marginHorizontal: Dp
     val contentCompensation: Dp
     val ignoreMarginHorizontal: Dp
+    val canvasScale: Float
+    val pyramidSpacing: Dp
 }
 
 data class LayoutConfig(
@@ -46,8 +49,11 @@ data class LayoutConfig(
     override val gutter: Dp,
     override val marginHorizontal: Dp,
     override val contentCompensation: Dp,
-    override val ignoreMarginHorizontal: Dp
-) : LayoutConfigContract
+    override val ignoreMarginHorizontal: Dp,
+    override val canvasScale: Float,
+    override val pyramidSpacing: Dp
+
+    ) : LayoutConfigContract
 
 @Composable
 fun ProvideLayoutConfig(
@@ -78,7 +84,9 @@ fun ProvideLayoutConfig(
                 gutter = layout.gutter,
                 marginHorizontal = layout.marginHorizontal,
                 contentCompensation = layout.contentCompensation,
-                ignoreMarginHorizontal = layout.ignoreMarginHorizontal
+                ignoreMarginHorizontal = layout.ignoreMarginHorizontal,
+                canvasScale = 1.2f,
+                pyramidSpacing = ZvaviSpacing.spacing300
             )
         }
 
@@ -99,7 +107,11 @@ fun ProvideLayoutConfig(
                 gutter = layout.gutter,
                 marginHorizontal = layout.marginHorizontal,
                 contentCompensation = layout.contentCompensation,
-                ignoreMarginHorizontal = layout.ignoreMarginHorizontal
+                ignoreMarginHorizontal = layout.ignoreMarginHorizontal,
+                canvasScale = 1.4f,
+                pyramidSpacing = ZvaviSpacing.spacing400
+
+
             )
         }
 
@@ -116,7 +128,11 @@ fun ProvideLayoutConfig(
                 gutter = layout.gutter,
                 marginHorizontal = layout.marginHorizontal,
                 contentCompensation = layout.contentCompensation,
-                ignoreMarginHorizontal = layout.ignoreMarginHorizontal
+                ignoreMarginHorizontal = layout.ignoreMarginHorizontal,
+                canvasScale = 2f,
+                pyramidSpacing = ZvaviSpacing.spacing600
+
+
             )
         }
 
@@ -133,7 +149,10 @@ fun ProvideLayoutConfig(
                 gutter = layout.gutter,
                 marginHorizontal = layout.marginHorizontal,
                 contentCompensation = layout.contentCompensation,
-                ignoreMarginHorizontal = layout.ignoreMarginHorizontal
+                ignoreMarginHorizontal = layout.ignoreMarginHorizontal,
+                canvasScale = 2.2f,
+                pyramidSpacing = ZvaviSpacing.spacing650
+
             )
         }
 
@@ -150,7 +169,11 @@ fun ProvideLayoutConfig(
                 gutter = layout.gutter,
                 marginHorizontal = layout.marginHorizontal,
                 contentCompensation = layout.contentCompensation,
-                ignoreMarginHorizontal = layout.ignoreMarginHorizontal
+                ignoreMarginHorizontal = layout.ignoreMarginHorizontal,
+                canvasScale = 2.5f,
+                pyramidSpacing = ZvaviSpacing.spacing700
+
+
             )
         }
     }
