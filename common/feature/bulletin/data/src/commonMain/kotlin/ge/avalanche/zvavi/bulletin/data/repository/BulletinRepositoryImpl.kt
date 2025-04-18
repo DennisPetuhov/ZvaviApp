@@ -2,10 +2,11 @@ package ge.avalanche.zvavi.bulletin.data.repository
 
 import ge.avalanche.zvavi.bulletin.api.BulletinRepository
 import ge.avalanche.zvavi.bulletin.api.models.BulletinItem
-import ge.avalanche.zvavi.common.core.foundation.base.DispatchersProvider
+
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinEntity
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
+import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import kotlinx.coroutines.withContext
 
 class BulletinRepositoryImpl(
@@ -16,11 +17,11 @@ class BulletinRepositoryImpl(
     override suspend fun getBulletin(): List<BulletinItem> = withContext(dispatchers.io) {
         // Try to get from local database first
         val localBulletin = localDataSource.getBulletin()
-        
+
         if (localBulletin != null) {
             // If we have local data, return it immediately
             val localResult = listOf(localBulletin.toBulletinItem())
-            
+
             // Then try to fetch fresh data from network in the background
             try {
                 val remoteBulletins = remoteDataSource.getBulletin()
@@ -32,7 +33,7 @@ class BulletinRepositoryImpl(
             } catch (e: Exception) {
                 // If network request fails, we already have local data
             }
-            
+
             localResult
         } else {
             // If no local data, fetch from network

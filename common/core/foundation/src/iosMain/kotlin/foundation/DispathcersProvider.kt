@@ -1,4 +1,0 @@
-package foundation
-
-class DispathcersProvider {
-}

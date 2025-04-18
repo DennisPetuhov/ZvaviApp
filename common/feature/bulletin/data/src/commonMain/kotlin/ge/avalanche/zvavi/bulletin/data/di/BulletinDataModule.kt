@@ -5,9 +5,11 @@ import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSourceImpl
 import ge.avalanche.zvavi.bulletin.data.repository.BulletinRepositoryImpl
 import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
+import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import org.koin.dsl.module
 
 val bulletinDataModule = module {
+
     single<BulletinRemoteDataSource> {
         BulletinRemoteDataSourceImpl(
             client = get(), baseUrl = "https://gnfghuusszsxjddfousc.supabase.co/rest/v1/"
@@ -18,13 +20,12 @@ val bulletinDataModule = module {
         BulletinRepositoryImpl(
             remoteDataSource = get(),
             localDataSource = get(),
-            dispatchers = get()
+            dispatchers = get<DispatchersProvider>()
         )
     }
     single {
         GetBulletinUseCase(
-            repository = get(),
-            dispatchers = get()
+            repository = get()
         )
     }
 }
