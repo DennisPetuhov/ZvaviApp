@@ -10,7 +10,6 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.ui.util)
-
             }
         }
     }

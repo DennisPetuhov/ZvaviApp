@@ -7,10 +7,11 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.android.application)
-    id("kmp.base.config")
+
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
+    id("kmp.base.config")
     id("android.base.config")
 
 }
@@ -39,7 +40,10 @@ kotlin {
             implementation(libs.multiplatformSettings)
             implementation(libs.kotlinx.datetime)
             implementation(project(":common:core:designsystem"))
+            implementation(project(":common:core:network"))
             implementation(project(":common:feature:bulletin:presentation"))
+            implementation(project(":common:feature:bulletin:api"))
+            implementation(project(":common:feature:bulletin:data"))
         }
 
         commonTest.dependencies {

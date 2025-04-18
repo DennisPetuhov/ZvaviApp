@@ -1,5 +1,5 @@
 package ge.avalanche.zvavi.bulletin.presentation
-import base.BaseViewModel
+import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState

@@ -16,6 +16,3 @@ kotlin {
         }
     }
 }
-dependencies {
-    implementation(libs.androidx.compose.testing)
-}

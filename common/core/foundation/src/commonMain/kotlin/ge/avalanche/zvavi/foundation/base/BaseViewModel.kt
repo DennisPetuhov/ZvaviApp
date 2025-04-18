@@ -1,4 +1,4 @@
-package base
+package ge.avalanche.zvavi.foundation.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.BufferOverflow
