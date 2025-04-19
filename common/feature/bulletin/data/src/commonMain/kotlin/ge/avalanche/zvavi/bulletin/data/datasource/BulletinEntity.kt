@@ -1,6 +1,6 @@
 package ge.avalanche.zvavi.bulletin.data.datasource
 
-import ge.avalanche.zvavi.bulletin.api.models.BulletinItem
+import ge.avalanche.zvavi.bulletin.api.models.Bulletin
 import ge.avalanche.zvavi.bulletin.api.models.HazardLevels
 
 data class BulletinEntity(
@@ -16,7 +16,7 @@ data class BulletinEntity(
     val additionalHazards: String,
     val hazardLevels: HazardLevels,
   ) {
-    fun toBulletinItem() = BulletinItem(
+    fun toBulletinItem() = Bulletin(
         id = id,
         createdAt = createdAt,
         forecaster = forecaster,
@@ -31,7 +31,7 @@ data class BulletinEntity(
     )
     
     companion object {
-        fun fromBulletinItem(item: BulletinItem) = BulletinEntity(
+        fun fromBulletinItem(item: Bulletin) = BulletinEntity(
             id = item.id,
             createdAt = item.createdAt,
             forecaster = item.forecaster,

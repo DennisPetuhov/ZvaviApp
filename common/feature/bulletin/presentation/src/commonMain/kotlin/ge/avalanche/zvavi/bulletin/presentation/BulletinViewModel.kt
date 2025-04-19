@@ -2,7 +2,6 @@ package ge.avalanche.zvavi.bulletin.presentation
 
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import ge.avalanche.zvavi.bulletin.api.models.BulletinItem
 import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent

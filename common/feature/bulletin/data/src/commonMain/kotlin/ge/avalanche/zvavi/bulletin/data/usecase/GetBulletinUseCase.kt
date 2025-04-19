@@ -1,14 +1,14 @@
 package ge.avalanche.zvavi.bulletin.data.usecase
 
 import ge.avalanche.zvavi.bulletin.api.BulletinRepository
-import ge.avalanche.zvavi.bulletin.api.models.BulletinItem
+import ge.avalanche.zvavi.bulletin.api.models.Bulletin
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetBulletinUseCase(
     private val repository: BulletinRepository
 ) {
-    fun execute(): Flow<Result<List<BulletinItem>>> = flow {
+    fun execute(): Flow<Result<List<Bulletin>>> = flow {
         try {
             val bulletins = repository.getBulletin()
             if (bulletins.isNotEmpty()) {
