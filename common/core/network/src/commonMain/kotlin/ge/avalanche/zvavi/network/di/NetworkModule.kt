@@ -1,6 +1,8 @@
 package ge.avalanche.zvavi.network.di
 
-import ge.avalanche.zvavi.network.NetworkCoroutineScope
+import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
+import ge.avalanche.zvavi.network.coroutines.NetworkScope
+import ge.avalanche.zvavi.network.coroutines.NetworkScopeImpl
 import ge.avalanche.zvavi.network.ktor.HttpEngineFactory
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngineConfig
@@ -14,14 +16,13 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 import ge.avalanche.zvavi.network.client.ApiClient
 import ge.avalanche.zvavi.network.client.ApiClientImpl
 
 val networkModule = module {
-    single<CoroutineScope> { NetworkCoroutineScope() }
+    single<NetworkScope> { NetworkScopeImpl(get<DispatchersProvider>()) }
     single { provideJson() }
     single<HttpClientEngineFactory<HttpClientEngineConfig>> { HttpEngineFactory().getEngine() }
     single { provideClient(json = get(), engine = get()) }

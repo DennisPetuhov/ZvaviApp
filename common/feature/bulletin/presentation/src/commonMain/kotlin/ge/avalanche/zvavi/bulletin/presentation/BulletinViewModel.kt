@@ -1,15 +1,15 @@
 package ge.avalanche.zvavi.bulletin.presentation
 
+import androidx.lifecycle.viewModelScope
 import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class BulletinViewModel(
     private val getBulletinUseCase: GetBulletinUseCase
@@ -62,7 +62,7 @@ class BulletinViewModel(
                 viewState = viewState.copy(loading = false)
                 handleError(error)
             }
-            .launchIn(CoroutineScope(Dispatchers.Main))
+            .launchIn(viewModelScope)
     }
 
     private fun handleError(error: Throwable) {
