@@ -11,13 +11,8 @@ class BulletinRepositoryImpl(
     private val dispatchers: DispatchersProvider
 ) : BulletinRepository {
     override suspend fun getBulletin(): List<Bulletin> = withContext(dispatchers.io) {
-        // Try to get from local database first
-//        val localBulletin = localDataSource.getBulletin()
-
-        // If no local data, fetch from network
         val remoteBulletins = remoteDataSource.getBulletin()
         if (remoteBulletins.isNotEmpty()) {
-            // Save to local storage
             remoteBulletins
         } else {
             emptyList()

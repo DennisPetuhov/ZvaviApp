@@ -1,63 +1,103 @@
 package ge.avalanche.zvavi.bulletin.presentation
 
-import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class BulletinViewModel(
     private val getBulletinUseCase: GetBulletinUseCase
-) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(
-    BulletinViewState.EMPTY
-) {
+) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
 
-    private val logger = Logger.withTag("BulletinViewModel")
+    init {
+        fetchBulletinData()
+    }
 
     override fun obtainEvent(viewEvent: BulletinEvent) {
         when (viewEvent) {
-            is BulletinEvent.BulletinClicked -> fetchBulletinData()
-            else -> { /* Handle other events */
-            }
+            is BulletinEvent.EmailChanged -> updateEmail(viewEvent.newValue)
+            is BulletinEvent.PasswordChanged -> updatePassword(viewEvent.newValue)
+            BulletinEvent.RecentAvalanchesClicked -> handleRecentAvalanchesClick()
+            BulletinEvent.SnowPackClicked -> handleSnowPackClick()
+            BulletinEvent.WeatherClicked -> handleWeatherClick()
+            BulletinEvent.BulletinClicked -> handleBulletinClick()
+            BulletinEvent.TravelAdviceClicked -> handleTravelAdviceClick()
+            BulletinEvent.OverviewClicked -> handleOverviewClick()
         }
     }
 
     fun fetchBulletinData() {
-        viewModelScope.launch {
-            viewState = viewState.copy(loading = true)
-            try {
-                getBulletinUseCase.execute().collect { result ->
-                    result.onSuccess { bulletins ->
-                        if (bulletins.isNotEmpty()) {
-                            val firstBulletin = bulletins.first()
-                            viewState = viewState.copy(
-                                loading = false,
-                                riskLevelOverall = firstBulletin.hazardLevels.overall,
-                                riskLevelHighAlpine = firstBulletin.hazardLevels.highAlpine,
-                                riskLevelAlpine = firstBulletin.hazardLevels.alpine,
-                                riskLevelSubAlpine = firstBulletin.hazardLevels.subAlpine,
-                                overallInformation = firstBulletin.summary,
-                                travelAdvice = firstBulletin.additionalHazards,
-                                snowpack = firstBulletin.snowpack,
-                                weather = firstBulletin.weather
-                            )
-                        }
-                    }.onFailure { error ->
-                        logger.e(error) { "Failed to fetch bulletin data" }
+        viewState = viewState.copy(loading = true)
+        
+        getBulletinUseCase.execute()
+            .onEach { result ->
+                result.fold(
+                    onSuccess = { bulletins ->
+                        val bulletin = bulletins.firstOrNull()
                         viewState = viewState.copy(
                             loading = false,
+                            riskLevelOverall = bulletin?.hazardLevels?.overall ?: "",
+                            overallInformation = bulletin?.summary ?: "",
+                            travelAdvice = bulletin?.additionalHazards ?: "",
+                            riskLevelHighAlpine = bulletin?.hazardLevels?.highAlpine ?: "",
+                            riskLevelAlpine = bulletin?.hazardLevels?.alpine ?: "",
+                            riskLevelSubAlpine = bulletin?.hazardLevels?.subAlpine ?: "",
+                            snowpack = bulletin?.snowpack ?: "",
+                            weather = bulletin?.weather ?: ""
                         )
+                    },
+                    onFailure = { error ->
+                        viewState = viewState.copy(loading = false)
+                        handleError(error)
                     }
-                }
-            } catch (e: Exception) {
-                logger.e(e) { "Exception while fetching bulletin data" }
-                viewState = viewState.copy(
-                    loading = false,
                 )
             }
-        }
+            .catch { error ->
+                viewState = viewState.copy(loading = false)
+                handleError(error)
+            }
+            .launchIn(CoroutineScope(Dispatchers.Main))
+    }
+
+    private fun handleError(error: Throwable) {
+        // Handle error (e.g., show error message)
+    }
+
+    private fun updateEmail(newValue: String) {
+        viewState = viewState.copy(emailValue = newValue)
+    }
+
+    private fun updatePassword(newValue: String) {
+        viewState = viewState.copy(passwordValue = newValue)
+    }
+
+    private fun handleRecentAvalanchesClick() {
+        viewAction = BulletinAction.OpenRecentAvalanches
+    }
+
+    private fun handleSnowPackClick() {
+        viewAction = BulletinAction.OpenSnowpack
+    }
+
+    private fun handleWeatherClick() {
+        viewAction = BulletinAction.OpenWeather
+    }
+
+    private fun handleBulletinClick() {
+        viewAction = BulletinAction.OpenMainScreen
+    }
+
+    private fun handleTravelAdviceClick() {
+        // Implement if needed
+    }
+
+    private fun handleOverviewClick() {
+        // Implement if needed
     }
 }

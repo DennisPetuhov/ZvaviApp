@@ -10,7 +10,7 @@ import kotlin.coroutines.CoroutineContext
 class NetworkCoroutineScope : CoroutineScope {
     override val coroutineContext: CoroutineContext = 
         SupervisorJob() + 
-        Dispatchers.Default + 
+        Dispatchers.Default+
         CoroutineName("NetworkScope") +
         CoroutineExceptionHandler { _, throwable ->
             co.touchlab.kermit.Logger.e("NetworkScope", throwable) { "Unhandled error" }

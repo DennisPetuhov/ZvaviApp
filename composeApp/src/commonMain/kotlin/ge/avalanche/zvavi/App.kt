@@ -15,6 +15,4 @@ internal fun App() = KoinApplication(application = {
         bulletinPresentationModule,
         dispatchersProviderModule
     )
-}) {
-    ZvaviApp()
-}
+}) { ZvaviApp() }

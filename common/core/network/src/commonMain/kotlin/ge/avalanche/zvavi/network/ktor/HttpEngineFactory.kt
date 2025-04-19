@@ -3,6 +3,6 @@ package ge.avalanche.zvavi.network.ktor
 import io.ktor.client.engine.HttpClientEngineConfig
 import io.ktor.client.engine.HttpClientEngineFactory
 
-internal  expect class HttpEngineFactory constructor( ) {
+internal expect class HttpEngineFactory constructor() {
     fun getEngine(): HttpClientEngineFactory<HttpClientEngineConfig>
 }

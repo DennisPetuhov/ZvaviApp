@@ -17,12 +17,15 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import ge.avalanche.zvavi.network.client.ApiClient
+import ge.avalanche.zvavi.network.client.ApiClientImpl
 
 val networkModule = module {
     single<CoroutineScope> { NetworkCoroutineScope() }
     single { provideJson() }
     single<HttpClientEngineFactory<HttpClientEngineConfig>> { HttpEngineFactory().getEngine() }
     single { provideClient(json = get(), engine = get()) }
+    single<ApiClient> { ApiClientImpl(get()) }
 }
 
 fun provideJson() = Json {
