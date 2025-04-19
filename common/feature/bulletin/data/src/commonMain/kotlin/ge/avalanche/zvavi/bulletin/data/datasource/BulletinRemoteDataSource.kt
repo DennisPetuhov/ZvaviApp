@@ -6,7 +6,6 @@ import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -17,14 +16,13 @@ import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.coroutines.CoroutineContext
-import ge.avalanche.zvavi.network.client.ApiClient
 
 interface BulletinRemoteDataSource {
     suspend fun getBulletin(): List<Bulletin>
 }
 
 class BulletinRemoteDataSourceImpl(
-    private val apiClient: ApiClient,
+    private val httpClient: HttpClient,
     private val baseUrl: String
 ) : BulletinRemoteDataSource, KoinComponent {
     private val logger = Logger.withTag("BulletinRemoteDataSource")
@@ -32,9 +30,7 @@ class BulletinRemoteDataSourceImpl(
 
     override suspend fun getBulletin(): List<Bulletin> {
         try {
-            val response = apiClient.client.get("${baseUrl}forecasts?order=id.desc&limit=1") {
-                with(apiClient) { addDefaultHeaders() }
-            }
+            val response = httpClient.get("${baseUrl}forecasts?order=id.desc&limit=1")
             val responseText = response.bodyAsText()
             logger.d { "Response: $responseText" }
 
@@ -43,8 +39,7 @@ class BulletinRemoteDataSourceImpl(
                 throw Exception("Failed to get bulletins: ${response.status}")
             }
             return try {
-                val result: List<Bulletin> = json.decodeFromString(responseText)
-                result
+                json.decodeFromString<List<Bulletin>>(responseText)
             } catch (e: Exception) {
                 logger.e(e) { "Failed to deserialize response: $responseText" }
                 throw e
