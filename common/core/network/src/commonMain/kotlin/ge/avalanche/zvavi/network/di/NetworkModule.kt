@@ -1,6 +1,7 @@
 package ge.avalanche.zvavi.network.di
 
 import ge.avalanche.zvavi.network.NetworkCoroutineScope
+import ge.avalanche.zvavi.network.ktor.HttpEngineFactory
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngineConfig
 import io.ktor.client.engine.HttpClientEngineFactory
@@ -20,8 +21,8 @@ import org.koin.dsl.module
 val networkModule = module {
     single<CoroutineScope> { NetworkCoroutineScope() }
     single { provideJson() }
+    single<HttpClientEngineFactory<HttpClientEngineConfig>> { HttpEngineFactory().getEngine() }
     single { provideClient(json = get(), engine = get()) }
-
 }
 
 fun provideJson() = Json {

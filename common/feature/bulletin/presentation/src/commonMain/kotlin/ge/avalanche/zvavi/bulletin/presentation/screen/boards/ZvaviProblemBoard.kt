@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,6 +33,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 fun ZvaviProblemBoard(
     text: String,
     layoutConfig: LayoutConfig,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -43,7 +45,7 @@ fun ZvaviProblemBoard(
             .padding(
                 vertical = ZvaviSpacing.spacing200,
                 horizontal = layoutConfig.contentCompensation
-            )
+            ).clickable  (onClick = onClick, enabled = true, role = null, indication = null, interactionSource = null)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

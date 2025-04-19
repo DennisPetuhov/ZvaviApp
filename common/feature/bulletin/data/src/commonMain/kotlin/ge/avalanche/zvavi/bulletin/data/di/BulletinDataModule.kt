@@ -12,18 +12,19 @@ val bulletinDataModule = module {
 
     single<BulletinRemoteDataSource> {
         BulletinRemoteDataSourceImpl(
-            client = get(), baseUrl = "https://gnfghuusszsxjddfousc.supabase.co/rest/v1/"
+            client = get(),
+            baseUrl = "https://gnfghuusszsxjddfousc.supabase.co/rest/v1/"
         )
     }
 
     single<BulletinRepository> {
         BulletinRepositoryImpl(
             remoteDataSource = get(),
-            localDataSource = get(),
             dispatchers = get<DispatchersProvider>()
         )
     }
-    single {
+
+    single<GetBulletinUseCase> {
         GetBulletinUseCase(
             repository = get()
         )

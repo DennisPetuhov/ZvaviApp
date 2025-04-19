@@ -2,19 +2,26 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.blocks
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
 import ge.avalanche.zvavi.bulletin.presentation.screen.boards.ZvaviProblemBoard
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @Composable
-fun ProblemBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
+fun ProblemBlock(
+    layoutConfig: LayoutConfig,
+    modifier: Modifier = Modifier,
+    onProblemClick: () -> Unit = {}
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),        // fix after network implementation
         modifier = modifier
@@ -41,11 +48,21 @@ fun ProblemBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier.fillMaxWidth().wrapContentHeight()
         ) {
-            ZvaviProblemBoard(text = "Deep persistent slab", layoutConfig = layoutConfig)
-            ZvaviProblemBoard(text = "Deep",layoutConfig = layoutConfig)
-            ZvaviProblemBoard(text = "Deep slab",layoutConfig = layoutConfig)
-            ZvaviProblemBoard(text = "Deep persistent slab",layoutConfig = layoutConfig)
+            ZvaviProblemBoard(
+                text = "Persistent slab",
+                layoutConfig = layoutConfig,
+                onClick = { onProblemClick() }
+            )
+            ZvaviProblemBoard(
+                text = "Wind slab",
+                layoutConfig = layoutConfig,
+                onClick = { onProblemClick() }
+            )
+            ZvaviProblemBoard(
+                text = "Wet loose",
+                layoutConfig = layoutConfig,
+                onClick = { onProblemClick() }
+            )
         }
-
     }
 }

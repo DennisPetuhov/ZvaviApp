@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.asStateFlow
 
 abstract class BaseViewModel<State : Any, Action, Event>(initialState: State) : ViewModel() {
     private val _viewStates = MutableStateFlow(initialState)
-    private val _viewActions = MutableSharedFlow<Action?>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _viewActions =
+        MutableSharedFlow<Action?>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
     fun viewStates() = _viewStates.asStateFlow()
     fun viewActions() = _viewActions.asSharedFlow()

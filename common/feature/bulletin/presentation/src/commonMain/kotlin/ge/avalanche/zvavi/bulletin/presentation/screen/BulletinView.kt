@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.AvalanchesSnowpackWeatherBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.DataLocationBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.OverallRisksBlock
@@ -25,7 +26,11 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 
 
 @Composable
-fun BulletinView(paddingValues: PaddingValues, modifier: Modifier = Modifier) {
+fun BulletinView(
+    viewModel: BulletinViewModel,
+    paddingValues: PaddingValues,
+    modifier: Modifier = Modifier
+) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
     Column(
@@ -40,6 +45,7 @@ fun BulletinView(paddingValues: PaddingValues, modifier: Modifier = Modifier) {
                 .padding(horizontal = ZvaviSpacing.spacing400, vertical = ZvaviSpacing.spacing100)
         )
         ContentBlocks(
+            viewModel,
             layoutConfig = layoutConfig,
             scrollState = scrollState
         )
@@ -47,7 +53,11 @@ fun BulletinView(paddingValues: PaddingValues, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ContentBlocks(layoutConfig: LayoutConfig, scrollState: ScrollState) {
+private fun ContentBlocks(
+    viewModel: BulletinViewModel,
+    layoutConfig: LayoutConfig,
+    scrollState: ScrollState
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
         modifier = Modifier.fillMaxWidth().fillMaxHeight()
@@ -59,7 +69,10 @@ private fun ContentBlocks(layoutConfig: LayoutConfig, scrollState: ScrollState) 
     ) {
         OverallRisksBlock()
         RiskByHeightBlock(layoutConfig)
-        ProblemBlock(layoutConfig)
+        ProblemBlock(
+            onProblemClick = { viewModel.fetchBulletinData() },
+            layoutConfig = layoutConfig
+        )
         AvalanchesSnowpackWeatherBlock(layoutConfig)
     }
 }

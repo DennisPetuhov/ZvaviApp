@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(project(":common:core:designsystem"))
             implementation(project(":common:core:network"))
+            implementation(project(":common:core:foundation"))
             implementation(project(":common:feature:bulletin:presentation"))
             implementation(project(":common:feature:bulletin:api"))
             implementation(project(":common:feature:bulletin:data"))
