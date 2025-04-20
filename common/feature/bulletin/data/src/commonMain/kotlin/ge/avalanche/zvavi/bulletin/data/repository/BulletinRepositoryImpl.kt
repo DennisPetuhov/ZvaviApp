@@ -15,6 +15,6 @@ class BulletinRepositoryImpl(
     
     override suspend fun getBulletin(): ApiResponse<List<Bulletin>> = 
         safeApiCallWithIo("Failed to get bulletins") {
-            remoteDataSource.getBulletin()
-        } ?: ApiResponse.Error(0, "Failed to get bulletins")
+         remoteDataSource.getBulletin()
+         } ?: ApiResponse.Error(0, "Failed to get bulletin")
 }

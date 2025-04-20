@@ -8,7 +8,6 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.jsonArray
 
 /**
  * Wrapper for API responses that provides a consistent way to handle success and error cases
@@ -59,51 +58,6 @@ suspend fun <T> HttpResponse.toApiResponse(
     }
 }
 
-/**
- * Extension function to parse HttpResponse into ApiResponse for list responses
- */
-suspend fun <T> HttpResponse.toApiResponseList(
-    json: Json,
-    parser: (JsonElement) -> List<T>
-): ApiResponse<List<T>> {
-    val statusCode = status.value
-    val responseText = bodyAsText()
-
-    return try {
-        if (status.isSuccess()) {
-            val jsonElement = json.parseToJsonElement(responseText)
-            // Check if the response is a JSON array
-            if (jsonElement is JsonObject && jsonElement.containsKey("data")) {
-                // If it's wrapped in a data field
-                val dataElement = jsonElement["data"]
-                ApiResponse.Success(parser(dataElement!!), statusCode)
-            } else {
-                // If it's directly an array
-                ApiResponse.Success(parser(jsonElement), statusCode)
-            }
-        } else {
-            val errorMessage = try {
-                val jsonElement = json.parseToJsonElement(responseText)
-                if (jsonElement is JsonObject) {
-                    jsonElement["message"]?.jsonPrimitive?.content ?: "Unknown error"
-                } else {
-                    "Unknown error"
-                }
-            } catch (e: Exception) {
-                "Error with status code: $statusCode"
-            }
-
-            ApiResponse.Error(statusCode, errorMessage, responseText)
-        }
-    } catch (e: Exception) {
-        Logger.e("ApiResponse") { "Failed to parse response: $responseText" }
-        ApiResponse.Error(statusCode, "Failed to parse response: ${e.message}", responseText)
-    }
-}
-
-/**
- * Extension functions for ApiResponse to handle success and error cases
- */
 inline fun <T> ApiResponse<T>.onSuccess(action: (T) -> Unit): ApiResponse<T> {
     if (this is ApiResponse.Success) action(data)
     return this

@@ -16,14 +16,12 @@ val bulletinDataModule = module {
             apiClient = get<ApiClient>()
         )
     }
-
     single<BulletinRepository> {
         BulletinRepositoryImpl(
             remoteDataSource = get(),
             dispatchers = get<DispatchersProvider>()
         )
     }
-
     single<GetBulletinUseCase> {
         GetBulletinUseCase(
             repository = get()

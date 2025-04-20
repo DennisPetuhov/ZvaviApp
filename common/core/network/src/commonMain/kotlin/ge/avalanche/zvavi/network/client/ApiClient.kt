@@ -3,7 +3,7 @@ package ge.avalanche.zvavi.network.client
 import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.foundation.response.ApiResponse
 import ge.avalanche.zvavi.foundation.response.toApiResponse
-import ge.avalanche.zvavi.foundation.response.toApiResponseList
+import ge.avalanche.zvavi.network.config.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.request
@@ -22,8 +22,7 @@ import kotlinx.serialization.serializer
 class ApiClient(
     val httpClient: HttpClient,
     val json: Json,
-    val baseUrl: String,
-    val connectTimeout: Long = 30_000 // 30 seconds default timeout
+    val networkConfig: NetworkConfig,
 ) {
     val logger = Logger.withTag("ApiClient")
 
@@ -67,8 +66,8 @@ class ApiClient(
         path: String,
         crossinline block: HttpRequestBuilder.() -> Unit = {}
     ): ApiResponse<T> = try {
-        withTimeout(connectTimeout) {
-            val response = httpClient.request("$baseUrl$path") {
+        withTimeout(networkConfig.connectTimeout) {
+            val response = httpClient.request("${networkConfig.baseUrl} $path") {
                 this.method = method
                 block()
             }
@@ -90,8 +89,8 @@ class ApiClient(
         path: String,
         crossinline block: HttpRequestBuilder.() -> Unit = {}
     ): ApiResponse<List<T>> = try {
-        withTimeout(connectTimeout) {
-            val response = httpClient.request("$baseUrl$path") {
+        withTimeout(networkConfig.connectTimeout) {
+            val response = httpClient.request("${networkConfig.baseUrl}$path") {
                 this.method = method
                 block()
             }
@@ -99,14 +98,18 @@ class ApiClient(
             // Use direct decoding for list responses
             val responseText = response.bodyAsText()
             val statusCode = response.status.value
-            
+
             if (response.status.isSuccess()) {
                 try {
                     val data = json.decodeFromString<List<T>>(responseText)
                     ApiResponse.Success(data, statusCode)
                 } catch (e: Exception) {
                     logger.e(e) { "Failed to parse list response: $responseText" }
-                    ApiResponse.Error(statusCode, "Failed to parse list response: ${e.message}", responseText)
+                    ApiResponse.Error(
+                        statusCode,
+                        "Failed to parse list response: ${e.message}",
+                        responseText
+                    )
                 }
             } else {
                 val errorMessage = try {

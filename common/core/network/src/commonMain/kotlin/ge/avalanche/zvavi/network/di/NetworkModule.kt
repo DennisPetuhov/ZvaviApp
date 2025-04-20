@@ -30,8 +30,7 @@ val networkModule = module {
         ApiClient(
             httpClient = get(),
             json = get(),
-            baseUrl = config.baseUrl,
-            connectTimeout = config.connectTimeout
+            networkConfig = get()
         )
     }
 }
@@ -59,7 +58,7 @@ private fun provideClient(
                 header(key, value)
             }
         }
-        install(ContentNegotiation) { json(json=json) }
+        install(ContentNegotiation) { json(json = json) }
         if (enableNetworkLogs) {
             install(Logging) {
                 logger = Logger.DEFAULT

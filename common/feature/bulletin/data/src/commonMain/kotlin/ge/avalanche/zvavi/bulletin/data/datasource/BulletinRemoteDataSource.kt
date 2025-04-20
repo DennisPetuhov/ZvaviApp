@@ -14,14 +14,14 @@ interface BulletinRemoteDataSource {
 }
 
 class BulletinRemoteDataSourceImpl(
-    private val apiClient: ApiClient
+   val apiClient: ApiClient
 ) : BulletinRemoteDataSource {
     private val logger = Logger.withTag("BulletinRemoteDataSource")
 
     override suspend fun getBulletin(): ApiResponse<List<Bulletin>> {
         return try {
             val response =
-                apiClient.httpClient.request("${apiClient.baseUrl}forecasts?order=id.desc&limit=1") {
+                apiClient.httpClient.request("${apiClient.networkConfig.baseUrl}forecasts?order=id.desc&limit=1") {
                     method = HttpMethod.Get
                 }
 
@@ -29,7 +29,8 @@ class BulletinRemoteDataSourceImpl(
                 try {
                     val bulletins: List<Bulletin> = response.body()
                     logger.d { "Successfully parsed ${bulletins.size} bulletins" }
-                    logger.d { "Successfully parsed ${bulletins.toString()} bulletins" }
+                    logger.d { "Successfully parsed $bulletins}bulletins" }
+                    println(bulletins)
                     ApiResponse.Success(bulletins, response.status.value)
                 } catch (e: Exception) {
                     logger.e(e) { "Failed to parse bulletins" }

@@ -1,4 +1,5 @@
 import extensions.libs
+import org.gradle.kotlin.dsl.plugins
 
 plugins {
     id("kmp.base.config")

@@ -9,7 +9,6 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":common:core:network"))
             implementation(project(":common:core:foundation"))
-            implementation(libs.kotlinx.serialization.json)
         }
     }
 }
