@@ -12,9 +12,8 @@ class BulletinRepositoryImpl(
     private val remoteDataSource: BulletinRemoteDataSource,
     dispatchers: DispatchersProvider
 ) : BaseRepository(dispatchers, Logger.withTag("BulletinRepository")), BulletinRepository {
-    
-    override suspend fun getBulletin(): ApiResponse<List<Bulletin>> = 
+    override suspend fun getBulletin(): ApiResponse<List<Bulletin>> =
         safeApiCallWithIo("Failed to get bulletins") {
-         remoteDataSource.getBulletin()
-         } ?: ApiResponse.Error(0, "Failed to get bulletin")
+            remoteDataSource.getBulletin()
+        } ?: ApiResponse.Error(0, "Failed to get bulletin")
 }

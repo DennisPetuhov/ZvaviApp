@@ -1,11 +1,15 @@
 package ge.avalanche.zvavi.bulletin.presentation
 
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
+import ge.avalanche.zvavi.foundation.response.onError
+import ge.avalanche.zvavi.foundation.response.onLoading
+import ge.avalanche.zvavi.foundation.response.onSuccess
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -13,6 +17,8 @@ import kotlinx.coroutines.flow.onEach
 class BulletinViewModel(
     private val getBulletinUseCase: GetBulletinUseCase
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
+
+    private val logger = Logger.withTag("BulletinViewModel")
 
     init {
         fetchBulletinData()
@@ -35,9 +41,12 @@ class BulletinViewModel(
         viewState = viewState.copy(loading = true)
 
         getBulletinUseCase.execute()
-            .onEach { result ->
-                result.fold(
-                    onSuccess = { bulletins ->
+            .onEach { response ->
+                response
+                    .onLoading {
+                        viewState = viewState.copy(loading = true)
+                    }
+                    .onSuccess { bulletins ->
                         val bulletin = bulletins.firstOrNull()
                         viewState = viewState.copy(
                             loading = false,
@@ -50,22 +59,21 @@ class BulletinViewModel(
                             snowpack = bulletin?.snowpack ?: "",
                             weather = bulletin?.weather ?: ""
                         )
-                    },
-                    onFailure = { error ->
-                        viewState = viewState.copy(loading = false)
-                        handleError(error)
                     }
+                    .onError { code, message, details, exception ->
+                        logger.e(exception) { "Failed to get bulletins: $message" }
+                        viewState = viewState.copy(
+                            loading = false,
+                                             )
+                    }
+            }
+            .catch { e ->
+                logger.e(e) { "Unexpected error in BulletinViewModel" }
+                viewState = viewState.copy(
+                    loading = false,
                 )
             }
-            .catch { error ->
-                viewState = viewState.copy(loading = false)
-                handleError(error)
-            }
             .launchIn(viewModelScope)
-    }
-
-    private fun handleError(error: Throwable) {
-        // Handle error (e.g., show error message)
     }
 
     private fun updateEmail(newValue: String) {

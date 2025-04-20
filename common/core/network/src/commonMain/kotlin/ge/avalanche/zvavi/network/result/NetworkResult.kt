@@ -2,7 +2,7 @@ package ge.avalanche.zvavi.network.result
 
 sealed class NetworkResult<out T> {
     data class Success<T>(val data: T) : NetworkResult<T>()
-    data class Error(val exception: Throwable) : NetworkResult<Nothing>()
+    data class Error(val exception: Throwable) : NetworkResult<Nothing>()  // Current version
     data object Loading : NetworkResult<Nothing>()
 }
 
@@ -14,4 +14,9 @@ inline fun <T> NetworkResult<T>.onSuccess(action: (T) -> Unit): NetworkResult<T>
 inline fun <T> NetworkResult<T>.onError(action: (Throwable) -> Unit): NetworkResult<T> {
     if (this is NetworkResult.Error) action(exception)
     return this
-} 
+}
+
+inline fun <T> NetworkResult<T>.onLoading(action: () -> Unit): NetworkResult<T> {
+    if (this is NetworkResult.Loading) action()
+    return this
+}
