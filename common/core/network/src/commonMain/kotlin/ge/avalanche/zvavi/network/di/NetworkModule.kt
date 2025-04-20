@@ -48,9 +48,7 @@ private fun provideClient(
                 header(key, value)
             }
         }
-
         install(ContentNegotiation) { json(json) }
-
         if (enableNetworkLogs) {
             install(Logging) {
                 logger = Logger.DEFAULT
