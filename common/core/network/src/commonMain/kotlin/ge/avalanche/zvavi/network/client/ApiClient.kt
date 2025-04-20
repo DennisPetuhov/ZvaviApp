@@ -7,9 +7,13 @@ import ge.avalanche.zvavi.foundation.response.toApiResponseList
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.request
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpMethod
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.serializer
 
 /**
@@ -92,8 +96,30 @@ class ApiClient(
                 block()
             }
 
-            response.toApiResponseList(json) { element ->
-                json.decodeFromJsonElement(serializer<List<T>>(), element)
+            // Use direct decoding for list responses
+            val responseText = response.bodyAsText()
+            val statusCode = response.status.value
+            
+            if (response.status.isSuccess()) {
+                try {
+                    val data = json.decodeFromString<List<T>>(responseText)
+                    ApiResponse.Success(data, statusCode)
+                } catch (e: Exception) {
+                    logger.e(e) { "Failed to parse list response: $responseText" }
+                    ApiResponse.Error(statusCode, "Failed to parse list response: ${e.message}", responseText)
+                }
+            } else {
+                val errorMessage = try {
+                    val jsonElement = json.parseToJsonElement(responseText)
+                    if (jsonElement is JsonObject) {
+                        jsonElement["message"]?.jsonPrimitive?.content ?: "Unknown error"
+                    } else {
+                        "Unknown error"
+                    }
+                } catch (e: Exception) {
+                    "Error with status code: $statusCode"
+                }
+                ApiResponse.Error(statusCode, errorMessage, responseText)
             }
         }
     } catch (e: Exception) {

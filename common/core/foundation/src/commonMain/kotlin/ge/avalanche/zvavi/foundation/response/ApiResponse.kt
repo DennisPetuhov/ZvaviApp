@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.jsonArray
 
 /**
  * Wrapper for API responses that provides a consistent way to handle success and error cases
@@ -71,7 +72,15 @@ suspend fun <T> HttpResponse.toApiResponseList(
     return try {
         if (status.isSuccess()) {
             val jsonElement = json.parseToJsonElement(responseText)
-            ApiResponse.Success(parser(jsonElement), statusCode)
+            // Check if the response is a JSON array
+            if (jsonElement is JsonObject && jsonElement.containsKey("data")) {
+                // If it's wrapped in a data field
+                val dataElement = jsonElement["data"]
+                ApiResponse.Success(parser(dataElement!!), statusCode)
+            } else {
+                // If it's directly an array
+                ApiResponse.Success(parser(jsonElement), statusCode)
+            }
         } else {
             val errorMessage = try {
                 val jsonElement = json.parseToJsonElement(responseText)
