@@ -1,5 +1,6 @@
 package ge.avalanche.zvavi.network.di
 
+import ge.avalanche.zvavi.network.client.ApiClient
 import ge.avalanche.zvavi.network.config.NetworkConfig
 import ge.avalanche.zvavi.network.ktor.HttpEngineFactory
 import io.ktor.client.HttpClient
@@ -23,6 +24,7 @@ val networkModule = module {
     single { provideJson() }
     single<HttpClientEngineFactory<HttpClientEngineConfig>> { HttpEngineFactory().getEngine() }
     single { provideClient(config = get(), json = get(), engine = get()) }
+    single { ApiClient(get(), get(), get()) }
 }
 
 private fun provideJson() = Json {
