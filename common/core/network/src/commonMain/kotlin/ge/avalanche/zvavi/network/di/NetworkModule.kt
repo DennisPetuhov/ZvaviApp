@@ -19,12 +19,21 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
+
 val networkModule = module {
     single { NetworkConfig.createDefault() }
     single { provideJson() }
     single<HttpClientEngineFactory<HttpClientEngineConfig>> { HttpEngineFactory().getEngine() }
     single { provideClient(config = get(), json = get(), engine = get()) }
-    single { ApiClient(get(), get(), get()) }
+    single {
+        val config = get<NetworkConfig>()
+        ApiClient(
+            httpClient = get(),
+            json = get(),
+            baseUrl = config.baseUrl,
+            connectTimeout = config.connectTimeout
+        )
+    }
 }
 
 private fun provideJson() = Json {

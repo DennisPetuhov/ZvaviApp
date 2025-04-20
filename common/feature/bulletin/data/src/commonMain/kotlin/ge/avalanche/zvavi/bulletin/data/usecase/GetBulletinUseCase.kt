@@ -24,7 +24,7 @@ class GetBulletinUseCase(
                     emit(Result.failure(Exception("Failed to get bulletins: ${response.message}")))
                 }
                 is ApiResponse.Loading -> {
-                    // Do nothing, wait for the actual response
+
                 }
             }
         } catch (e: Exception) {

@@ -9,7 +9,6 @@ import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 class BulletinViewModel(
     private val getBulletinUseCase: GetBulletinUseCase
@@ -34,7 +33,7 @@ class BulletinViewModel(
 
     fun fetchBulletinData() {
         viewState = viewState.copy(loading = true)
-        
+
         getBulletinUseCase.execute()
             .onEach { result ->
                 result.fold(
