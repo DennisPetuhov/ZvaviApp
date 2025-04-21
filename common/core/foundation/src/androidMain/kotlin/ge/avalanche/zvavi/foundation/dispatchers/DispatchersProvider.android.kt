@@ -1,0 +1,11 @@
+package ge.avalanche.zvavi.foundation.dispatchers
+
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+
+
+actual class DispatchersProvider {
+    actual val io: CoroutineDispatcher = Dispatchers.IO
+    actual val main: CoroutineDispatcher = Dispatchers.Main
+    actual val default: CoroutineDispatcher = Dispatchers.Default
+}

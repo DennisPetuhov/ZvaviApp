@@ -142,18 +142,6 @@ object ZvaviLayout {
         override val colWidth = Layout.Web.colWidthXxl // 0.dp
         override val gutter = Layout.Web.gutterXxl // 20.dp (spacing500)
     }
-    
-    @Immutable
-    object ZvaviXxl : BaseDesktopLayout() {
-        override val breakpoint = "xxl"
-        override val minWidth = Layout.Web.breakpointXxl // 1600.dp
-        override val maxWidth = Layout.Web.maxWidthXxl // 1920.dp
-        override val width = Layout.Web.widthXxl // 1600.dp
-        override val height = Layout.Web.heightXxl // 800.dp
-        override val colNumber = Layout.Web.colNumberXxl // 12
-        override val colWidth = Layout.Web.colWidthXxl // 0.dp
-        override val gutter = Layout.Web.gutterXxl // 20.dp (spacing500)
-    }
 }
 
 private fun getPlatformLayout(
