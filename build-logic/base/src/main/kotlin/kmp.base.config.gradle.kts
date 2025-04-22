@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
+
 }
 kotlin {
     jvmToolchain(17)

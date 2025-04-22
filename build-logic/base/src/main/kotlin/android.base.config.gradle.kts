@@ -19,11 +19,3 @@ android {
         targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
 }
-//android {
-//    compileSdk = 35
-//
-//    defaultConfig {
-//        minSdk = 21
-//        testOptions.targetSdk = 35
-//    }
-//}
