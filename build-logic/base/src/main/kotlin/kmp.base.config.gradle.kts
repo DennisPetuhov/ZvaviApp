@@ -1,6 +1,4 @@
 import extensions.libs
-import gradle.kotlin.dsl.accessors._0249b0b8fae3a4867bf44c1a0fc68a73.kotlin
-import gradle.kotlin.dsl.accessors._0249b0b8fae3a4867bf44c1a0fc68a73.sourceSets
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {

@@ -7,7 +7,6 @@ plugins{
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":common:core:network"))
             implementation(project(":common:core:foundation"))
         }
     }

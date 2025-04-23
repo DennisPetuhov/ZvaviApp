@@ -2,7 +2,7 @@ package ge.avalanche.zvavi.bulletin.data.usecase
 
 import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.bulletin.api.BulletinRepository
-import ge.avalanche.zvavi.bulletin.api.models.Bulletin
+import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
 import ge.avalanche.zvavi.foundation.response.ApiResponse
 import ge.avalanche.zvavi.foundation.response.onError
 import ge.avalanche.zvavi.foundation.response.onSuccess
