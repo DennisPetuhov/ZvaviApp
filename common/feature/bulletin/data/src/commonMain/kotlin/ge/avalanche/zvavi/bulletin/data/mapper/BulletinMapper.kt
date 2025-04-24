@@ -2,13 +2,21 @@ package ge.avalanche.zvavi.bulletin.data.mapper
 
 import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
 import ge.avalanche.zvavi.bulletin.api.network.models.HazardLevels
-import ge.avalanche.zvavi.database.entity.bulletin.BulletinEntity
-import ge.avalanche.zvavi.database.entity.bulletin.HazardLevelsEntity
-import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin as NetworkBulletin
-import ge.avalanche.zvavi.bulletin.api.network.models.HazardLevels as NetworkHazardLevels
+import ge.avalanche.zvavi.database.entities.BulletinEntity
+import ge.avalanche.zvavi.database.entities.HazardLevelsEntity
+import ge.avalanche.zvavi.network.models.BulletinApi
+import ge.avalanche.zvavi.network.models.HazardLevelsApi
+
 
 // Network -> Domain
-fun NetworkBulletin.toDomain(): Bulletin = Bulletin(
+fun HazardLevelsApi.toDomain(): HazardLevels = HazardLevels(
+    alpine = alpine,
+    overall = overall,
+    subAlpine = subAlpine,
+    highAlpine = highAlpine
+)
+
+fun BulletinApi.toDomain(): Bulletin = Bulletin(
     id = id,
     createdAt = createdAt,
     forecaster = forecaster,
@@ -22,15 +30,9 @@ fun NetworkBulletin.toDomain(): Bulletin = Bulletin(
     hazardLevels = hazardLevels.toDomain()
 )
 
-fun NetworkHazardLevels.toDomain(): HazardLevels = HazardLevels(
-    alpine = alpine,
-    overall = overall,
-    subAlpine = subAlpine,
-    highAlpine = highAlpine
-)
 
 // Network -> Entity
-fun NetworkBulletin.toEntity(): BulletinEntity = BulletinEntity(
+fun BulletinApi.toEntity(): BulletinEntity = BulletinEntity(
     id = id,
     createdAt = createdAt,
     forecaster = forecaster,
@@ -44,7 +46,7 @@ fun NetworkBulletin.toEntity(): BulletinEntity = BulletinEntity(
     hazardLevels = hazardLevels.toEntity()
 )
 
-fun NetworkHazardLevels.toEntity(): HazardLevelsEntity = HazardLevelsEntity(
+fun HazardLevelsApi.toEntity(): HazardLevelsEntity = HazardLevelsEntity(
     alpine = alpine,
     overall = overall,
     subAlpine = subAlpine,
@@ -72,8 +74,3 @@ fun HazardLevelsEntity.toDomain(): HazardLevels = HazardLevels(
     subAlpine = subAlpine,
     highAlpine = highAlpine
 )
-
-// Extension functions for collections
-fun List<NetworkBulletin>.toDomainList(): List<Bulletin> = map { it.toDomain() }
-fun List<NetworkBulletin>.toEntityList(): List<BulletinEntity> = map { it.toEntity() }
-fun List<BulletinEntity>.toDomainList(): List<Bulletin> = map { it.toDomain() }

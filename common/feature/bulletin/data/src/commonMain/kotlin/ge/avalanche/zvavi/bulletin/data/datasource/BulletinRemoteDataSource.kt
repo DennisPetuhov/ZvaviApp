@@ -4,23 +4,21 @@ import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
 import ge.avalanche.zvavi.foundation.response.ApiResponse
 import ge.avalanche.zvavi.network.client.ApiClient
+import ge.avalanche.zvavi.network.models.BulletinApi
 import io.ktor.http.HttpMethod
 
 
 interface BulletinRemoteDataSource {
-    suspend fun getBulletin(): ApiResponse<List<Bulletin>>
+    suspend fun getBulletin(): ApiResponse<List<BulletinApi>>
 }
 
 class BulletinRemoteDataSourceImpl(
     private val apiClient: ApiClient
 ) : BulletinRemoteDataSource {
-    private val logger = Logger.withTag("BulletinRemoteDataSource")
-
-    override suspend fun getBulletin(): ApiResponse<List<Bulletin>> {
-        return apiClient.requestList<Bulletin>(
+    override suspend fun getBulletin(): ApiResponse<List<BulletinApi>> {
+        return apiClient.requestList<BulletinApi>(
             method = HttpMethod.Get,
             path = "forecasts?order=id.desc&limit=1"
         )
     }
 }
-

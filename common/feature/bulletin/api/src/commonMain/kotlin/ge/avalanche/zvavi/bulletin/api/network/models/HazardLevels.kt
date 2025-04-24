@@ -7,9 +7,7 @@ import kotlinx.serialization.Serializable
 data class HazardLevels(
     val alpine: String,
     val overall: String,
-    @SerialName("sub_alpine")
     val subAlpine: String,
-    @SerialName("high_alpine")
     val highAlpine: String
 ){
     companion object{

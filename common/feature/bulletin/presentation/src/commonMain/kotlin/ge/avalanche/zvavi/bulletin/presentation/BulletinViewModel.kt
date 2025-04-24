@@ -7,6 +7,7 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
+import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import ge.avalanche.zvavi.foundation.response.onError
 import ge.avalanche.zvavi.foundation.response.onLoading
 import ge.avalanche.zvavi.foundation.response.onSuccess
@@ -15,13 +16,14 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class BulletinViewModel(
-    private val getBulletinUseCase: GetBulletinUseCase
+    private val getBulletinUseCase: GetBulletinUseCase,
+    private val dispatchers: DispatchersProvider
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
 
     private val logger = Logger.withTag("BulletinViewModel")
 
     init {
-        fetchBulletinData()
+//        fetchBulletinData()
     }
 
     override fun obtainEvent(viewEvent: BulletinEvent) {
@@ -40,40 +42,40 @@ class BulletinViewModel(
     fun fetchBulletinData() {
         viewState = viewState.copy(loading = true)
 
-        getBulletinUseCase.execute()
-            .onEach { response ->
-                response
-                    .onLoading {
-                        viewState = viewState.copy(loading = true)
-                    }
-                    .onSuccess { bulletins ->
-                        val bulletin = bulletins.firstOrNull()
-                        viewState = viewState.copy(
-                            loading = false,
-                            riskLevelOverall = bulletin?.hazardLevels?.overall ?: "",
-                            overallInformation = bulletin?.summary ?: "",
-                            travelAdvice = bulletin?.additionalHazards ?: "",
-                            riskLevelHighAlpine = bulletin?.hazardLevels?.highAlpine ?: "",
-                            riskLevelAlpine = bulletin?.hazardLevels?.alpine ?: "",
-                            riskLevelSubAlpine = bulletin?.hazardLevels?.subAlpine ?: "",
-                            snowpack = bulletin?.snowpack ?: "",
-                            weather = bulletin?.weather ?: ""
-                        )
-                    }
-                    .onError { code, message, details, exception ->
-                        logger.e(exception) { "Failed to get bulletins: $message" }
-                        viewState = viewState.copy(
-                            loading = false,
-                                             )
-                    }
-            }
-            .catch { e ->
-                logger.e(e) { "Unexpected error in BulletinViewModel" }
-                viewState = viewState.copy(
-                    loading = false,
-                )
-            }
-            .launchIn(viewModelScope)
+//        getBulletinUseCase.execute()
+//            .onEach { response ->
+//                response
+//                    .onLoading {
+//                        viewState = viewState.copy(loading = true)
+//                    }
+//                    .onSuccess { bulletins ->
+//                        val bulletin = bulletins.firstOrNull()
+//                        viewState = viewState.copy(
+//                            loading = false,
+//                            riskLevelOverall = bulletin?.hazardLevels?.overall ?: "",
+//                            overallInformation = bulletin?.summary ?: "",
+//                            travelAdvice = bulletin?.additionalHazards ?: "",
+//                            riskLevelHighAlpine = bulletin?.hazardLevels?.highAlpine ?: "",
+//                            riskLevelAlpine = bulletin?.hazardLevels?.alpine ?: "",
+//                            riskLevelSubAlpine = bulletin?.hazardLevels?.subAlpine ?: "",
+//                            snowpack = bulletin?.snowpack ?: "",
+//                            weather = bulletin?.weather ?: ""
+//                        )
+//                    }
+//                    .onError { code, message, details, exception ->
+//                        logger.e(exception) { "Failed to get bulletins: $message" }
+//                        viewState = viewState.copy(
+//                            loading = false,
+//                                             )
+//                    }
+//            }
+//            .catch { e ->
+//                logger.e(e) { "Unexpected error in BulletinViewModel" }
+//                viewState = viewState.copy(
+//                    loading = false,
+//                )
+//            }
+//            .launchIn(viewModelScope)
     }
 
     private fun updateEmail(newValue: String) {

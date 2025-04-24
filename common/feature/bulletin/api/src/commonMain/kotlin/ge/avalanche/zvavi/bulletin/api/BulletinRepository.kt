@@ -1,8 +1,8 @@
 package ge.avalanche.zvavi.bulletin.api
 
 import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
-import ge.avalanche.zvavi.foundation.response.ApiResponse
+import kotlinx.coroutines.flow.Flow
 
 interface BulletinRepository {
-    suspend fun getBulletin(): ApiResponse<List<Bulletin>>
+//    suspend fun getBulletin(): Flow<Bulletin>
 }

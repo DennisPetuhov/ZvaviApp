@@ -40,6 +40,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(project(":common:core:designsystem"))
             implementation(project(":common:core:network"))
+            implementation(project(":common:core:database"))
             implementation(project(":common:core:foundation"))
             implementation(project(":common:feature:bulletin:presentation"))
             implementation(project(":common:feature:bulletin:api"))
@@ -58,6 +59,7 @@ kotlin {
             implementation(libs.androidx.activityCompose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+
         }
 
         jvmMain.dependencies {

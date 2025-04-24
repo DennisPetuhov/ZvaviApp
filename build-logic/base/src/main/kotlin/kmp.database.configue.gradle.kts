@@ -15,6 +15,9 @@ kotlin {
             implementation(libs.room.sqlite)
             implementation(libs.room.sqlite.bundled)
         }
+        androidMain.dependencies {
+            implementation(libs.koin.android)
+        }
     }
 }
 dependencies {

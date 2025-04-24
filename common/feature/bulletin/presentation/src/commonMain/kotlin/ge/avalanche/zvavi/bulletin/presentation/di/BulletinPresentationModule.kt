@@ -5,9 +5,10 @@ import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
 import org.koin.dsl.module
 
 val bulletinPresentationModule = module {
-    single { 
+    single {
         BulletinViewModel(
-            getBulletinUseCase = get<GetBulletinUseCase>()
-        ) 
+            getBulletinUseCase = get<GetBulletinUseCase>(),
+            dispatchers = get()
+        )
     }
 } 
