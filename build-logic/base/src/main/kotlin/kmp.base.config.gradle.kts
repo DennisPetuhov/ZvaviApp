@@ -12,10 +12,10 @@ kotlin {
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
     jvm()
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
+//    wasmJs {
+//        browser()
+//        binaries.executable()
+//    }
     listOf(
         iosX64(),
         iosArm64(),
@@ -47,6 +47,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
         }
         androidMain.dependencies {
+            implementation(libs.koin.android)
             implementation(libs.androidx.runtime.android)
             implementation(libs.kotlinx.coroutines.android)
         }

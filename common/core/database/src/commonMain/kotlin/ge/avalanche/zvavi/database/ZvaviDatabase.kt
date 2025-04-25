@@ -13,10 +13,10 @@ abstract class ZvaviDatabase : RoomDatabase(){
     abstract fun getBulletinDao(): BulletinDao
 }
 
-//// The Room compiler generates the `actual` implementations.
-//@Suppress("NO_ACTUAL_FOR_EXPECT")
-//expect object ZvaviDatabaseConstructor : RoomDatabaseConstructor<ZvaviDatabase> {
-//    override fun initialize(): ZvaviDatabase
-//}
+// The Room compiler generates the `actual` implementations.
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object ZvaviDatabaseConstructor : RoomDatabaseConstructor<ZvaviDatabase> {
+    override fun initialize(): ZvaviDatabase
+}
 
 internal const val dbFileName = "appzvavi.db"

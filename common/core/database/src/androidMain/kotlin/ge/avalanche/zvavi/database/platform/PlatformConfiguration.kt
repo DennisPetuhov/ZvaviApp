@@ -1,24 +1,12 @@
 package ge.avalanche.zvavi.database.platform
 
 import android.content.Context
-import ge.avalanche.zvavi.database.ZvaviDatabase
-import ge.avalanche.zvavi.database.dao.BulletinDao
-import ge.avalanche.zvavi.database.getDatabase
-
+import ge.avalanche.zvavi.database.di.databaseModuleAndroid
 import org.koin.core.module.Module
-import org.koin.dsl.module
 
 actual class PlatformConfiguration(
     private val applicationContext: Context
 ) {
-    actual fun platformModule(): Module = module {
-        single { applicationContext }
-            single { this@PlatformConfiguration }
-        single<ZvaviDatabase> { getDatabase(get(), get()) }
-        single<BulletinDao> {
-            get<ZvaviDatabase>().getBulletinDao()
-        }
-
-    }
+    actual fun platformModule(): Module = databaseModuleAndroid
 }
 

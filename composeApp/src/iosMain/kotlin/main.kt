@@ -10,9 +10,7 @@ fun MainViewController(): UIViewController {
     
     val platformConfig = PlatformConfiguration()
     
-    Inject.createDependencies(platformConfig) {
-        // Additional modules can be added here if needed
-    }
+    Inject.createDependencies(platformConfig) {}
     
     return ComposeUIViewController { App(platformConfig) }
 }
