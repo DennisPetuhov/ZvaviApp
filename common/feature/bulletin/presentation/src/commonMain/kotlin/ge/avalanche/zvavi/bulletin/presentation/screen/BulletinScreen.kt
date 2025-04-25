@@ -3,11 +3,9 @@ package ge.avalanche.zvavi.bulletin.presentation.screen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -31,8 +29,8 @@ fun BulletinScreen(
     val viewState by viewModel.viewStates().collectAsState()
 
     Scaffold(
-        contentWindowInsets = WindowInsets.systemBars,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize(),
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -44,7 +42,6 @@ fun BulletinScreen(
                 viewState.loading -> {
                     CircularProgressIndicator()
                 }
-
                 viewState.error != null -> {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -56,17 +53,14 @@ fun BulletinScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
-                            onClick = {  }
+                            onClick = { viewModel.obtainEvent(BulletinEvent.RetryClicked) }
                         ) {
                             Text("Retry")
                         }
                     }
                 }
-
                 else -> {
-                    BulletinView(viewState = viewState) {
-                        viewModel.obtainEvent(it)
-                    }
+                    BulletinView(viewModel = viewModel, paddingValues = paddingValues)
                 }
             }
         }

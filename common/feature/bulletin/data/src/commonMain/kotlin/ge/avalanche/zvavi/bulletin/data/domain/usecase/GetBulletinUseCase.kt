@@ -1,0 +1,17 @@
+package ge.avalanche.zvavi.bulletin.data.domain.usecase
+
+import co.touchlab.kermit.Logger
+import ge.avalanche.zvavi.bulletin.api.BulletinRepository
+import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
+import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+
+class GetBulletinUseCase(
+    private val repository: BulletinRepository,
+    private val dispatchers: DispatchersProvider
+) {
+    private val logger = Logger.withTag("GetBulletinUseCase")
+
+  suspend  fun execute(): Flow<Bulletin> { return repository.getBulletin().flowOn(dispatchers.main )}
+}
