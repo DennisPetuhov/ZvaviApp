@@ -1,10 +1,9 @@
 import extensions.libs
-import gradle.kotlin.dsl.accessors._0249b0b8fae3a4867bf44c1a0fc68a73.kotlin
-import gradle.kotlin.dsl.accessors._0249b0b8fae3a4867bf44c1a0fc68a73.sourceSets
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
+
 }
 kotlin {
     jvmToolchain(17)
@@ -13,10 +12,10 @@ kotlin {
         instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
     jvm()
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
+//    wasmJs {
+//        browser()
+//        binaries.executable()
+//    }
     listOf(
         iosX64(),
         iosArm64(),
@@ -48,6 +47,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
         }
         androidMain.dependencies {
+            implementation(libs.koin.android)
             implementation(libs.androidx.runtime.android)
             implementation(libs.kotlinx.coroutines.android)
         }

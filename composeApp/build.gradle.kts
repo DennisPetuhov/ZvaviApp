@@ -28,9 +28,9 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.serialization)
             implementation(libs.ktor.client.logging)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.androidx.navigation.composee)
+//            implementation(libs.androidx.lifecycle.viewmodel)
+//            implementation(libs.androidx.lifecycle.runtime.compose)
+//            implementation(libs.androidx.navigation.composee)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
@@ -40,6 +40,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(project(":common:core:designsystem"))
             implementation(project(":common:core:network"))
+            implementation(project(":common:core:database"))
             implementation(project(":common:core:foundation"))
             implementation(project(":common:feature:bulletin:presentation"))
             implementation(project(":common:feature:bulletin:api"))
@@ -56,8 +57,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.uiTooling)
             implementation(libs.androidx.activityCompose)
-            implementation(libs.kotlinx.coroutines.android)
+//            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+
         }
 
         jvmMain.dependencies {

@@ -10,6 +10,7 @@ kotlin {
             implementation(project(":common:feature:bulletin:api"))
             implementation(project(":common:core:foundation"))
             implementation(project(":common:core:network"))
+            implementation(project(":common:core:database"))
         }
     }
 }
