@@ -7,9 +7,11 @@ import androidx.room.RoomDatabaseConstructor
 import ge.avalanche.zvavi.database.dao.BulletinDao
 import ge.avalanche.zvavi.database.entities.BulletinEntity
 
+internal const val dbFileName = "appzvavi.db"
+
 @Database(entities = [BulletinEntity::class], version = 1)
-//@ConstructedBy(ZvaviDatabaseConstructor::class)
-abstract class ZvaviDatabase : RoomDatabase(){
+@ConstructedBy(ZvaviDatabaseConstructor::class)
+abstract class ZvaviDatabase : RoomDatabase() {
     abstract fun getBulletinDao(): BulletinDao
 }
 
@@ -19,4 +21,3 @@ expect object ZvaviDatabaseConstructor : RoomDatabaseConstructor<ZvaviDatabase> 
     override fun initialize(): ZvaviDatabase
 }
 
-internal const val dbFileName = "appzvavi.db"

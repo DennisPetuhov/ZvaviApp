@@ -6,9 +6,7 @@ import ge.avalanche.zvavi.database.getDatabase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
- val databaseModuleJvm: Module = module {
+val databaseModuleJvm: Module = module {
     single<ZvaviDatabase> { getDatabase(get()) }
-    single<BulletinDao> {
-        get<ZvaviDatabase>().getBulletinDao()
-    }
+    single<BulletinDao> { get<ZvaviDatabase>().getBulletinDao() }
 }

@@ -15,7 +15,7 @@ class BulletinRepositoryImpl(
     private val remoteDataSource: BulletinRemoteDataSource,
     dispatchers: DispatchersProvider
 ) : BaseRepository(dispatchers, Logger.withTag("BulletinRepository")), BulletinRepository {
-//    override suspend fun getBulletin(): Flow<Bulletin> {
-//        return emptyFlow<Bulletin>()
-//    }
+    override suspend fun getBulletin(): Flow<Bulletin> {
+        return emptyFlow<Bulletin>()
+    }
 }

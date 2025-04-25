@@ -14,4 +14,3 @@ import org.koin.dsl.module
         get<ZvaviDatabase>().getBulletinDao()
     }
 }
-
