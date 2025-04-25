@@ -47,7 +47,7 @@ fun main() = application {
 
 
             }
-//            window.minimumSize = Dimension(450, 800)
+            window.minimumSize = Dimension(450, 800)
             App(platformConfig)
         }
     }
