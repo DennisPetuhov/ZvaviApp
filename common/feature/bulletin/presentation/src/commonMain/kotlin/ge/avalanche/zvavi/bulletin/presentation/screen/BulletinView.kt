@@ -60,7 +60,7 @@ private fun ContentBlocks(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
-        modifier = Modifier.fillMaxWidth().fillMaxHeight()
+        modifier = Modifier.fillMaxSize()
             .padding(
                 vertical = ZvaviSpacing.spacing350,
                 horizontal = layoutConfig.marginHorizontal
