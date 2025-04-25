@@ -11,8 +11,8 @@ actual class PlatformConfiguration(
     private val applicationContext: Context
 ) {
     actual fun platformModule(): Module = module {
-        single<Context> { applicationContext }
         single { this@PlatformConfiguration }
+        single<Context> { applicationContext }
         single<ZvaviDatabase> { getDatabase(get(), get()) }
         single<BulletinDao> {
             get<ZvaviDatabase>().getBulletinDao()

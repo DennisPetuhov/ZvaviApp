@@ -9,4 +9,5 @@ sealed class BulletinEvent {
     data object BulletinClicked : BulletinEvent()
     data object TravelAdviceClicked : BulletinEvent()
     data object OverviewClicked : BulletinEvent()
+    data object RetryClicked : BulletinEvent()
 }

@@ -2,18 +2,20 @@ package ge.avalanche.zvavi.bulletin.presentation
 
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
+import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
+import ge.avalanche.zvavi.bulletin.data.domain.usecase.GetBulletinUseCase
+import ge.avalanche.zvavi.bulletin.data.repository.NoDataException
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
-import ge.avalanche.zvavi.foundation.response.onError
-import ge.avalanche.zvavi.foundation.response.onLoading
-import ge.avalanche.zvavi.foundation.response.onSuccess
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class BulletinViewModel(
     private val getBulletinUseCase: GetBulletinUseCase,
@@ -21,9 +23,12 @@ class BulletinViewModel(
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
 
     private val logger = Logger.withTag("BulletinViewModel")
+    private var bulletinJob: Job? = null
+    private var retryCount = 0
+    private val maxRetries = 3
 
     init {
-//        fetchBulletinData()
+        fetchBulletinData()
     }
 
     override fun obtainEvent(viewEvent: BulletinEvent) {
@@ -36,46 +41,77 @@ class BulletinViewModel(
             BulletinEvent.BulletinClicked -> handleBulletinClick()
             BulletinEvent.TravelAdviceClicked -> handleTravelAdviceClick()
             BulletinEvent.OverviewClicked -> handleOverviewClick()
+            BulletinEvent.RetryClicked -> retryFetchBulletin()
         }
     }
 
-    fun fetchBulletinData() {
-        viewState = viewState.copy(loading = true)
+  fun fetchBulletinData() {
+        // Cancel any existing job
+        bulletinJob?.cancel()
+        
+        // Reset retry count for new fetch
+        retryCount = 0
+        
+        // Start new job
+        bulletinJob = viewModelScope.launch {
+            viewState = viewState.copy(loading = true, error = null)
 
-//        getBulletinUseCase.execute()
-//            .onEach { response ->
-//                response
-//                    .onLoading {
-//                        viewState = viewState.copy(loading = true)
-//                    }
-//                    .onSuccess { bulletins ->
-//                        val bulletin = bulletins.firstOrNull()
-//                        viewState = viewState.copy(
-//                            loading = false,
-//                            riskLevelOverall = bulletin?.hazardLevels?.overall ?: "",
-//                            overallInformation = bulletin?.summary ?: "",
-//                            travelAdvice = bulletin?.additionalHazards ?: "",
-//                            riskLevelHighAlpine = bulletin?.hazardLevels?.highAlpine ?: "",
-//                            riskLevelAlpine = bulletin?.hazardLevels?.alpine ?: "",
-//                            riskLevelSubAlpine = bulletin?.hazardLevels?.subAlpine ?: "",
-//                            snowpack = bulletin?.snowpack ?: "",
-//                            weather = bulletin?.weather ?: ""
-//                        )
-//                    }
-//                    .onError { code, message, details, exception ->
-//                        logger.e(exception) { "Failed to get bulletins: $message" }
-//                        viewState = viewState.copy(
-//                            loading = false,
-//                                             )
-//                    }
-//            }
-//            .catch { e ->
-//                logger.e(e) { "Unexpected error in BulletinViewModel" }
-//                viewState = viewState.copy(
-//                    loading = false,
-//                )
-//            }
-//            .launchIn(viewModelScope)
+            getBulletinUseCase.execute()
+                .onEach { bulletin ->
+                    println("database in view model"+bulletin.toString())
+                    viewState = viewState.copy(
+                        loading = false,
+                        error = null,
+                        riskLevelOverall = bulletin.hazardLevels.overall,
+                        overallInformation = bulletin.summary,
+                        travelAdvice = bulletin.additionalHazards,
+                        riskLevelHighAlpine = bulletin.hazardLevels.highAlpine,
+                        riskLevelAlpine = bulletin.hazardLevels.alpine,
+                        riskLevelSubAlpine = bulletin.hazardLevels.subAlpine,
+                        snowpack = bulletin.snowpack,
+                        weather = bulletin.weather
+                    )
+                    // Reset retry count on success
+                    retryCount = 0
+                }
+                .catch { e ->
+                    logger.e(e) { "Error in BulletinViewModel" }
+                    handleError(e)
+                }
+                .launchIn(this)
+        }
+    }
+    
+    private fun handleError(e: Throwable) {
+        // Decide whether to retry or show error based on retry count
+        if (retryCount < maxRetries) {
+            // Auto-retry with exponential backoff
+            retryCount++
+            val delayMillis = 1000L * (1 shl (retryCount - 1)) // 1s, 2s, 4s
+            logger.i { "Retrying fetch (attempt $retryCount of $maxRetries) after $delayMillis ms" }
+            
+            viewModelScope.launch {
+                delay(delayMillis)
+                fetchBulletinData()
+            }
+        } else {
+            // Show error after max retries
+            val errorMessage = when (e) {
+                is NoDataException -> "No bulletin data available"
+                else -> "Failed to load bulletin: ${e.message}"
+            }
+            
+            viewState = viewState.copy(
+                loading = false,
+                error = errorMessage
+            )
+        }
+    }
+    
+    fun retryFetchBulletin() {
+        // Manual retry from UI
+        retryCount = 0
+        fetchBulletinData()
     }
 
     private fun updateEmail(newValue: String) {
@@ -87,26 +123,26 @@ class BulletinViewModel(
     }
 
     private fun handleRecentAvalanchesClick() {
-        viewAction = BulletinAction.OpenRecentAvalanches
+        // Implementation for recent avalanches click
     }
 
     private fun handleSnowPackClick() {
-        viewAction = BulletinAction.OpenSnowpack
+        // Implementation for snow pack click
     }
 
     private fun handleWeatherClick() {
-        viewAction = BulletinAction.OpenWeather
+        // Implementation for weather click
     }
 
     private fun handleBulletinClick() {
-        viewAction = BulletinAction.OpenMainScreen
+        // Implementation for bulletin click
     }
 
     private fun handleTravelAdviceClick() {
-        // Implement if needed
+        // Implementation for travel advice click
     }
 
     private fun handleOverviewClick() {
-        // Implement if needed
+        // Implementation for overview click
     }
 }

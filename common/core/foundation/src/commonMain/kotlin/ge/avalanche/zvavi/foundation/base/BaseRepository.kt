@@ -11,8 +11,8 @@ import kotlinx.coroutines.withTimeoutOrNull
  * Handles threading, timeouts, and error handling.
  */
 abstract class BaseRepository(
-    private val dispatchers: DispatchersProvider,
-    private val logger: Logger = Logger.withTag("BaseRepository")
+    protected val dispatchers: DispatchersProvider,
+    protected val logger: Logger = Logger.withTag("BaseRepository")
 ) {
     /**
      * Executes a block of code on the IO dispatcher.

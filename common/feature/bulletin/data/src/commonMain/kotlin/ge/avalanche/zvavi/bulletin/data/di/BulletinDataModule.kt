@@ -6,7 +6,7 @@ import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSourceImpl
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSourceImpl
 import ge.avalanche.zvavi.bulletin.data.repository.BulletinRepositoryImpl
-import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
+import ge.avalanche.zvavi.bulletin.data.domain.usecase.GetBulletinUseCase
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import ge.avalanche.zvavi.network.client.ApiClient
 import ge.avalanche.zvavi.database.dao.BulletinDao
@@ -32,7 +32,8 @@ val bulletinDataModule = module {
     }
     single<GetBulletinUseCase> {
         GetBulletinUseCase(
-            repository = get()
+            repository = get(),
+            dispatchers = get<DispatchersProvider>()
         )
     }
 }

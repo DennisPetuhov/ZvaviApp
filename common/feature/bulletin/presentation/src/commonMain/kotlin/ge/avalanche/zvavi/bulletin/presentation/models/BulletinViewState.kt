@@ -14,6 +14,7 @@ data class BulletinViewState(
     val snowpack: String = "",
     val weather: String = "",
     val loading: Boolean = false,
+    val error: String? = null
 ) {
     companion object {
         val EMPTY = BulletinViewState()
