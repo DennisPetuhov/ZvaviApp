@@ -42,7 +42,6 @@ fun BulletinScreen(
                 viewState.loading -> {
                     CircularProgressIndicator()
                 }
-
                 viewState.error != null -> {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,17 +53,14 @@ fun BulletinScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
-                            onClick = {  }
+                            onClick = { viewModel.obtainEvent(BulletinEvent.RetryClicked) }
                         ) {
                             Text("Retry")
                         }
                     }
                 }
-
                 else -> {
-                    BulletinView(viewState = viewState, paddingValues = paddingValues) {
-                        viewModel.obtainEvent(it)
-                    }
+                    BulletinView(viewModel = viewModel, paddingValues = paddingValues)
                 }
             }
         }
