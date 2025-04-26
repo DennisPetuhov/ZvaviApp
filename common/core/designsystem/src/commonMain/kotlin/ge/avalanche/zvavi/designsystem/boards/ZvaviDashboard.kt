@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -20,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.designsystem.dimens.Stroke
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -28,7 +29,6 @@ import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
-import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 interface ZvaviDashboardEvent {
     object InfoClicked : ZvaviDashboardEvent
@@ -38,35 +38,37 @@ interface ZvaviDashboardEvent {
 fun ZvaviDashboard(
     name: String,
     eventHandler: (ZvaviDashboardEvent) -> Unit,
-    layoutConfig: LayoutConfig,
-    backgroundColor: Color = ZvaviTheme.colors.layerFloor1,
-    modifier: Modifier = Modifier,
     mainBlock: @Composable BoxScope. () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .widthIn(min = ZvaviSize.size900)
+            .heightIn(min = ZvaviSize.size900)
             .clip(RoundedCornerShape(ZvaviRadius.radius550))
             .border(
                 width = Stroke.stroke200,
                 shape = RoundedCornerShape(ZvaviRadius.radius550),
                 color = ZvaviTheme.colors.borderNeutralTertiary
             )
-            .background(backgroundColor)
+            .background(ZvaviTheme.colors.layerFloor1)
             .padding(
                 vertical = ZvaviSpacing.spacing350,
-                horizontal = layoutConfig.contentCompensation
+                horizontal = ZvaviSpacing.spacing200
             )
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing50),
+            verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing300),
             modifier = Modifier.fillMaxSize()
         ) {
             DashboardHeader(name = name, eventHandler = eventHandler)
             Box(
-                contentAlignment = Alignment.Center,
+                contentAlignment = Alignment.TopStart,
                 modifier = Modifier.fillMaxSize()
-            ) { mainBlock() }
+            ) {
+                mainBlock()
+            }
         }
     }
 }
@@ -74,14 +76,14 @@ fun ZvaviDashboard(
 @Composable
 private fun DashboardHeader(
     name: String,
-    eventHandler: (ZvaviDashboardEvent) -> Unit,
-    modifier: Modifier = Modifier
+    eventHandler: (ZvaviDashboardEvent) -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
     ) {
         Text(
             text = name,

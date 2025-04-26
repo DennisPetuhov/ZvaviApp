@@ -69,8 +69,8 @@ private fun ContentBlocks(
             )
             .verticalScroll(scrollState)
     ) {
-        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler,layoutConfig= layoutConfig)
-        RiskByHeightBlock(viewState = viewState, layoutConfig = layoutConfig)
+        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler)
+        RiskByHeightBlock(layoutConfig)
         ProblemBlock(
             eventHandler = eventHandler,
             layoutConfig = layoutConfig

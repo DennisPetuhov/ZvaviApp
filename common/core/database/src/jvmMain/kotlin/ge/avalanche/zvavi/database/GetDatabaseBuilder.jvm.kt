@@ -11,6 +11,7 @@ fun getDatabaseBuilder(dispatchers: DispatchersProvider): RoomDatabase.Builder<Z
     return Room.databaseBuilder<ZvaviDatabase>(
         name = dbFile.absolutePath
     ).apply {
+        fallbackToDestructiveMigration(true)
         setDriver(BundledSQLiteDriver())
         setQueryCoroutineContext(dispatchers.io)
         fallbackToDestructiveMigration(dropAllTables = true)
