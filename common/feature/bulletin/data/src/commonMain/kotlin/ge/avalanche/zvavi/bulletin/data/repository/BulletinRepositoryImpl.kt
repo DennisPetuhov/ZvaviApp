@@ -1,12 +1,12 @@
 package ge.avalanche.zvavi.bulletin.data.repository
 
 import co.touchlab.kermit.Logger
-import ge.avalanche.zvavi.bulletin.api.BulletinRepository
-import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
+import ge.avalanche.zvavi.bulletin.api.models.Bulletin
+import ge.avalanche.zvavi.bulletin.api.models.BulletinRepository
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
-import ge.avalanche.zvavi.bulletin.data.mapper.toDomain
-import ge.avalanche.zvavi.bulletin.data.mapper.toEntity
+import ge.avalanche.zvavi.bulletin.data.domain.mapper.toDomain
+import ge.avalanche.zvavi.bulletin.data.domain.mapper.toEntity
 import ge.avalanche.zvavi.foundation.base.BaseRepository
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import ge.avalanche.zvavi.foundation.response.onError
@@ -23,8 +23,7 @@ class BulletinRepositoryImpl(
     private val remoteDataSource: BulletinRemoteDataSource,
     dispatchers: DispatchersProvider
 ) : BaseRepository(dispatchers, Logger.withTag("BulletinRepository")), BulletinRepository {
-
-    override suspend fun getBulletin(): Flow<Bulletin> = flow {
+    override suspend fun fetchBulletin() {
         try {
             // 1. Try to fetch from remote
             logger.d { "Fetching bulletin from remote" }
@@ -48,6 +47,9 @@ class BulletinRepositoryImpl(
         } catch (e: Exception) {
             logger.e(e) { "Unexpected error in getBulletin" }
         }
+    }
+
+    override suspend fun observeBulletin(): Flow<Bulletin> =flow {
         // 5. Always emit from local after remote operation (success or failure)
         localDataSource.getBulletins()
             .map { entities ->
@@ -57,12 +59,11 @@ class BulletinRepositoryImpl(
             .collect { bulletin ->
                 emit(bulletin)
             }
+    }.flowOn(dispatchers.io)
+    .catch { e ->
+        logger.e(e) { "Error in getBulletin flow" }
+        throw e
     }
-        .flowOn(dispatchers.io)
-        .catch { e ->
-            logger.e(e) { "Error in getBulletin flow" }
-            throw e
-        }
 }
 
 class NoDataException(message: String) : Exception(message)

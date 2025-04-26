@@ -28,6 +28,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 @Composable
 fun BulletinView(
     viewState: BulletinViewState,
+    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
 
@@ -37,6 +38,7 @@ fun BulletinView(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .padding(paddingValues)
             .background(ZvaviTheme.colors.layerFloor0)
     ) {
         DataLocationBlock(
@@ -69,12 +71,12 @@ private fun ContentBlocks(
             )
             .verticalScroll(scrollState)
     ) {
-        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler,layoutConfig= layoutConfig)
-        RiskByHeightBlock(viewState = viewState, layoutConfig = layoutConfig)
+        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler)
+        RiskByHeightBlock(layoutConfig)
         ProblemBlock(
             eventHandler = eventHandler,
             layoutConfig = layoutConfig
         )
-        AvalanchesSnowpackWeatherBlock(layoutConfig, viewState = viewState)
+        AvalanchesSnowpackWeatherBlock(layoutConfig)
     }
 }
