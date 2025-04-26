@@ -12,19 +12,12 @@ import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.RiskBoard
-import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
-import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @Composable
-fun OverallRisksBlock(
-    viewState: BulletinViewState,
-    eventHandler: (BulletinEvent) -> Unit,
-    layoutConfig: LayoutConfig,
-    modifier: Modifier = Modifier
-) {
+fun OverallRisksBlock(viewState: BulletinViewState, eventHandler: (BulletinEvent) -> Unit, modifier: Modifier = Modifier) {
     RiskBoard(
         modifier = modifier
             .fillMaxWidth()
@@ -38,17 +31,17 @@ fun OverallRisksBlock(
             name = "Travel Advice",
             mainBlock = {
                 Text(
-                    text = viewState.riskLevelOverall.toTravelAdvice(),
+                    text = "",
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
-                    maxLines = 5,
+                    minLines = 2,
+                    maxLines = 8,
                 )
             },
-            eventHandler = { event ->
+            eventHandler = { event -> 
                 when (event) {
                     ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
                 }
             },
-            layoutConfig = layoutConfig,
             modifier = Modifier
                 .weight(0.95f, fill = false)
                 .fillMaxHeight()
@@ -58,12 +51,13 @@ fun OverallRisksBlock(
                 .weight(0.02f)
         )
         ZvaviDashboard(
-            name = "Overview",
+            name = "OverView",
             mainBlock = {
                 Text(
                     text = viewState.overallInformation,
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
-                    maxLines = 5,
+                    minLines = 2,
+                    maxLines = 8,
                 )
             },
             eventHandler = { event ->
@@ -71,7 +65,6 @@ fun OverallRisksBlock(
                     ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
                 }
             },
-            layoutConfig = layoutConfig,
             modifier = Modifier
                 .weight(0.95f, fill = false)
                 .fillMaxHeight()
