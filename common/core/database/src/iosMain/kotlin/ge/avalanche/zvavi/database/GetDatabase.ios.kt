@@ -16,6 +16,7 @@ fun getDatabaseBuilder(dispatchers: DispatchersProvider): RoomDatabase.Builder<Z
         name = dbFilePath
     ).apply {
         setDriver(BundledSQLiteDriver())
-            .setQueryCoroutineContext(dispatchers.io)
+            setQueryCoroutineContext(dispatchers.io)
+        fallbackToDestructiveMigration(dropAllTables = true)
     }
 } 

@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,7 +12,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.AvalanchesSnowpackWeatherBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.DataLocationBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.OverallRisksBlock
@@ -27,10 +27,12 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 
 @Composable
 fun BulletinView(
-    viewModel: BulletinViewModel,
+    viewState: BulletinViewState,
     paddingValues: PaddingValues,
-    modifier: Modifier = Modifier
-) {
+    modifier: Modifier = Modifier,
+    eventHandler: (BulletinEvent) -> Unit,
+
+    ) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
     Column(
@@ -45,18 +47,20 @@ fun BulletinView(
                 .padding(horizontal = ZvaviSpacing.spacing400, vertical = ZvaviSpacing.spacing100)
         )
         ContentBlocks(
-            viewModel,
+            viewState = viewState,
             layoutConfig = layoutConfig,
-            scrollState = scrollState
+            scrollState = scrollState,
+            eventHandler = eventHandler
         )
     }
 }
 
 @Composable
 private fun ContentBlocks(
-    viewModel: BulletinViewModel,
+    viewState: BulletinViewState,
     layoutConfig: LayoutConfig,
-    scrollState: ScrollState
+    scrollState: ScrollState,
+    eventHandler: (BulletinEvent) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
@@ -67,10 +71,10 @@ private fun ContentBlocks(
             )
             .verticalScroll(scrollState)
     ) {
-        OverallRisksBlock()
+        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler)
         RiskByHeightBlock(layoutConfig)
         ProblemBlock(
-            onProblemClick = { viewModel.fetchBulletinData() },
+            eventHandler = eventHandler,
             layoutConfig = layoutConfig
         )
         AvalanchesSnowpackWeatherBlock(layoutConfig)
