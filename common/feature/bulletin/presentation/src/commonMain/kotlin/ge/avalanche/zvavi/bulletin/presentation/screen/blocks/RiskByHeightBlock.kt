@@ -16,16 +16,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.PentagonView
 import ge.avalanche.zvavi.bulletin.presentation.screen.RectangleView
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
+import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toColor
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 
 @Composable
-fun RiskByHeightBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier) {
+fun RiskByHeightBlock(
+    layoutConfig: LayoutConfig,
+    viewState: BulletinViewState,
+    modifier: Modifier = Modifier
+) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.End,
@@ -47,7 +53,8 @@ fun RiskByHeightBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier)
                 PentagonView(
                     canvasWidth = (152f * layoutConfig.canvasScale).dp,
                     canvasHeight = (100f * layoutConfig.canvasScale).dp,
-                    content = { StyledPyramidText("Moderate") },
+                    color = viewState.riskLevelHighAlpine.toColor(),
+                    content = { StyledPyramidText(text = viewState.riskLevelHighAlpine.name) },
                     modifier = Modifier,
                 )
             },
@@ -64,10 +71,13 @@ fun RiskByHeightBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier)
                     modifier = Modifier.wrapContentSize()
                 )
             }, bottomText = "Alpine", riskView = {
+
+                val a = viewState.riskLevelAlpine.name
                 RectangleView(
                     canvasWidth = (182f * layoutConfig.canvasScale).dp,
                     canvasHeight = (50f * layoutConfig.canvasScale).dp,
-                    content = { StyledPyramidText("Moderate") },
+                    color = viewState.riskLevelAlpine.toColor(),
+                    content = { StyledPyramidText(text = viewState.riskLevelAlpine.name) },
                     modifier = Modifier
                 )
             },
@@ -91,7 +101,8 @@ fun RiskByHeightBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier)
                     canvasWidth = (212f * layoutConfig.canvasScale).dp,
                     canvasHeight = (50f * layoutConfig.canvasScale).dp,
                     needCorrectionX = true,
-                    content = { StyledPyramidText("Moderate") },
+                    color = viewState.riskLevelSubAlpine.toColor(),
+                    content = { StyledPyramidText(text = viewState.riskLevelSubAlpine.name) },
                 )
             },
             layoutConfig = layoutConfig,
@@ -109,12 +120,11 @@ fun RiskByHeightBlock(layoutConfig: LayoutConfig, modifier: Modifier = Modifier)
         }
     }
 }
-
 @Composable
 private fun RiskRow(
     layoutConfig: LayoutConfig,
     bottomText: String,
-    modifier: Modifier= Modifier,
+    modifier: Modifier = Modifier,
     riskView: @Composable RowScope.() -> Unit,
     topText: @Composable ColumnScope.() -> Unit
 ) {

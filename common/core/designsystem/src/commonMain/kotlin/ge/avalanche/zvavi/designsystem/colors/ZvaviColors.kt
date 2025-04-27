@@ -39,6 +39,7 @@ class ZvaviColors(
     val contentStaticDarkSecondary: ZvaviColor,
 
 // Background
+    val backgroundAttentionHigh: ZvaviColor,
     val backgroundNeutralHigh: ZvaviColor,
     val backgroundBrandHigh: ZvaviColor,
     val backgroundPositiveHigh: ZvaviColor,
@@ -117,7 +118,7 @@ val DarkColors = ZvaviColors(
     backgroundNeutralHigh = DarkPalette.goose500,
     backgroundBrandHigh = DarkPalette.brand500,
 
-//    backgroundAttentionHigh = darkPalette.attention500
+    backgroundAttentionHigh = DarkPalette.attention500,
     backgroundPositiveHigh = DarkPalette.absinthe500,
     backgroundWarningHigh = DarkPalette.prosecco500,
     backgroundNegativeHigh = DarkPalette.negroni500,
@@ -198,7 +199,7 @@ val LightColors = ZvaviColors(
 // Background
     backgroundNeutralHigh = LightPalette.goose900,
     backgroundBrandHigh = LightPalette.brand500,
-//        backgroundAttentionHigh = LightPalette.attention500
+    backgroundAttentionHigh = LightPalette.attention500,
     backgroundPositiveHigh = LightPalette.absinthe500,
     backgroundWarningHigh = LightPalette.prosecco500,
     backgroundNegativeHigh = LightPalette.negroni500,

@@ -24,20 +24,24 @@ val logger = Logger.withTag("ApiClient")
         path: String,
         crossinline block: HttpRequestBuilder.() -> Unit = {}
     ): ApiResponse<List<T>> = try {
+        logger.d { "Making network request to: ${networkConfig.baseUrl}$path" }
         withTimeout(networkConfig.connectTimeout) {
             val response = httpClient.request("${networkConfig.baseUrl}$path") {
                 this.method = method
                 block()
             }
 
+            logger.d { "Received response with status: ${response.status.value}" }
             when {
                 response.status.isSuccess() -> {
                     try {
-                        val data = json.decodeFromString<List<T>>(response.bodyAsText())
-                        Logger.d { "Parsed list response: $data" }
+                        val responseText = response.bodyAsText()
+                        logger.d { "Response body: $responseText" }
+                        val data = json.decodeFromString<List<T>>(responseText)
+                        logger.d { "Successfully parsed response: $data" }
                         ApiResponse.Success(data, response.status.value)
                     } catch (e: Exception) {
-                        logger.e(e) { "Failed to parse list response" }
+                        logger.e(e) { "Failed to parse response: ${e.message}" }
                         ApiResponse.Error(
                             response.status.value,
                             "Failed to parse response",
@@ -46,9 +50,9 @@ val logger = Logger.withTag("ApiClient")
                         )
                     }
                 }
-
                 else -> {
                     val errorMessage = response.bodyAsText()
+                    logger.e { "HTTP error: ${response.status.value}, message: $errorMessage" }
                     ApiResponse.Error(
                         response.status.value,
                         "HTTP error",
@@ -58,7 +62,7 @@ val logger = Logger.withTag("ApiClient")
             }
         }
     } catch (e: Exception) {
-        logger.e(e) { "Network request failed" }
+        logger.e(e) { "Network request failed: ${e.message}" }
         ApiResponse.Error(0, e.message ?: "Unknown error", null, e)
     }
 }
