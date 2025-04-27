@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.PentagonView
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.RectangleView
+import ge.avalanche.zvavi.bulletin.presentation.screen.PentagonView
+import ge.avalanche.zvavi.bulletin.presentation.screen.RectangleView
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toColor
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing

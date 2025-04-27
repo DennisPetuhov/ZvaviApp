@@ -13,7 +13,6 @@ import ge.avalanche.zvavi.foundation.response.onError
 import ge.avalanche.zvavi.foundation.response.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -35,10 +34,18 @@ class BulletinRepositoryImpl(
                 .onSuccess { bulletinApis ->
                     // 3. Process remote data
                     bulletinApis.firstOrNull()?.let { bulletinApi ->
+                        logger.d { "Received bulletin from remote: $bulletinApi" }
                         // 4. Save to local database and wait for completion
                         withContext(dispatchers.io) {
-                            localDataSource.saveBulletin(bulletinApi.toEntity())
+                            try {
+                                localDataSource.saveBulletin(bulletinApi.toEntity())
+                                logger.d { "Successfully saved bulletin to local database" }
+                            } catch (e: Exception) {
+                                logger.e(e) { "Failed to save bulletin to local database" }
+                            }
                         }
+                    } ?: run {
+                        logger.w { "No bulletin data received from remote" }
                     }
                 }
                 .onError { code, message, details, exception ->
@@ -49,20 +56,22 @@ class BulletinRepositoryImpl(
         }
     }
 
-    override suspend fun observeBulletin(): Flow<Bulletin> =flow {
-        // 5. Always emit from local after remote operation (success or failure)
-        localDataSource.getBulletins()
+    override suspend fun observeBulletin(): Flow<Bulletin> {
+        logger.d { "Starting observeBulletin flow" }
+        return localDataSource.getBulletins()
             .map { entities ->
-                entities.firstOrNull()?.toDomain()
+                logger.d { "Emitting bulletin from local: $entities" }
+                if (entities.isEmpty()) {
+                    logger.w { "No entities found in local database" }
+                }
+                entities.lastOrNull()?.toDomain()
                     ?: throw NoDataException("No bulletin data available in local database")
             }
-            .collect { bulletin ->
-                emit(bulletin)
+            .flowOn(dispatchers.io)
+            .catch { e ->
+                logger.e(e) { "Error in getBulletin flow" }
+                throw e
             }
-    }.flowOn(dispatchers.io)
-    .catch { e ->
-        logger.e(e) { "Error in getBulletin flow" }
-        throw e
     }
 }
 
