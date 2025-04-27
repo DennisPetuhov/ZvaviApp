@@ -21,6 +21,7 @@ fun getDatabaseBuilder(
         name = databaseFile.absolutePath
     ).apply {
         setDriver(BundledSQLiteDriver())
-            .setQueryCoroutineContext(dispatchers.io)
+        setQueryCoroutineContext(dispatchers.io)
+        fallbackToDestructiveMigration(dropAllTables = true)
     }
 } 

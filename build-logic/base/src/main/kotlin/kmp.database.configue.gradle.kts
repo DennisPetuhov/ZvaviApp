@@ -1,6 +1,5 @@
 import extensions.libs
 
-
 plugins {
     id("kmp.base.config")
     id("com.google.devtools.ksp")
@@ -28,8 +27,4 @@ dependencies {
     add("kspIosSimulatorArm64", libs.room.compiler)
     add("kspJvm", libs.room.compiler)
 }
-
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
+room { schemaDirectory("$projectDir/schemas") }

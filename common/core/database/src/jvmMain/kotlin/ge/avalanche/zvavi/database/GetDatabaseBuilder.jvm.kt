@@ -11,11 +11,12 @@ fun getDatabaseBuilder(dispatchers: DispatchersProvider): RoomDatabase.Builder<Z
     return Room.databaseBuilder<ZvaviDatabase>(
         name = dbFile.absolutePath
     ).apply {
-        fallbackToDestructiveMigration(true)
-            setDriver(BundledSQLiteDriver())
+        setDriver(BundledSQLiteDriver())
         setQueryCoroutineContext(dispatchers.io)
+        fallbackToDestructiveMigration(dropAllTables = true)
     }
 }
+
 fun getDatabase(dispatchers: DispatchersProvider): ZvaviDatabase {
     return getDatabaseBuilder(dispatchers).build()
 }

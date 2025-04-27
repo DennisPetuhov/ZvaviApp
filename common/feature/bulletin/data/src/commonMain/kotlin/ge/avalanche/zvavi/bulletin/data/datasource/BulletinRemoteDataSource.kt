@@ -1,7 +1,5 @@
 package ge.avalanche.zvavi.bulletin.data.datasource
 
-import co.touchlab.kermit.Logger
-import ge.avalanche.zvavi.bulletin.api.network.models.Bulletin
 import ge.avalanche.zvavi.foundation.response.ApiResponse
 import ge.avalanche.zvavi.network.client.ApiClient
 import ge.avalanche.zvavi.network.models.BulletinApi

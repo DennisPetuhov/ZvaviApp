@@ -25,8 +25,9 @@ private fun getTan30(): Float = tan(toRadians(30.0)).toFloat()
 
 @Composable
 internal fun PentagonView(
-    canvasWidth: Dp = 225.dp,
-    canvasHeight: Dp = 150.dp,
+    canvasWidth: Dp,
+    canvasHeight: Dp,
+    color: Color,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = {}
 ) {
@@ -57,7 +58,7 @@ internal fun PentagonView(
                 lineTo(e.x, e.y)
                 close()
             }
-            drawPath(path = path, color = Color.Red)
+            drawPath(path = path, color = color)
         }
         Box(
             modifier = Modifier
@@ -73,6 +74,7 @@ internal fun PentagonView(
 internal fun RectangleView(
     canvasWidth: Dp,
     canvasHeight: Dp,
+    color: Color,
     needCorrectionX: Boolean = false,
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -104,7 +106,7 @@ internal fun RectangleView(
                 close()
             }
 
-            drawPath(path = path, color = Color.Yellow)
+            drawPath(path = path, color = color)
         }
 
         Box(

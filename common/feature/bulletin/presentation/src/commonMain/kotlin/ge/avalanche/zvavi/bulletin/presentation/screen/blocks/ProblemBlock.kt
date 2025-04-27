@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.screen.boards.ZvaviProblemBoard
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -20,7 +21,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 fun ProblemBlock(
     layoutConfig: LayoutConfig,
     modifier: Modifier = Modifier,
-    onProblemClick: () -> Unit = {}
+    eventHandler: (BulletinEvent) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),        // fix after network implementation
@@ -51,17 +52,18 @@ fun ProblemBlock(
             ZvaviProblemBoard(
                 text = "Persistent slab",
                 layoutConfig = layoutConfig,
-                onClick = { onProblemClick() }
+                onClick = {
+                    eventHandler.invoke(BulletinEvent.AvalancheProblemsClicked)}
             )
             ZvaviProblemBoard(
                 text = "Wind slab",
                 layoutConfig = layoutConfig,
-                onClick = { onProblemClick() }
+                onClick = { eventHandler.invoke(BulletinEvent.AvalancheProblemsClicked) }
             )
             ZvaviProblemBoard(
                 text = "Wet loose",
                 layoutConfig = layoutConfig,
-                onClick = { onProblemClick() }
+                onClick = {eventHandler.invoke(BulletinEvent.AvalancheProblemsClicked) }
             )
         }
     }

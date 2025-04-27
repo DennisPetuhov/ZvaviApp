@@ -2,7 +2,18 @@ package ge.avalanche.zvavi.designsystem.boards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,11 +29,18 @@ import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
+import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
+
+interface ZvaviDashboardEvent {
+    object InfoClicked : ZvaviDashboardEvent
+}
 
 @Composable
 fun ZvaviDashboard(
-    name: String = "Size and distribution",
-    mainBlock: @Composable () -> Unit,
+    name: String,
+    eventHandler: (ZvaviDashboardEvent) -> Unit,
+    mainBlock: @Composable BoxScope. () -> Unit,
+    layoutConfig: LayoutConfig,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -39,14 +57,14 @@ fun ZvaviDashboard(
             .background(ZvaviTheme.colors.layerFloor1)
             .padding(
                 vertical = ZvaviSpacing.spacing350,
-                horizontal = ZvaviSpacing.spacing200
+                horizontal = layoutConfig.contentCompensation
             )
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing300),
             modifier = Modifier.fillMaxSize()
         ) {
-            DashboardHeader(name = name)
+            DashboardHeader(name = name, eventHandler = eventHandler)
             Box(
                 contentAlignment = Alignment.TopStart,
                 modifier = Modifier.fillMaxSize()
@@ -58,7 +76,10 @@ fun ZvaviDashboard(
 }
 
 @Composable
-private fun DashboardHeader(name: String) {
+private fun DashboardHeader(
+    name: String,
+    eventHandler: (ZvaviDashboardEvent) -> Unit
+) {
     Row(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -76,15 +97,15 @@ private fun DashboardHeader(name: String) {
                 .padding(vertical = ZvaviSpacing.spacing100)
         )
         IconButton(
-            onClick = {},
+            onClick = { eventHandler(ZvaviDashboardEvent.InfoClicked) },
             modifier = Modifier.size(ZvaviSize.size150).weight(0.1f)
         ) {
-//            Icon(
-//                imageVector = ZvaviIcons.InfoIcon,
-//                contentDescription = "Info",
-//                tint = ZvaviTheme.colors.contentNeutralTertiary,
-//                modifier = Modifier.size(16.dp)
-//            )
+            Icon(
+                imageVector = ZvaviIcons.InfoIcon,
+                contentDescription = "Info",
+                tint = ZvaviTheme.colors.contentNeutralTertiary,
+                modifier = Modifier.size(16.dp)
+            )
         }
     }
 }

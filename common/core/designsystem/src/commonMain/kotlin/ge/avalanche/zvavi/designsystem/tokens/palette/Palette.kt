@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color as ZvaviColor
 
 val LightPalette = ZvaviPalette(
+    attention500 = ZvaviColor(0xFEF4E04D),
     brand100 = ZvaviColor(0xFE7E2FD),
     brand200 = ZvaviColor(0xFFC1B5F4),
     brand300 = ZvaviColor(0xFF9D8AEA),
@@ -72,6 +73,7 @@ val LightPalette = ZvaviPalette(
 )
 
 val DarkPalette = ZvaviPalette(
+    attention500 = ZvaviColor(0xFFFCE64A),
     brand100 = ZvaviColor(0xFE7E2FD),
     brand200 = ZvaviColor(0xFFC1B3FC),
     brand300 = ZvaviColor(0xFF9B84FC),
@@ -142,6 +144,7 @@ val DarkPalette = ZvaviPalette(
 
 @Immutable
 class ZvaviPalette(
+    val attention500: ZvaviColor,
     val brand100: ZvaviColor,
     val brand200: ZvaviColor,
     val brand300: ZvaviColor,

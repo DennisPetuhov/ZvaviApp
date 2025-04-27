@@ -1,5 +1,6 @@
 package ge.avalanche.zvavi.bulletin.data.datasource
 
+import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.database.dao.BulletinDao
 import ge.avalanche.zvavi.database.entities.BulletinEntity
 import kotlinx.coroutines.flow.Flow
@@ -14,10 +15,31 @@ interface BulletinLocalDataSource {
 class BulletinLocalDataSourceImpl(
     val bulletinDao: BulletinDao
 ) : BulletinLocalDataSource {
-    override suspend fun getBulletins(): Flow<List<BulletinEntity>> = bulletinDao.getBulletins()
-    override suspend fun saveBulletin(bulletins: BulletinEntity) =
-        bulletinDao.insertBulletins(bulletins)
+    private val logger = Logger.withTag("BulletinLocalDataSource")
 
-    override suspend fun clearBulletins() = bulletinDao.clearBulletins()
-    override suspend fun getBulletinById(id: Int): BulletinEntity? = bulletinDao.getBulletinById(id)
+    override suspend fun getBulletins(): Flow<List<BulletinEntity>> {
+        logger.d { "Getting bulletins from database" }
+        return bulletinDao.getBulletins()
+    }
+
+    override suspend fun saveBulletin(bulletins: BulletinEntity) {
+        logger.d { "Saving bulletin to database: $bulletins" }
+        try {
+            bulletinDao.insertBulletins(bulletins)
+            logger.d { "Successfully saved bulletin to database" }
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to save bulletin to database: ${e.message}" }
+            throw e
+        }
+    }
+
+    override suspend fun clearBulletins() {
+        logger.d { "Clearing bulletins from database" }
+        bulletinDao.clearBulletins()
+    }
+
+    override suspend fun getBulletinById(id: Int): BulletinEntity? {
+        logger.d { "Getting bulletin by id: $id" }
+        return bulletinDao.getBulletinById(id)
+    }
 }

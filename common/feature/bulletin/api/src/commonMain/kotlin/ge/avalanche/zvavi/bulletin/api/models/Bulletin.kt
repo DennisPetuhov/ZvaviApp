@@ -1,7 +1,4 @@
-package ge.avalanche.zvavi.bulletin.api.network.models
-
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+package ge.avalanche.zvavi.bulletin.api.models
 
 data class Bulletin(
     val id: Int,

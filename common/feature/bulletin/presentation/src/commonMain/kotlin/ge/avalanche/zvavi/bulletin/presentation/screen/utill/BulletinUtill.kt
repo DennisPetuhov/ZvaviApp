@@ -2,17 +2,16 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.utill
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
-import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
@@ -29,5 +28,29 @@ fun StyledPyramidText(text: String) {
             text,
             style = ZvaviTheme.typography.compact300Numeric.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
         )
+    }
+}
+
+
+@Composable
+fun AvalancheRiskLevel.toColor(): Color {
+    return when (this) {
+        AvalancheRiskLevel.GENERAL_INFORMATION -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
+        AvalancheRiskLevel.LOW -> Color(ZvaviTheme.colors.backgroundAttentionHigh.value)
+        AvalancheRiskLevel.MODERATE -> Color(ZvaviTheme.colors.backgroundPositiveHigh.value)
+        AvalancheRiskLevel.CONSIDERABLE -> Color(ZvaviTheme.colors.backgroundWarningHigh.value)
+        AvalancheRiskLevel.HIGH -> Color(ZvaviTheme.colors.backgroundNegativeHigh.value)
+        AvalancheRiskLevel.EXTREME -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
+    }
+}
+@Composable
+fun AvalancheRiskLevel.toTravelAdvice(): String {
+    return when (this) {
+        AvalancheRiskLevel.GENERAL_INFORMATION -> ""
+        AvalancheRiskLevel.LOW ->"Generally safe. Watch for unstable snow on isolate terrain features"
+        AvalancheRiskLevel.MODERATE -> "Heightened avalanche conditions on specific terrain features. Evaluates snow and terrain carefully. Identify features of concern."
+        AvalancheRiskLevel.CONSIDERABLE -> "Dangerous avalanche conditions.Careful snowpack evaluation, cautious route-finding, and conservative decision-making essential."
+        AvalancheRiskLevel.HIGH -> "Very Dangerous avalanche conditions.  Avoid all avalanche terrain."
+        AvalancheRiskLevel.EXTREME ->"Avoid all avalanche terrain."
     }
 }

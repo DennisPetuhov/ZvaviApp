@@ -1,12 +1,13 @@
 package ge.avalanche.zvavi.bulletin.data.di
 
-import ge.avalanche.zvavi.bulletin.api.BulletinRepository
+import ge.avalanche.zvavi.bulletin.api.models.BulletinRepository
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSourceImpl
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSourceImpl
 import ge.avalanche.zvavi.bulletin.data.repository.BulletinRepositoryImpl
-import ge.avalanche.zvavi.bulletin.data.usecase.GetBulletinUseCase
+import ge.avalanche.zvavi.bulletin.data.domain.usecase.FetchBulletinUseCase
+import ge.avalanche.zvavi.bulletin.data.domain.usecase.ObserveBulletinUseCase
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import ge.avalanche.zvavi.network.client.ApiClient
 import ge.avalanche.zvavi.database.dao.BulletinDao
@@ -30,9 +31,16 @@ val bulletinDataModule = module {
             dispatchers = get<DispatchersProvider>()
         )
     }
-    single<GetBulletinUseCase> {
-        GetBulletinUseCase(
-            repository = get()
+    single<FetchBulletinUseCase> {
+        FetchBulletinUseCase(
+            repository = get(),
+            dispatchers = get<DispatchersProvider>()
+        )
+    }
+    single<ObserveBulletinUseCase> {
+        ObserveBulletinUseCase(
+            repository = get(),
+            dispatchers = get<DispatchersProvider>()
         )
     }
 }
