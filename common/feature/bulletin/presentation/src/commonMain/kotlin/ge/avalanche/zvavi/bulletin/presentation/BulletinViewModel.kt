@@ -30,6 +30,7 @@ class BulletinViewModel(
 
     init {
         observeBulletinData()
+        observeBulletinData()
     }
 
     override fun obtainEvent(viewEvent: BulletinEvent) {
@@ -40,9 +41,12 @@ class BulletinViewModel(
             BulletinEvent.TravelAdviceClicked -> handleTravelAdviceClick()
             BulletinEvent.OverviewClicked -> handleOverviewClick()
             BulletinEvent.SwipeToRefresh -> retryFetchBulletin()
-            BulletinEvent.AvalancheProblemsClicked -> {        viewModelScope.launch{ fetchBulletinUseCase.execute() }}
+            BulletinEvent.AvalancheProblemsClicked -> {
+                fetchBulletin()
+            }
+
             BulletinEvent.InfoClicked -> {
-                viewModelScope.launch{ fetchBulletinUseCase.execute() }
+                viewModelScope.launch { fetchBulletinUseCase.execute() }
             }
         }
     }
@@ -69,9 +73,18 @@ class BulletinViewModel(
         bulletinJob = viewModelScope.launch {
             viewState = viewState.copy(loading = true, error = null)
 
-            val a = observeBulletinUseCase.execute()
+            // First try to fetch new data
+            try {
+                fetchBulletinUseCase.execute()
+                logger.d { "Successfully fetched bulletin data" }
+            } catch (e: Exception) {
+                logger.e(e) { "Error fetching bulletin data" }
+            }
+
+            // Then observe the data flow
+            observeBulletinUseCase.execute()
                 .onEach { bulletin ->
-                    println("database in view model" + bulletin.toString())
+                    logger.d { "Received bulletin from database: $bulletin" }
                     viewState = viewState.copy(
                         loading = false,
                         error = null,
@@ -82,7 +95,10 @@ class BulletinViewModel(
                         riskLevelAlpine = bulletin.hazardLevels.alpine,
                         riskLevelSubAlpine = bulletin.hazardLevels.subAlpine,
                         snowpack = bulletin.snowpack,
-                        weather = bulletin.weather
+                        weather = bulletin.weather,
+                        topTriangleColor = bulletin.hazardLevels.highAlpine,
+                        middleTriangleColor =  bulletin.hazardLevels.highAlpine,
+                        bottomTriangleColor = bulletin.hazardLevels.highAlpine,
                     )
                     // Reset retry count on success
                     retryCount = 0
@@ -90,8 +106,7 @@ class BulletinViewModel(
                 .catch { e ->
                     logger.e(e) { "Error in BulletinViewModel" }
                     handleError(e)
-                }
-                .launchIn(this)
+                }.launchIn(this)
         }
     }
 

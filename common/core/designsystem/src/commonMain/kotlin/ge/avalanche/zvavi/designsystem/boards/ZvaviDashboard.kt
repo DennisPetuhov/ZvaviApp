@@ -29,6 +29,7 @@ import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
+import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 interface ZvaviDashboardEvent {
     object InfoClicked : ZvaviDashboardEvent
@@ -39,6 +40,7 @@ fun ZvaviDashboard(
     name: String,
     eventHandler: (ZvaviDashboardEvent) -> Unit,
     mainBlock: @Composable BoxScope. () -> Unit,
+    layoutConfig: LayoutConfig,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -55,7 +57,7 @@ fun ZvaviDashboard(
             .background(ZvaviTheme.colors.layerFloor1)
             .padding(
                 vertical = ZvaviSpacing.spacing350,
-                horizontal = ZvaviSpacing.spacing200
+                horizontal = layoutConfig.contentCompensation
             )
     ) {
         Column(

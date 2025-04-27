@@ -15,8 +15,12 @@ data class BulletinViewState(
     val snowpack: String = "WOWOWO",
     val weather: String = "WOWOWOOWOWOWO",
     val loading: Boolean = false,
-    val error: String? = null
-) {
+    val error: String? = null,
+    val topTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
+    val middleTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
+    val bottomTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
+
+    ) {
     companion object {
         val EMPTY = BulletinViewState()
     }
