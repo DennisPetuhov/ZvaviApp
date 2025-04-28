@@ -55,21 +55,21 @@ fun AvalanchesSnowpackWeatherBlock(
             fieldName = ("Recent avalanches"),
             isExpanded = expandedStateAvalanche,
             onExpandedChange = { expandedStateAvalanche = it },
-            information = viewState.recentAvalanches.toString(),
+            information = { Text(text = viewState.recentAvalanches.toString()) },
             modifier = modifier
         )
         ZvaviExpandableText(
             fieldName = "Snowpack",
             isExpanded = expandedStateSnowPack,
             onExpandedChange = { expandedStateSnowPack = it },
-            information = viewState.snowpack,
+            information = { Text(text = viewState.snowpack) },
             modifier = modifier
         )
         ZvaviExpandableText(
             fieldName = "Weather",
             isExpanded = expandedStateWeather,
             onExpandedChange = { expandedStateWeather = it },
-            information = viewState.weather,
+            information = { Text(text = viewState.weather) },
             modifier = modifier
         )
     }
@@ -80,7 +80,7 @@ fun ZvaviExpandableText(
     fieldName: String,
     isExpanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
-    information: String,
+    information: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -104,7 +104,6 @@ fun ZvaviExpandableText(
                 style = ZvaviTheme.typography.compact300Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                 modifier = Modifier.weight(1f)
             )
-
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowDown,
                 contentDescription = if (isExpanded) "collapse" else "expanded",
@@ -121,11 +120,7 @@ fun ZvaviExpandableText(
                 modifier = Modifier
                     .fillMaxWidth().padding(horizontal = 8.dp, vertical = 8.dp)
             ) {
-                Text(
-                    text = information,
-                    style = ZvaviTheme.typography.text300Default,
-                    color = ZvaviTheme.colors.contentNeutralPrimary
-                )
+                information.invoke()
             }
         }
     }
