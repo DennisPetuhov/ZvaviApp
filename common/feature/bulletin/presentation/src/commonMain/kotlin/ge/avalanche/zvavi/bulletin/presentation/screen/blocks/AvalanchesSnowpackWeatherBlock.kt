@@ -26,15 +26,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @Composable
-fun AvalanchesSnowpackWeatherBlock(layoutConfig: LayoutConfig, modifier: Modifier= Modifier) {
+fun AvalanchesSnowpackWeatherBlock(
+    layoutConfig: LayoutConfig,
+    viewState: BulletinViewState,
+    modifier: Modifier = Modifier
+) {
     var expandedStateAvalanche by remember { mutableStateOf(false) }
-    var expandedStateSnowPack by remember { mutableStateOf(false) }
+    var expandedStateSnowPack by remember { mutableStateOf(true) }
     var expandedStateWeather by remember { mutableStateOf(false) }
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
@@ -45,31 +51,28 @@ fun AvalanchesSnowpackWeatherBlock(layoutConfig: LayoutConfig, modifier: Modifie
                 end = layoutConfig.contentCompensation
             )
     ) {
-
         ZvaviExpandableText(
             fieldName = ("Recent avalanches"),
             isExpanded = expandedStateAvalanche,
             onExpandedChange = { expandedStateAvalanche = it },
-            recentInformation = { },
+            information = { Text(text = viewState.recentAvalanches.toString()) },
             modifier = modifier
         )
         ZvaviExpandableText(
             fieldName = "Snowpack",
             isExpanded = expandedStateSnowPack,
             onExpandedChange = { expandedStateSnowPack = it },
-            recentInformation = { },
+            information = { Text(text = viewState.snowpack) },
             modifier = modifier
         )
         ZvaviExpandableText(
             fieldName = "Weather",
             isExpanded = expandedStateWeather,
             onExpandedChange = { expandedStateWeather = it },
-            recentInformation = { },
+            information = { Text(text = viewState.weather) },
             modifier = modifier
         )
-
     }
-
 }
 
 @Composable
@@ -77,7 +80,7 @@ fun ZvaviExpandableText(
     fieldName: String,
     isExpanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
-    recentInformation: @Composable () -> Unit,
+    information: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -85,14 +88,13 @@ fun ZvaviExpandableText(
         targetValue = if (isExpanded) ZvaviAngle.angle0 else ZvaviAngle.angleMinus90,
         label = ""
     )
-
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
             .fillMaxWidth()
             .clickable(interactionSource, null) { onExpandedChange(!isExpanded) }
             .wrapContentHeight()
-            .padding(vertical =ZvaviSpacing.spacing150 )
+            .padding(vertical = ZvaviSpacing.spacing150)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -104,7 +106,7 @@ fun ZvaviExpandableText(
             )
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowDown,
-                contentDescription = if (isExpanded) "colapse" else "expanded",
+                contentDescription = if (isExpanded) "collapse" else "expanded",
                 tint = ZvaviTheme.colors.contentNeutralTertiary,
                 modifier = Modifier.graphicsLayer(rotationZ = rotationAngle.value)
             )
@@ -116,9 +118,9 @@ fun ZvaviExpandableText(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
+                    .fillMaxWidth().padding(horizontal = 8.dp, vertical = 8.dp)
             ) {
+                information.invoke()
             }
         }
     }

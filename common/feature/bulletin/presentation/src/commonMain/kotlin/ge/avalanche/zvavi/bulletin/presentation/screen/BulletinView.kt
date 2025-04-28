@@ -77,6 +77,6 @@ private fun ContentBlocks(
             eventHandler = eventHandler,
             layoutConfig = layoutConfig
         )
-        AvalanchesSnowpackWeatherBlock(layoutConfig)
+        AvalanchesSnowpackWeatherBlock(layoutConfig, viewState = viewState)
     }
 }

@@ -24,7 +24,13 @@ val networkModule = module {
     single { NetworkConfig.createDefault() }
     single { provideJson() }
     single<HttpClientEngineFactory<HttpClientEngineConfig>> { HttpEngineFactory().getEngine() }
-    single { provideClient(config = get(), json = get(), engine = get()) }
+    single {
+        provideClient(
+            config = get(),
+            json = get(),
+            engine = get<HttpClientEngineFactory<HttpClientEngineConfig>>()
+        )
+    }
     single {
         ApiClient(
             json = get(),
