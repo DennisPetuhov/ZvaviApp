@@ -28,7 +28,8 @@ val bulletinDataModule = module {
         BulletinRepositoryImpl(
             remoteDataSource = get(),
             localDataSource = get(),
-            dispatchers = get<DispatchersProvider>()
+            dispatchers = get<DispatchersProvider>(),
+            dao = get<BulletinDao>()
         )
     }
     single<FetchBulletinUseCase> {
