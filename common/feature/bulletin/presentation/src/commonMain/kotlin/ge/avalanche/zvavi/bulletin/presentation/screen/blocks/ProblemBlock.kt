@@ -2,7 +2,9 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.blocks
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
@@ -12,9 +14,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.screen.boards.ZvaviProblemBoard
-import ge.avalanche.zvavi.bulletin.presentation.screen.bottomsheet.AvalancheProblemsBottomSheet
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
@@ -74,8 +76,7 @@ fun ProblemBlock(
     if (showBottomSheet) {
         AvalancheProblemsBottomSheet(
             layoutConfig = layoutConfig,
-            onDismiss = { showBottomSheet = false },
-            eventHandler = eventHandler
+            onDismiss = { showBottomSheet = false }
         )
     }
 }
