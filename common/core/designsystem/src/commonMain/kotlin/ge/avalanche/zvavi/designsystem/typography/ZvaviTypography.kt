@@ -638,10 +638,10 @@ object ZvaviFont {
 }
 
 @Composable
-fun brand() = Font(Res.font.noto_sans_regular)
+internal fun brand() = Font(Res.font.noto_sans_regular)
 
 @Composable
-fun text() = Font(Res.font.noto_sans_regular)
+internal fun text() = Font(Res.font.noto_sans_regular)
 
 @Immutable
 object ZvaviFontSize {
