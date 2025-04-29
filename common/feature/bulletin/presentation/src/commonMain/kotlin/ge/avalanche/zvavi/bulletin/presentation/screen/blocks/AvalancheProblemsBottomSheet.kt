@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.CompassOctagon
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.WideSpread
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -53,6 +55,9 @@ fun AvalancheProblemsBottomSheet(
                 color = ZvaviTheme.colors.contentNeutralPrimary,
                 modifier = Modifier.padding(bottom = ZvaviSpacing.spacing300)
             )
+
+            CompassOctagon()
+            WideSpread().RedCirclesGrid()
             // Add your problem details here
             Text(
                 text = "Persistent slab",
@@ -74,4 +79,4 @@ fun AvalancheProblemsBottomSheet(
             )
         }
     }
-} 
+}
