@@ -10,6 +10,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation("org.jetbrains.skiko:skiko:0.8.18")
+
                 implementation(project(":common:core:foundation"))
                 implementation(project(":common:core:designsystem"))
                 implementation(project(":common:core:network"))
