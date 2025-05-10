@@ -14,6 +14,8 @@ import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
+import kotlin.math.PI
+import kotlin.math.tan
 
 @Composable
 fun StyledPyramidText(text: String) {
@@ -54,3 +56,7 @@ fun AvalancheRiskLevel.toTravelAdvice(): String {
         AvalancheRiskLevel.EXTREME ->"Avoid all avalanche terrain."
     }
 }
+
+internal fun toRadians(degree: Double): Double = degree * (PI / 180)
+
+internal fun getTan45(): Float = tan(toRadians(45.0)).toFloat()

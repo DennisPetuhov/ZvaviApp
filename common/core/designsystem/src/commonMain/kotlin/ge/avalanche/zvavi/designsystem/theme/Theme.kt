@@ -52,7 +52,7 @@ fun AppTheme(
         ProvideLayoutConfig(productType = productType) {
             Surface(
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .fillMaxSize()
                     .width(ProductDimensions.getWidth(productType, getCurrentScreenSize()))
             ) {
                 println("***** ${getCurrentScreenSize()}")
