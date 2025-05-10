@@ -26,12 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ColoredCirclesGrid
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemAspectElevation
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemSensitivity
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemTimeOfDay
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemTrend
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ZvaviProblemSize
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.ColoredCirclesGrid
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.Octagon
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.ProblemAspectElevation
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.ProblemSensitivity
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.ProblemTimeOfDay
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.ProblemTrend
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.ZvaviProblemSize
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -183,7 +184,10 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 layoutConfig = layoutConfig,
                 modifier = Modifier
                     .weight(1f, fill = false)
-            ) { ProblemAspectElevation(modifier = Modifier.align(Alignment.TopCenter)) }
+            ) {
+//                ProblemAspectElevation()
+                Octagon()
+            }
 
         }
         Row(

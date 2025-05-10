@@ -40,7 +40,7 @@ fun OverallRisksBlock(
                 Text(
                     text = viewState.riskLevelOverall.toTravelAdvice(),
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
-                    maxLines = 5,
+                    maxLines = 6,
                 )
             },
             eventHandler = { event ->
@@ -63,7 +63,7 @@ fun OverallRisksBlock(
                 Text(
                     text = viewState.overallInformation,
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
-                    maxLines = 5,
+                    maxLines = 6,
                 )
             },
             eventHandler = { event ->
