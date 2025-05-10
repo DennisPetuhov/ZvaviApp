@@ -3,6 +3,7 @@ package ge.avalanche.zvavi.bulletin.presentation.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -61,7 +62,7 @@ fun RiskBoard(
         }
         Image(
             imageVector = avalancheRiskLevel,
-            contentDescription = "danger level 4",
+            contentDescription = "danger level",
             modifier = Modifier.weight(1f, fill = false).aspectRatio(1f)
         )
     }
