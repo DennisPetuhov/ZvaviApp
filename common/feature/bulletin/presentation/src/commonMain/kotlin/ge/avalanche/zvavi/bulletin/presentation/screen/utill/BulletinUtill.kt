@@ -45,26 +45,18 @@ fun AvalancheRiskLevel.toColor(): Color {
         AvalancheRiskLevel.EXTREME -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
     }
 }
-
 @Composable
 fun AvalancheRiskLevel.toTravelAdvice(): String {
     return when (this) {
         AvalancheRiskLevel.GENERAL_INFORMATION -> ""
-        AvalancheRiskLevel.LOW -> "Generally safe. Watch for unstable snow on isolate terrain features"
+        AvalancheRiskLevel.LOW ->"Generally safe. Watch for unstable snow on isolate terrain features"
         AvalancheRiskLevel.MODERATE -> "Heightened avalanche conditions on specific terrain features. Evaluates snow and terrain carefully. Identify features of concern."
         AvalancheRiskLevel.CONSIDERABLE -> "Dangerous avalanche conditions.Careful snowpack evaluation, cautious route-finding, and conservative decision-making essential."
         AvalancheRiskLevel.HIGH -> "Very Dangerous avalanche conditions.  Avoid all avalanche terrain."
-        AvalancheRiskLevel.EXTREME -> "Avoid all avalanche terrain."
+        AvalancheRiskLevel.EXTREME ->"Avoid all avalanche terrain."
     }
 }
 
 internal fun toRadians(degree: Double): Double = degree * (PI / 180)
 
 internal fun getTan45(): Float = tan(toRadians(45.0)).toFloat()
-
-object CompassRules {
-    const val SEGMENT_ANGLE = 45.0
-    const val NORTH_OFFSET = 5f
-    val LABELS = listOf("N", "NE", "E", "SE", "S", "SW", "W", "NW")
-    val PRIMARY_INDICES = setOf(1, 3, 5, 6)
-}
