@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
-import ge.avalanche.zvavi.bulletin.presentation.screen.RiskBoard
+import ge.avalanche.zvavi.bulletin.presentation.screen.boards.RiskBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent

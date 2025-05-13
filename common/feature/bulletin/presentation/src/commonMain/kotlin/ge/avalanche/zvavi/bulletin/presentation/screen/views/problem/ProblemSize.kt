@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.bulletin.presentation.screen.views
+package ge.avalanche.zvavi.bulletin.presentation.screen.views.problem
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -19,27 +19,33 @@ import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.getTan45
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
-
-private val CANVAS_SIZE: Dp = 96.dp
+private val CANVAS_SIZE_DP: Dp = 96.dp
+private  val DEFAULT_GAP_DP: Dp = 4.dp
+private const val DEFAULT_QUANTITY: Int = 5
 
 @Composable
 fun ZvaviProblemSize(
     color: Color = ZvaviTheme.colors.backgroundBrandHigh,
     modifier: Modifier = Modifier,
 ) {
-    Box(contentAlignment = Alignment.CenterEnd,
-        modifier = modifier.size(CANVAS_SIZE)) {
-        Canvas(
-            modifier = Modifier.size(CANVAS_SIZE)
-        ) {
+    Box(
+        contentAlignment = Alignment.CenterEnd,
+        modifier = modifier.size(CANVAS_SIZE_DP)
+    ) {
+        Canvas(modifier = Modifier.size(CANVAS_SIZE_DP)) {
             val problemSizeShape = ProblemSizeShape()
             drawPath(
-                problemSizeShape.drawFirstLevel(size = size, color = color, density= this,quantity = 5),
+                problemSizeShape.drawFirstLevel(
+                    size = size,
+                    color = color,
+                    quantity = DEFAULT_QUANTITY,
+                    density = this
+                ),
                 color = color
             )
             problemSizeShape.drawOtherLevels(
                 size = size,
-                quantity = 5,
+                quantity = DEFAULT_QUANTITY,
                 density = this
             ).forEach { path ->
                 drawPath(path = path, color = color, style = Fill)
@@ -48,29 +54,26 @@ fun ZvaviProblemSize(
     }
 }
 
-
 class ProblemSizeShape : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
         density: Density
-    ): Outline {
-        return Outline.Generic(Path())
-    }
+    ): Outline = Outline.Generic(Path())
 
     fun drawFirstLevel(
         size: Size,
         color: Color,
         quantity: Int,
         density: Density,
-        gap: Dp = 4.dp
+        gap: Dp = DEFAULT_GAP_DP
     ): Path {
-
         val gapPx = with(density) { gap.toPx() }
         val totalGap = gapPx * (quantity - 1)
         val minDimension: Float = size.minDimension
         val levelWidth = (minDimension - totalGap) / quantity
         val x = levelWidth
+        
         return Path().apply {
             moveTo(0f, minDimension)
             lineTo(x, minDimension - getTan45() * x)
@@ -82,17 +85,19 @@ class ProblemSizeShape : Shape {
     fun drawOtherLevels(
         size: Size,
         quantity: Int,
-        gap: Dp = 4.dp,
+        gap: Dp = DEFAULT_GAP_DP,
         density: Density
     ): List<Path> {
         val minDimension = size.minDimension
         val gapPx = with(density) { gap.toPx() }
         val totalGap = gapPx * (quantity - 1)
         val levelWidth = (minDimension - totalGap) / quantity
+        
         return (1 until quantity).map { i ->
             val x1 = i * (levelWidth + gapPx)
             val x2 = x1
             val x3 = x1 + levelWidth
+            
             Path().apply {
                 moveTo(x1, minDimension)
                 lineTo(x2, minDimension - (getTan45() * x1))

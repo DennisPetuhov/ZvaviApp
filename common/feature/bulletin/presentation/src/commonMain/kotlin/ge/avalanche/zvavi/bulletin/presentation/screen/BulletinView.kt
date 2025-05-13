@@ -28,7 +28,6 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 @Composable
 fun BulletinView(
     viewState: BulletinViewState,
-    paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
 
@@ -38,7 +37,6 @@ fun BulletinView(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(paddingValues)
             .background(ZvaviTheme.colors.layerFloor0)
     ) {
         DataLocationBlock(
