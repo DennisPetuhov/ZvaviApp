@@ -25,6 +25,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun BulletinScreen(
+    onInfoProblemClicked:()->Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: BulletinViewModel = koinInject()
@@ -64,7 +65,7 @@ fun BulletinScreen(
                 }
 
                 else -> {
-                    BulletinView(viewState = viewState) {
+                    BulletinView(viewState = viewState, onInfoProblemClicked =  onInfoProblemClicked) {
                         viewModel.obtainEvent(it)
                     }
                 }
