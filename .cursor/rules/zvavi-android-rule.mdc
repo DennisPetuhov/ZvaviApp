@@ -128,4 +128,4 @@ Generate code, corrections, and refactorings that comply with the basic principl
 
 - Use integration tests for each api module.   
 ### Compose
-- use where it poosble  lambda with a receiver. For example, the standard Box composable accepts a parameter of type @Composable BoxScope.() -> Unit
+- use where it possible lambda with a receiver. For example, the standard Box composable accepts a parameter of type @Composable BoxScope.() -> Unit
