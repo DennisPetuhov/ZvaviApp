@@ -59,7 +59,7 @@ fun ZvaviDashboard(
             )
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing150),
+            verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing50),
             modifier = Modifier.fillMaxSize()
         ) {
             DashboardHeader(name = name, eventHandler = eventHandler)
