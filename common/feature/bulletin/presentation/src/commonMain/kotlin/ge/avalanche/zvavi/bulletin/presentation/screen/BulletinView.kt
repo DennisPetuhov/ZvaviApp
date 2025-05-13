@@ -16,7 +16,7 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.AvalanchesSnowpackWeatherBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.DataLocationBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.OverallRisksBlock
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.ProblemsBlock
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.ProblemBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.RiskByHeightBlock
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -46,7 +46,8 @@ internal fun BulletinView(
             viewState = viewState,
             layoutConfig = layoutConfig,
             scrollState = scrollState,
-            eventHandler = eventHandler
+            eventHandler = eventHandler,
+            onInfoProblemClicked
         )
     }
 }

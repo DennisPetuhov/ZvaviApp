@@ -11,15 +11,17 @@ import ge.avalanche.zvavi.foundation.navigation.zvaviComposable
 
 @Suppress("UNUSED_PARAMETER")
 fun NavGraphBuilder.bulletinGraph(
+    onBack: () -> Unit,
     navigateToDestination: (ZvaviNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,
+//    navigateByDeepLink: (Uri, (NavOptionsBuilder.() -> Unit)?) -> Unit,
 ) {
     zvaviComposable(destinations = BulletinScreenDestination) {
-        BulletinScreen(onNavigate = {
-            navigateToDestination(BulletinProblemInfoScreenDestination, route) {}
-        })
+        BulletinScreen(
+            onInfoProblemClicked ={ navigateToDestination(BulletinProblemInfoScreenDestination,"bulletin_problem_screen",null)}
+        )
     }
 
     zvaviComposable(destinations = BulletinProblemInfoScreenDestination) {
         BulletinProblemInfoScreen()
     }
-}
+} 

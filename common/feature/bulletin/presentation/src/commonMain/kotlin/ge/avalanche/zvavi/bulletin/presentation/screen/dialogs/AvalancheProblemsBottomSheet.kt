@@ -1,5 +1,6 @@
 package ge.avalanche.zvavi.bulletin.presentation.screen.dialogs
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,12 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ColoredCirclesGrid
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemAspectElevation
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemSensitivity
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTimeOfDay
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTrend
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ZvaviProblemSize
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ColoredCirclesGrid
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemAspectElevation
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemSensitivity
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemTimeOfDay
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemTrend
+import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ZvaviProblemSize
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -61,7 +62,7 @@ internal fun AvalancheProblemsBottomSheet(
             .fillMaxHeight(),
         containerColor = ZvaviTheme.colors.layerFloor1
     ) {
-        ModalContainer(layoutConfig, eventHandler)
+        ModalContainer(layoutConfig, eventHandler, onInfoClicked)
     }
 }
 
@@ -117,7 +118,7 @@ private fun ModalContainer(
                     modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
                 )
             }
-            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig)
+            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig, onInfoClicked = onInfoClicked)
 
             Text(
                 text = "Persistent slab",
@@ -151,7 +152,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f, fill = false)
+                .weight(1f, fill = false).clickable { onInfoClicked() }
         ) {
             ZvaviDashboard(
                 name = "Size",
@@ -222,7 +223,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
                     }
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
