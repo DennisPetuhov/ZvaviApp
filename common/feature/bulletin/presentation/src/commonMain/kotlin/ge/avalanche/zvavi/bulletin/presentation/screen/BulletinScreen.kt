@@ -32,8 +32,7 @@ fun BulletinScreen(
 
     Scaffold(
         contentWindowInsets = WindowInsets.systemBars,
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -65,7 +64,7 @@ fun BulletinScreen(
                 }
 
                 else -> {
-                    BulletinView(viewState = viewState, paddingValues = paddingValues) {
+                    BulletinView(viewState = viewState) {
                         viewModel.obtainEvent(it)
                     }
                 }

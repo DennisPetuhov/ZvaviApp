@@ -21,9 +21,6 @@ class AppActivity : ComponentActivity() {
         val platformConfig = PlatformConfiguration(applicationContext)
 
         Inject.createDependencies(platformConfig) {}
-//        val systemBarsPadding = WindowInsets.systemBars
-//            .only(WindowInsetsSides.Top)
-//            .asPaddingValues()
 
         enableEdgeToEdge()
         setContent { App(platformConfig) }
