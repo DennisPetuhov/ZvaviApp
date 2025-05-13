@@ -7,6 +7,7 @@ import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
 import ge.avalanche.zvavi.bulletin.data.domain.mapper.toDomain
 import ge.avalanche.zvavi.bulletin.data.domain.mapper.toEntity
+import ge.avalanche.zvavi.database.dao.BulletinDao
 import ge.avalanche.zvavi.foundation.base.BaseRepository
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import ge.avalanche.zvavi.foundation.response.onError
@@ -20,6 +21,7 @@ import kotlinx.coroutines.withContext
 class BulletinRepositoryImpl(
     private val localDataSource: BulletinLocalDataSource,
     private val remoteDataSource: BulletinRemoteDataSource,
+    val dao: BulletinDao,
     dispatchers: DispatchersProvider
 ) : BaseRepository(dispatchers, Logger.withTag("BulletinRepository")), BulletinRepository {
     override suspend fun fetchBulletin() {
@@ -38,6 +40,7 @@ class BulletinRepositoryImpl(
                         // 4. Save to local database and wait for completion
                         withContext(dispatchers.io) {
                             try {
+                                dao.clearBulletins()
                                 localDataSource.saveBulletin(bulletinApi.toEntity())
                                 logger.d { "Successfully saved bulletin to local database" }
                             } catch (e: Exception) {

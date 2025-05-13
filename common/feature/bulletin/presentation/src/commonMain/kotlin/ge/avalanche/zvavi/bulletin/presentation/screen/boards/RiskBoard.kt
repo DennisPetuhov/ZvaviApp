@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.bulletin.presentation.screen
+package ge.avalanche.zvavi.bulletin.presentation.screen.boards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -61,7 +61,7 @@ fun RiskBoard(
         }
         Image(
             imageVector = avalancheRiskLevel,
-            contentDescription = "danger level 4",
+            contentDescription = "danger level",
             modifier = Modifier.weight(1f, fill = false).aspectRatio(1f)
         )
     }

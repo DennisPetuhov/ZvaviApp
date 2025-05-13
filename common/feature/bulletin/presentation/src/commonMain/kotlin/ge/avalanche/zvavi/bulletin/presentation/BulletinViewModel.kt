@@ -30,7 +30,6 @@ class BulletinViewModel(
 
     init {
         observeBulletinData()
-        observeBulletinData()
     }
 
     override fun obtainEvent(viewEvent: BulletinEvent) {
@@ -71,7 +70,7 @@ class BulletinViewModel(
 
         // Start new job
         bulletinJob = viewModelScope.launch {
-            viewState = viewState.copy(loading = true, error = null)
+//            viewState = viewState.copy(loading = false, error = null)
 
             // First try to fetch new data
             try {
@@ -111,15 +110,13 @@ class BulletinViewModel(
     }
 
     private fun handleError(e: Throwable) {
-        // Decide whether to retry or show error based on retry count
         if (retryCount < maxRetries) {
-            // Auto-retry with exponential backoff
             retryCount++
             val delayMillis = 1000L * (1 shl (retryCount - 1)) // 1s, 2s, 4s
             logger.i { "Retrying fetch (attempt $retryCount of $maxRetries) after $delayMillis ms" }
 
             viewModelScope.launch {
-                delay(delayMillis)
+//                delay(delayMillis)
                 observeBulletinData()
             }
         } else {
