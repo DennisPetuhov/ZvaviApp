@@ -11,7 +11,6 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,6 +22,7 @@ internal class BulletinViewModel(
     private val dispatchers: DispatchersProvider,
 
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
+
     private val logger = Logger.withTag("BulletinViewModel")
     private var bulletinJob: Job? = null
     private var retryCount = 0
@@ -54,16 +54,14 @@ internal class BulletinViewModel(
 
     }
 
-    fun handleOpenBottomSheet() {
+            BulletinEvent.InfoClicked -> {
+                viewModelScope.launch { fetchBulletinUseCase.execute() }
+            }
 
-    }
-
-    private fun handleNavigateToBulletinProblemInfoScreen() {
-
-    }
-//opo
-    private fun handleCloseBottomSheet() {
-
+            BulletinEvent.ProblemInfoClicked -> {
+                viewAction = BulletinAction.OpenProblemInfo
+            }
+        }
     }
 
     fun fetchBulletin() {

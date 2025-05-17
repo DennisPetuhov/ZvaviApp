@@ -62,7 +62,7 @@ internal fun AvalancheProblemsBottomSheet(
             .fillMaxHeight(),
         containerColor = ZvaviTheme.colors.layerFloor1
     ) {
-        ModalContainer(layoutConfig, eventHandler, onInfoClicked)
+        ModalContainer(layoutConfig, eventHandler)
     }
 }
 
@@ -152,7 +152,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f, fill = false).clickable { onInfoClicked() }
+                .weight(1f, fill = false)
         ) {
             ZvaviDashboard(
                 name = "Size",
@@ -161,6 +161,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 eventHandler = { event ->
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.ProblemInfoClicked)
                     }
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },

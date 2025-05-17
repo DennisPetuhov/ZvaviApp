@@ -1,9 +1,7 @@
 package ge.avalanche.zvavi.foundation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.focus.FocusManager
-import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 
@@ -31,6 +29,7 @@ expect class ZvaviNavigationController(navController: NavHostController) {
         focusManager: FocusManager,
         after: (() -> Unit)?,
     )
+
     fun popBackStack(
         hideKeyBoard: Boolean,
         focusManager: FocusManager,
