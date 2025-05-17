@@ -44,7 +44,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AvalancheProblemsBottomSheet(
-    onInfoClicked:()->Unit,
+
     layoutConfig: LayoutConfig,
     onDismiss: () -> Unit,
     eventHandler: (BulletinEvent) -> Unit,
@@ -59,10 +59,10 @@ fun AvalancheProblemsBottomSheet(
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         modifier = modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.9f),
+            .fillMaxHeight(),
         containerColor = ZvaviTheme.colors.layerFloor1
     ) {
-        ModalContainer(layoutConfig, eventHandler, onInfoClicked)
+        ModalContainer(layoutConfig, eventHandler)
     }
 }
 
@@ -70,7 +70,6 @@ fun AvalancheProblemsBottomSheet(
 fun ModalContainer(
     layoutConfig: LayoutConfig,
     eventHandler: (BulletinEvent) -> Unit,
-    onInfoClicked:()->Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -115,7 +114,7 @@ fun ModalContainer(
                     modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
                 )
             }
-            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig, onInfoClicked = onInfoClicked)
+            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig)
 
             Text(
                 text = "Persistent slab",
@@ -140,7 +139,7 @@ fun ModalContainer(
 }
 
 @Composable
-fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit,   onInfoClicked:()->Unit,) {
+fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
         modifier = Modifier.fillMaxSize()
@@ -149,7 +148,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit,
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f, fill = false).clickable { onInfoClicked() }
+                .weight(1f, fill = false)
         ) {
             ZvaviDashboard(
                 name = "Size",
@@ -157,7 +156,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit,
                 layoutConfig = layoutConfig,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.ProblemInfoClicked)
                     }
                 },
                 modifier = Modifier.weight(1f, fill = false)

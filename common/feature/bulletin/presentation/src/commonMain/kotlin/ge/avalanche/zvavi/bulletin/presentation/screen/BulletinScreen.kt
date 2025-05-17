@@ -20,16 +20,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
-import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import org.koin.compose.koinInject
 
 @Composable
 fun BulletinScreen(
-    onInfoProblemClicked:()->Unit,
+    onNavigate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: BulletinViewModel = koinInject()
     val viewState by viewModel.viewStates().collectAsState()
+    val viewAction by viewModel.viewActions().collectAsState(initial = null)
 
     Scaffold(
         contentWindowInsets = WindowInsets.systemBars,
@@ -57,7 +58,7 @@ fun BulletinScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
-                            onClick = {  }
+                            onClick = { }
                         ) {
                             Text("Retry")
                         }
@@ -65,11 +66,19 @@ fun BulletinScreen(
                 }
 
                 else -> {
-                    BulletinView(viewState = viewState, onInfoProblemClicked =  onInfoProblemClicked) {
+                    BulletinView(viewState = viewState) {
                         viewModel.obtainEvent(it)
                     }
                 }
             }
         }
+    }
+    when (viewAction) {
+        is BulletinAction.OpenProblemInfo -> {
+            onNavigate()
+            viewModel.clearAction()
+        }
+
+        else -> {}
     }
 }

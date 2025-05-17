@@ -21,7 +21,6 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @Composable
 fun ProblemBlock(
-    onInfoProblemClicked:()->Unit,
     layoutConfig: LayoutConfig,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit
@@ -74,7 +73,6 @@ fun ProblemBlock(
 
     if (showBottomSheet) {
         AvalancheProblemsBottomSheet(
-            onInfoClicked = onInfoProblemClicked,
             layoutConfig = layoutConfig,
             onDismiss = { showBottomSheet = false },
             eventHandler = eventHandler

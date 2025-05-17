@@ -11,7 +11,6 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -47,6 +46,10 @@ class BulletinViewModel(
             BulletinEvent.InfoClicked -> {
                 viewModelScope.launch { fetchBulletinUseCase.execute() }
             }
+
+            BulletinEvent.ProblemInfoClicked -> {
+                viewAction = BulletinAction.OpenProblemInfo
+            }
         }
     }
 
@@ -62,25 +65,15 @@ class BulletinViewModel(
     }
 
     fun observeBulletinData() {
-        // Cancel any existing job
         bulletinJob?.cancel()
-
-        // Reset retry count for new fetch
         retryCount = 0
-
-        // Start new job
         bulletinJob = viewModelScope.launch {
-//            viewState = viewState.copy(loading = false, error = null)
-
-            // First try to fetch new data
             try {
                 fetchBulletinUseCase.execute()
                 logger.d { "Successfully fetched bulletin data" }
             } catch (e: Exception) {
                 logger.e(e) { "Error fetching bulletin data" }
             }
-
-            // Then observe the data flow
             observeBulletinUseCase.execute()
                 .onEach { bulletin ->
                     logger.d { "Received bulletin from database: $bulletin" }
@@ -96,10 +89,9 @@ class BulletinViewModel(
                         snowpack = bulletin.snowpack,
                         weather = bulletin.weather,
                         topTriangleColor = bulletin.hazardLevels.highAlpine,
-                        middleTriangleColor =  bulletin.hazardLevels.highAlpine,
+                        middleTriangleColor = bulletin.hazardLevels.highAlpine,
                         bottomTriangleColor = bulletin.hazardLevels.highAlpine,
                     )
-                    // Reset retry count on success
                     retryCount = 0
                 }
                 .catch { e ->

@@ -28,7 +28,6 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 fun BulletinView(
     viewState: BulletinViewState,
     modifier: Modifier = Modifier,
-    onInfoProblemClicked:()->Unit,
     eventHandler: (BulletinEvent) -> Unit,
 
 
@@ -50,7 +49,7 @@ fun BulletinView(
             layoutConfig = layoutConfig,
             scrollState = scrollState,
             eventHandler = eventHandler,
-            onInfoProblemClicked
+
         )
     }
 }
@@ -61,7 +60,7 @@ private fun ContentBlocks(
     layoutConfig: LayoutConfig,
     scrollState: ScrollState,
     eventHandler: (BulletinEvent) -> Unit,
-    onInfoProblemClicked:()->Unit,
+
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
@@ -75,7 +74,6 @@ private fun ContentBlocks(
         OverallRisksBlock(viewState = viewState, eventHandler = eventHandler,layoutConfig= layoutConfig)
         RiskByHeightBlock(viewState = viewState, layoutConfig = layoutConfig)
         ProblemBlock(
-            onInfoProblemClicked = onInfoProblemClicked,
             eventHandler = eventHandler,
             layoutConfig = layoutConfig
         )
