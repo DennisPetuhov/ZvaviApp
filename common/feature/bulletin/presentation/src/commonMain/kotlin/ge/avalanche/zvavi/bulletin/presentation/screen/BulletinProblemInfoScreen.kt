@@ -9,14 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineHeightStyle
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
 @Composable
 fun BulletinProblemInfoScreen() {
     Scaffold(modifier = Modifier.fillMaxSize().background(color = Color.Cyan)) {
-        Box(modifier = Modifier.fillMaxSize().background(ZvaviTheme.colors.contentBrandPrimary), contentAlignment = Alignment.Center){
-            Text(text="WOWOWOWOOW")
+        Box(
+            modifier = Modifier.fillMaxSize().background(ZvaviTheme.colors.contentBrandPrimary),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = "WOWOWOWOOW")
         }
 
     }

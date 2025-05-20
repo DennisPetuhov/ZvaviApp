@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
-    private val dispatchers: DispatchersProvider
+    private val dispatchers: DispatchersProvider,
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
 
     private val logger = Logger.withTag("BulletinViewModel")
@@ -39,18 +39,31 @@ class BulletinViewModel(
             BulletinEvent.TravelAdviceClicked -> handleTravelAdviceClick()
             BulletinEvent.OverviewClicked -> handleOverviewClick()
             BulletinEvent.SwipeToRefresh -> retryFetchBulletin()
-            BulletinEvent.AvalancheProblemsClicked -> {
-                fetchBulletin()
-            }
-
-            BulletinEvent.InfoClicked -> {
-                viewModelScope.launch { fetchBulletinUseCase.execute() }
-            }
-
-            BulletinEvent.ProblemInfoClicked -> {
-                viewAction = BulletinAction.OpenProblemInfo
-            }
+            BulletinEvent.AvalancheProblemsClicked -> fetchBulletin()
+            BulletinEvent.InfoClicked -> viewModelScope.launch { fetchBulletinUseCase.execute() }
+            BulletinEvent.CloseBottomSheet -> handleCloseBottomSheet()
+            BulletinEvent.OpenBottomSheet -> handleOpenBottomSheet()
+            BulletinEvent.ProblemInfoClicked -> handleNavigateToBulletinProblemInfoScreen()
+            BulletinEvent.ReturnFromBulletinProblemInfoScreen -> handleReturnFromBulletinProblemScreen()
         }
+    }
+
+    fun handleReturnFromBulletinProblemScreen() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    fun handleOpenBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    private fun handleNavigateToBulletinProblemInfoScreen() {
+        viewState = viewState.copy(showBottomSheet = false)
+        viewAction = BulletinAction.OpenProblemInfoScreen
+    }
+
+    private fun handleCloseBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = false)
+//
     }
 
     fun fetchBulletin() {

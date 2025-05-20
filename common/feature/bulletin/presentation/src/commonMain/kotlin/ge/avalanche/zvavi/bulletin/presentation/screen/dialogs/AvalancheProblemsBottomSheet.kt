@@ -1,6 +1,5 @@
 package ge.avalanche.zvavi.bulletin.presentation.screen.dialogs
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +18,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,11 +43,11 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AvalancheProblemsBottomSheet(
-
+    sheetState: SheetState,
     layoutConfig: LayoutConfig,
     onDismiss: () -> Unit,
     eventHandler: (BulletinEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -56,7 +55,7 @@ fun AvalancheProblemsBottomSheet(
         shape = RoundedCornerShape(
             topStart = ZvaviRadius.radius600, topEnd = ZvaviRadius.radius600
         ),
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        sheetState = sheetState,
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(),
@@ -70,7 +69,7 @@ fun AvalancheProblemsBottomSheet(
 fun ModalContainer(
     layoutConfig: LayoutConfig,
     eventHandler: (BulletinEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         Row(
@@ -87,7 +86,11 @@ fun ModalContainer(
                 style = ZvaviTheme.typography.compact400Accent,
                 color = ZvaviTheme.colors.contentNeutralPrimary
             )
-            RoundCrossButton(imageVector = ZvaviIcons.CrossButton) {}
+            RoundCrossButton(
+                imageVector = ZvaviIcons.CrossButton,
+                onClick = {
+                    eventHandler(BulletinEvent.CloseBottomSheet)
+                })
 
 
         }
@@ -156,8 +159,9 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 layoutConfig = layoutConfig,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.ProblemInfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
+                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
                 },
                 modifier = Modifier.weight(1f, fill = false)
             ) {
@@ -179,8 +183,9 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
+                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier
@@ -197,8 +202,9 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
+                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
@@ -216,8 +222,9 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
+                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
@@ -245,11 +252,11 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
+                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
                 },
                 layoutConfig = layoutConfig,
-
                 modifier = Modifier.weight(1f, fill = false)
             ) {
                 Text(
@@ -265,10 +272,11 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                }, layoutConfig = layoutConfig,
-
+                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                },
+                layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
             ) {
                 Text(

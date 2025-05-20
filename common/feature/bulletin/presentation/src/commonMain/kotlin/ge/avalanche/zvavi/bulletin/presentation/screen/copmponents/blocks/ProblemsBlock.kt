@@ -5,27 +5,30 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards.ZvaviProblemBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.dialogs.AvalancheProblemsBottomSheet
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProblemBlock(
+fun ProblemsBlock(
+    viewState: BulletinViewState,
     layoutConfig: LayoutConfig,
     modifier: Modifier = Modifier,
-    eventHandler: (BulletinEvent) -> Unit
+    eventHandler: (BulletinEvent) -> Unit,
 ) {
-    var showBottomSheet by remember { mutableStateOf(false) }
+    var bottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = false
+    )
 
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),        // fix after network implementation
@@ -56,25 +59,25 @@ fun ProblemBlock(
             ZvaviProblemBoard(
                 text = "Persistent slab",
                 layoutConfig = layoutConfig,
-                onClick = { showBottomSheet = true }
+                onClick = { eventHandler(BulletinEvent.OpenBottomSheet) }
             )
             ZvaviProblemBoard(
                 text = "Wind slab",
                 layoutConfig = layoutConfig,
-                onClick = { showBottomSheet = true }
+                onClick = { eventHandler(BulletinEvent.OpenBottomSheet) }
             )
             ZvaviProblemBoard(
                 text = "Wet loose",
                 layoutConfig = layoutConfig,
-                onClick = { showBottomSheet = true }
+                onClick = { eventHandler(BulletinEvent.OpenBottomSheet) }
             )
         }
     }
-
-    if (showBottomSheet) {
+    if (viewState.showBottomSheet) {
         AvalancheProblemsBottomSheet(
+            sheetState = bottomSheetState,
             layoutConfig = layoutConfig,
-            onDismiss = { showBottomSheet = false },
+            onDismiss = {eventHandler(BulletinEvent.CloseBottomSheet)},
             eventHandler = eventHandler
         )
     }

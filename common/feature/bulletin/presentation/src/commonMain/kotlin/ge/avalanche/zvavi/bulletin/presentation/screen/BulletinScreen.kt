@@ -73,12 +73,12 @@ fun BulletinScreen(
             }
         }
     }
-    when (viewAction) {
-        is BulletinAction.OpenProblemInfo -> {
-            onNavigate()
-            viewModel.clearAction()
-        }
-
-        else -> {}
-    }
+//    when (viewAction) {
+//        is BulletinAction.OpenProblemInfo -> {
+//            onNavigate()
+//            viewModel.clearAction()
+//        }
+//
+//        else -> {}
+//    }
 }
