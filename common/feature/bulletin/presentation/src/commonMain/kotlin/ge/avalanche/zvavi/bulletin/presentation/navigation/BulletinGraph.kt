@@ -9,7 +9,6 @@ import ge.avalanche.zvavi.foundation.navigation.BulletinScreenDestination
 import ge.avalanche.zvavi.foundation.navigation.ZvaviNavDestinations
 import ge.avalanche.zvavi.foundation.navigation.zvaviComposable
 
-
 @Suppress("UNUSED_PARAMETER")
 fun NavGraphBuilder.bulletinGraph(
     navigateToDestination: (ZvaviNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,

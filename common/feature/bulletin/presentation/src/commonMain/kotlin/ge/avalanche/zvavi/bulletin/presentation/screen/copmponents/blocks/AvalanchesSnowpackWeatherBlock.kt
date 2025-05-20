@@ -106,7 +106,7 @@ fun ZvaviExpandableText(
             )
 
             Icon(
-                imageVector = Icons.Filled.KeyboardArrowDown,
+                imageVector =  Icons.Filled.KeyboardArrowDown,
                 contentDescription = if (isExpanded) "collapse" else "expanded",
                 tint = ZvaviTheme.colors.contentNeutralTertiary,
                 modifier = Modifier.graphicsLayer(rotationZ = rotationAngle.value)

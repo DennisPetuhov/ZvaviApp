@@ -24,7 +24,7 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import org.koin.compose.koinInject
 
 @Composable
-fun BulletinScreen(
+internal fun BulletinScreen(
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -73,12 +73,11 @@ fun BulletinScreen(
             }
         }
     }
-//    when (viewAction) {
-//        is BulletinAction.OpenProblemInfo -> {
-//            onNavigate()
-//            viewModel.clearAction()
-//        }
-//
-//        else -> {}
-//    }
+    when (viewAction) {
+        is BulletinAction.OpenProblemInfoScreen -> {
+            onNavigate()
+            viewModel.clearAction()
+        }
+        else -> {}
+    }
 }

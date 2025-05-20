@@ -42,7 +42,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AvalancheProblemsBottomSheet(
+internal fun AvalancheProblemsBottomSheet(
     sheetState: SheetState,
     layoutConfig: LayoutConfig,
     onDismiss: () -> Unit,
@@ -66,7 +66,7 @@ fun AvalancheProblemsBottomSheet(
 }
 
 @Composable
-fun ModalContainer(
+private fun ModalContainer(
     layoutConfig: LayoutConfig,
     eventHandler: (BulletinEvent) -> Unit,
     modifier: Modifier = Modifier,
@@ -142,7 +142,7 @@ fun ModalContainer(
 }
 
 @Composable
-fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit) {
+private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
         modifier = Modifier.fillMaxSize()
@@ -161,7 +161,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                    eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 modifier = Modifier.weight(1f, fill = false)
             ) {
@@ -185,7 +185,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                    eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier
@@ -204,7 +204,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                    eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
@@ -224,7 +224,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                    eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
@@ -254,7 +254,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                    eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
@@ -274,7 +274,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
-                    eventHandler(BulletinEvent.NavigateToBulletinProblemScreen)
+                    eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
                 modifier = Modifier.weight(1f, fill = false)
@@ -293,7 +293,7 @@ fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit)
 }
 
 @Composable
-fun RoundCrossButton(
+private fun RoundCrossButton(
     imageVector: ImageVector,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,

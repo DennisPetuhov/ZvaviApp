@@ -11,17 +11,17 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class BulletinViewModel(
+internal class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
     private val dispatchers: DispatchersProvider,
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
-
     private val logger = Logger.withTag("BulletinViewModel")
     private var bulletinJob: Job? = null
     private var retryCount = 0
@@ -63,7 +63,6 @@ class BulletinViewModel(
 
     private fun handleCloseBottomSheet() {
         viewState = viewState.copy(showBottomSheet = false)
-//
     }
 
     fun fetchBulletin() {
@@ -121,16 +120,14 @@ class BulletinViewModel(
             logger.i { "Retrying fetch (attempt $retryCount of $maxRetries) after $delayMillis ms" }
 
             viewModelScope.launch {
-//                delay(delayMillis)
+                delay(delayMillis)
                 observeBulletinData()
             }
         } else {
-            // Show error after max retries
             val errorMessage = when (e) {
                 is NoDataException -> "No bulletin data available"
                 else -> "Failed to load bulletin: ${e.message}"
             }
-
             viewState = viewState.copy(
                 loading = false,
                 error = errorMessage
@@ -139,7 +136,6 @@ class BulletinViewModel(
     }
 
     fun retryFetchBulletin() {
-        // Manual retry from UI
         retryCount = 0
         observeBulletinData()
     }
