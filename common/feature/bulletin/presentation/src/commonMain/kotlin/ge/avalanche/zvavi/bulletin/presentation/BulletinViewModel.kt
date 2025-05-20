@@ -20,7 +20,6 @@ internal class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
     private val dispatchers: DispatchersProvider,
-
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
 
     private val logger = Logger.withTag("BulletinViewModel")
@@ -54,14 +53,22 @@ internal class BulletinViewModel(
 
     }
 
-            BulletinEvent.InfoClicked -> {
-                viewModelScope.launch { fetchBulletinUseCase.execute() }
-            }
+    fun handleReturnFromBulletinProblemScreen() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
 
-            BulletinEvent.ProblemInfoClicked -> {
-                viewAction = BulletinAction.OpenProblemInfo
-            }
-        }
+    fun handleOpenBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    private fun handleNavigateToBulletinProblemInfoScreen() {
+        viewState = viewState.copy(showBottomSheet = false)
+        viewAction = BulletinAction.OpenProblemInfoScreen
+    }
+
+    private fun handleCloseBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = false)
+//
     }
 
     fun fetchBulletin() {

@@ -1,6 +1,5 @@
 package ge.avalanche.zvavi.bulletin.presentation.screen.dialogs
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -224,7 +223,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.InfoClicked)
+                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
                     }
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
