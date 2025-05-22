@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
+import ge.avalanche.zvavi.designsystem.animation.ShimmerProvider
 import org.koin.compose.koinInject
 
 @Composable
@@ -42,7 +43,12 @@ fun BulletinScreen(
         ) {
             when {
                 viewState.loading -> {
-                    CircularProgressIndicator()
+                    ShimmerProvider( viewState.loading) {
+                        BulletinView(viewState = viewState) {
+
+                        }
+                    }
+
                 }
 
                 viewState.error != null -> {
