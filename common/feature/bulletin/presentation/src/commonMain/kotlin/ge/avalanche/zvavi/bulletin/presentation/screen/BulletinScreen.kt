@@ -41,37 +41,39 @@ fun BulletinScreen(
                 .padding(paddingValues),
             contentAlignment = Alignment.Center
         ) {
-            when {
-                viewState.loading -> {
-                    ShimmerProvider( viewState.loading) {
-                        BulletinView(viewState = viewState) {
+            // Apply ShimmerProvider at the top level to affect all content
+            ShimmerProvider(isLoading = viewState.loading) {
+                when {
+//                    viewState.loading -> {
+//                        // When loading, show content in shimmer state
+//                        BulletinView(viewState = viewState) {
+//                            // Don't trigger events during loading
+//                        }
+//                    }
 
-                        }
-                    }
-
-                }
-
-                viewState.error != null -> {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Text(
-                            text = viewState.error ?: "Unknown error",
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(
-                            onClick = {  }
+                    viewState.error != null -> {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(16.dp)
                         ) {
-                            Text("Retry")
+                            Text(
+                                text = viewState.error ?: "Unknown error",
+                                textAlign = TextAlign.Center
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Button(
+                                onClick = {  }
+                            ) {
+                                Text("Retry")
+                            }
                         }
                     }
-                }
 
-                else -> {
-                    BulletinView(viewState = viewState) {
-                        viewModel.obtainEvent(it)
+                    else -> {
+                        // When not loading, show normal content
+                        BulletinView(viewState = viewState) {
+                            viewModel.obtainEvent(it)
+                        }
                     }
                 }
             }

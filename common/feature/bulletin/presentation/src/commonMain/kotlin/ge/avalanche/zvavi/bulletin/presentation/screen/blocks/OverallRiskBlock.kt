@@ -13,6 +13,7 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.boards.RiskBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
+import ge.avalanche.zvavi.designsystem.animation.shimmerEffect
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -27,7 +28,7 @@ fun OverallRisksBlock(
 ) {
     RiskBoard(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth().shimmerEffect()
     )
     Row(
         modifier = Modifier

@@ -7,11 +7,17 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -22,38 +28,46 @@ import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
 data class ShimmerState(val isLoading: Boolean = false)
 
-val LocalShimmerState = compositionLocalOf { ShimmerState() }
+val LocalShimmerState = staticCompositionLocalOf { ShimmerState() }
 
 @Composable
-fun ShimmerProvider(isLoading: Boolean = true, content: @Composable () -> Unit) {
+fun ShimmerProvider(isLoading: Boolean, content: @Composable () -> Unit) {
     CompositionLocalProvider(
         LocalShimmerState provides ShimmerState(isLoading = isLoading),
-        content = { content(isLoading) }
+        content = content
     )
 }
 
+object ZvaviShimmer {
+    val state: ShimmerState
+        @Composable
+        get() = LocalShimmerState.current
+        
+    @Composable
+    fun getDefaultColors(): List<Color> = listOf(
+        ZvaviTheme.colors.backgroundNeutralLow.copy(alpha = 0.0f),
+        ZvaviTheme.colors.backgroundNeutralHigh.copy(alpha = 0.3f),
+        ZvaviTheme.colors.backgroundNeutralLow.copy(alpha = 0.0f)
+    )
+}
 
 private class ShimmerNode(
-    var shimmerColors: List<Color>
-//    = listOf(
-//        Color.LightGray.copy(alpha = 0.2f),
-//        Color.LightGray.copy(alpha = 1.0f),
-//        Color.LightGray.copy(alpha = 0.2f),
-//    )
-    ,
+    var shimmerColors: List<Color>,
     var animationValue: Float
 ) : Modifier.Node(), DrawModifierNode {
     var shimmerJob: Job? = null
     private val alpha = Animatable(1f)
 
     override fun ContentDrawScope.draw() {
+        // Original implementation that replaces content
         val brush = Brush.linearGradient(
             colors = shimmerColors,
-            start = Offset(animationValue - 100f, animationValue - 100f),
-            end = Offset(animationValue + 100f, animationValue + 100f),
+            start = Offset(animationValue - size.width, 0f),
+            end = Offset(animationValue, size.height),
         )
         drawRect(brush)
     }
@@ -103,33 +117,22 @@ private class ShimmerElement(
         result = 31 * result + animationValue.hashCode()
         return result
     }
-//
-//    override fun InspectorInfo.inspectableProperties() {
-//        name = "shimmer"
-//        properties["shimmerColors"] = shimmerColors
-//        properties["animationValue"] = animationValue
-//    }
 }
 
 @Composable
 fun Modifier.shimmerEffect(
-    shimmerColors: List<Color> = listOf(
-        Color.LightGray.copy(alpha = 0.2f),
-        Color.LightGray.copy(alpha = 0.6f),
-        Color.LightGray.copy(alpha = 0.2f),
-    ),
+    shimmerColors: List<Color> = ZvaviShimmer.getDefaultColors(),
     shape: Shape = RoundedCornerShape(8.dp),
-)
-        : Modifier {
-    if (LocalShimmerState.current.isLoading) return this
+): Modifier {
+    if (!ZvaviShimmer.state.isLoading) return this
+    
     val transition = rememberInfiniteTransition(label = "shimmer_transition")
-
     val translateAnimation = transition.animateFloat(
         initialValue = 0f,
-        targetValue = 500f,
+        targetValue = 1000f,
         animationSpec = infiniteRepeatable(
             animation = tween(
-                durationMillis = 1200,
+                durationMillis = 800,  // Faster animation
                 easing = LinearEasing,
             ),
             repeatMode = RepeatMode.Restart,
