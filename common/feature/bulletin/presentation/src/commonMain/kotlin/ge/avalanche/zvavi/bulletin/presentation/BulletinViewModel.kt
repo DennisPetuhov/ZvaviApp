@@ -40,13 +40,9 @@ class BulletinViewModel(
             BulletinEvent.TravelAdviceClicked -> handleTravelAdviceClick()
             BulletinEvent.OverviewClicked -> handleOverviewClick()
             BulletinEvent.SwipeToRefresh -> retryFetchBulletin()
-            BulletinEvent.AvalancheProblemsClicked -> {
-                fetchBulletin()
-            }
-
-            BulletinEvent.InfoClicked -> {
-                viewModelScope.launch { fetchBulletinUseCase.execute() }
-            }
+            BulletinEvent.AvalancheProblemsClicked -> fetchBulletin()
+            BulletinEvent.InfoClicked -> viewModelScope.launch { fetchBulletinUseCase.execute() }
+            BulletinEvent.Retry -> {}
         }
     }
 
@@ -62,25 +58,15 @@ class BulletinViewModel(
     }
 
     fun observeBulletinData() {
-        // Cancel any existing job
         bulletinJob?.cancel()
-
-        // Reset retry count for new fetch
         retryCount = 0
-
-        // Start new job
         bulletinJob = viewModelScope.launch {
-//            viewState = viewState.copy(loading = false, error = null)
-
-            // First try to fetch new data
             try {
                 fetchBulletinUseCase.execute()
                 logger.d { "Successfully fetched bulletin data" }
             } catch (e: Exception) {
                 logger.e(e) { "Error fetching bulletin data" }
             }
-
-            // Then observe the data flow
             observeBulletinUseCase.execute()
                 .onEach { bulletin ->
                     logger.d { "Received bulletin from database: $bulletin" }
@@ -96,10 +82,9 @@ class BulletinViewModel(
                         snowpack = bulletin.snowpack,
                         weather = bulletin.weather,
                         topTriangleColor = bulletin.hazardLevels.highAlpine,
-                        middleTriangleColor =  bulletin.hazardLevels.highAlpine,
+                        middleTriangleColor = bulletin.hazardLevels.highAlpine,
                         bottomTriangleColor = bulletin.hazardLevels.highAlpine,
                     )
-                    // Reset retry count on success
                     retryCount = 0
                 }
                 .catch { e ->
@@ -116,11 +101,10 @@ class BulletinViewModel(
             logger.i { "Retrying fetch (attempt $retryCount of $maxRetries) after $delayMillis ms" }
 
             viewModelScope.launch {
-//                delay(delayMillis)
+                delay(delayMillis)
                 observeBulletinData()
             }
         } else {
-            // Show error after max retries
             val errorMessage = when (e) {
                 is NoDataException -> "No bulletin data available"
                 else -> "Failed to load bulletin: ${e.message}"
@@ -134,7 +118,6 @@ class BulletinViewModel(
     }
 
     fun retryFetchBulletin() {
-        // Manual retry from UI
         retryCount = 0
         observeBulletinData()
     }

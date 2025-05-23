@@ -11,4 +11,7 @@ sealed class BulletinEvent {
     object TravelAdviceClicked : BulletinEvent()
     object OverviewClicked : BulletinEvent()
     object SwipeToRefresh : BulletinEvent()
+    object Retry : BulletinEvent() {
+
+    }
 }

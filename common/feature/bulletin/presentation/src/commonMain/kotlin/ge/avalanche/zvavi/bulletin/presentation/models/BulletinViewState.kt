@@ -14,7 +14,7 @@ data class BulletinViewState(
     val recentAvalanches: List<String> = emptyList(),
     val snowpack: String = "WOWOWO",
     val weather: String = "WOWOWOOWOWOWO",
-    val loading: Boolean = false,
+    val loading: Boolean = true,
     val error: String? = null,
     val topTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
     val middleTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,

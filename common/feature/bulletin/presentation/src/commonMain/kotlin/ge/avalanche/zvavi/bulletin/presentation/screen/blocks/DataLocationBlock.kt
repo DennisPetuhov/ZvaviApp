@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import ge.avalanche.zvavi.designsystem.animation.shimmerEffect
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
@@ -56,6 +56,6 @@ private fun LocationText(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = ZvaviSpacing.spacing200, vertical = ZvaviSpacing.spacing100)
+            .padding(horizontal = ZvaviSpacing.spacing200, vertical = ZvaviSpacing.spacing100).shimmerEffect()
     )
 }

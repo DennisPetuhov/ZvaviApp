@@ -19,6 +19,7 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.DataLocationBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.OverallRisksBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.ProblemBlock
 import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.RiskByHeightBlock
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
@@ -30,10 +31,10 @@ fun BulletinView(
     viewState: BulletinViewState,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
-
     ) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
+
     Column(
         modifier = modifier
             .fillMaxSize()

@@ -2,14 +2,20 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.utill
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
@@ -67,4 +73,29 @@ object CompassRules {
     const val NORTH_OFFSET = 5f
     val LABELS = listOf("N", "NE", "E", "SE", "S", "SW", "W", "NW")
     val PRIMARY_INDICES = setOf(1, 3, 5, 6)
+}
+
+/**
+ * Displays error content with retry button
+ * @param errorMessage Message to be displayed
+ * @param onRetry Callback for retry action
+ */
+@Composable
+internal fun ErrorContent(
+    errorMessage: String,
+    onRetry: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(
+            text = errorMessage,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onRetry) {
+            Text("Retry")
+        }
+    }
 }
