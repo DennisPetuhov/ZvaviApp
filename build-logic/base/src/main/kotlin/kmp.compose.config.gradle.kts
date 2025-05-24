@@ -16,7 +16,7 @@ kotlin {
             implementation(libs.ui.util)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.androidx.navigation.composee)
+            implementation(libs.androidx.navigation.compose)
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
             implementation(libs.multiplatformSettings)
