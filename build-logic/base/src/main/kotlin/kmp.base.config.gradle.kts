@@ -52,7 +52,6 @@ kotlin {
 
         }
         iosMain.dependencies {
-            implementation(libs.androidx.navigation.compose)
         }
     }
 }
