@@ -76,8 +76,8 @@ actual class ZvaviNavigationController actual constructor(private val navControl
 
 @Composable
 actual fun rememberZvaviNavigationController(navController: NavHostController): ZvaviNavigationController {
-//    return remember(navController) { ZvaviNavigationController(navController) }
-    return  ZvaviNavigationController(navController)
+    return remember(navController) { ZvaviNavigationController(navController) }
+//    return  ZvaviNavigationController(navController)
 
 }
 
