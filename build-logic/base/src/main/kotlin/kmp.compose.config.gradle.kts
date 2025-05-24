@@ -33,7 +33,6 @@ kotlin {
 
             implementation(libs.ui.util)
         }
-        iosMain.dependencies {
-        }
+        iosMain.dependencies {}
     }
 }
