@@ -17,12 +17,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class BulletinViewModel(
+internal class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
-    private val dispatchers: DispatchersProvider
+    private val dispatchers: DispatchersProvider,
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
-
     private val logger = Logger.withTag("BulletinViewModel")
     private var bulletinJob: Job? = null
     private var retryCount = 0
@@ -42,8 +41,28 @@ class BulletinViewModel(
             BulletinEvent.SwipeToRefresh -> retryFetchBulletin()
             BulletinEvent.AvalancheProblemsClicked -> fetchBulletin()
             BulletinEvent.InfoClicked -> viewModelScope.launch { fetchBulletinUseCase.execute() }
-            BulletinEvent.Retry -> {}
+            BulletinEvent.CloseBottomSheet -> handleCloseBottomSheet()
+            BulletinEvent.OpenBottomSheet -> handleOpenBottomSheet()
+            BulletinEvent.ProblemInfoClicked -> handleNavigateToBulletinProblemInfoScreen()
+            BulletinEvent.ReturnFromBulletinProblemInfoScreen -> handleReturnFromBulletinProblemScreen()
         }
+    }
+
+    fun handleReturnFromBulletinProblemScreen() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    fun handleOpenBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    private fun handleNavigateToBulletinProblemInfoScreen() {
+        viewState = viewState.copy(showBottomSheet = false)
+        viewAction = BulletinAction.OpenProblemInfoScreen
+    }
+
+    private fun handleCloseBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = false)
     }
 
     fun fetchBulletin() {
@@ -109,7 +128,6 @@ class BulletinViewModel(
                 is NoDataException -> "No bulletin data available"
                 else -> "Failed to load bulletin: ${e.message}"
             }
-
             viewState = viewState.copy(
                 loading = false,
                 error = errorMessage

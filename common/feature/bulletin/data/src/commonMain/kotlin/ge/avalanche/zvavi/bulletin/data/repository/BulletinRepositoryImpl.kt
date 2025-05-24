@@ -10,8 +10,8 @@ import ge.avalanche.zvavi.bulletin.data.domain.mapper.toEntity
 import ge.avalanche.zvavi.database.dao.BulletinDao
 import ge.avalanche.zvavi.foundation.base.BaseRepository
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
-import ge.avalanche.zvavi.foundation.response.onError
-import ge.avalanche.zvavi.foundation.response.onSuccess
+import ge.avalanche.zvavi.foundation.network.onError
+import ge.avalanche.zvavi.foundation.network.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn

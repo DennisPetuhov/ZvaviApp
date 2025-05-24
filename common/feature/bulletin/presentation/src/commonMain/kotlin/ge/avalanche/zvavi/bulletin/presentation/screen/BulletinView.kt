@@ -4,7 +4,6 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,12 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
-import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.AvalanchesSnowpackWeatherBlock
-import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.DataLocationBlock
-import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.OverallRisksBlock
-import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.ProblemBlock
-import ge.avalanche.zvavi.bulletin.presentation.screen.blocks.RiskByHeightBlock
-import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.AvalanchesSnowpackWeatherBlock
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.DataLocationBlock
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.OverallRisksBlock
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.ProblemsBlock
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.blocks.RiskByHeightBlock
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
@@ -27,14 +25,13 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
 
 
 @Composable
-fun BulletinView(
+internal fun BulletinView(
     viewState: BulletinViewState,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
     ) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -72,7 +69,8 @@ private fun ContentBlocks(
     ) {
         OverallRisksBlock(viewState = viewState, eventHandler = eventHandler,layoutConfig= layoutConfig)
         RiskByHeightBlock(viewState = viewState, layoutConfig = layoutConfig)
-        ProblemBlock(
+        ProblemsBlock(
+            viewState = viewState,
             eventHandler = eventHandler,
             layoutConfig = layoutConfig
         )

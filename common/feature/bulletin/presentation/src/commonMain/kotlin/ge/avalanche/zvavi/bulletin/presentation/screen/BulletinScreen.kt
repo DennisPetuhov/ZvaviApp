@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.BulletinViewModel
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.ErrorContent
 import ge.avalanche.zvavi.designsystem.animation.shimmer.ShimmerState
@@ -33,11 +34,13 @@ import org.koin.compose.koinInject
  * @param modifier Modifier to be applied to the screen
  */
 @Composable
-fun BulletinScreen(
+internal fun BulletinScreen(
+    onNavigate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: BulletinViewModel = koinInject()
     val viewState by viewModel.viewStates().collectAsState()
+    val viewAction by viewModel.viewActions().collectAsState(initial = null)
     var shimmerState by remember { mutableStateOf(ShimmerState.Active) }
 
     Scaffold(
@@ -55,6 +58,21 @@ fun BulletinScreen(
                     shimmerState = ShimmerState.Active
                 }
                 viewState.error != null -> {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = viewState.error ?: "Unknown error",
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            onClick = { }
+                        ) {
+                            Text("Retry")
+                        }
+                    }
                     ErrorContent(
                         errorMessage = viewState.error ?: "Unknown error",
                         onRetry = { viewModel.obtainEvent(BulletinEvent.Retry) }
@@ -72,5 +90,11 @@ fun BulletinScreen(
             }
         }
     }
+    when (viewAction) {
+        is BulletinAction.OpenProblemInfoScreen -> {
+            onNavigate()
+            viewModel.clearAction()
+        }
+        else -> {}
+    }
 }
-
