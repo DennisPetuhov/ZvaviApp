@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
@@ -47,8 +46,7 @@ internal fun BulletinView(
             viewState = viewState,
             layoutConfig = layoutConfig,
             scrollState = scrollState,
-            eventHandler = eventHandler,
-
+            eventHandler = eventHandler
         )
     }
 }
@@ -59,7 +57,6 @@ private fun ContentBlocks(
     layoutConfig: LayoutConfig,
     scrollState: ScrollState,
     eventHandler: (BulletinEvent) -> Unit,
-
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),

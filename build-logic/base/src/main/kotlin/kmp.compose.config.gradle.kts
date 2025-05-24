@@ -31,8 +31,6 @@ kotlin {
             implementation(libs.ui.util)
             implementation(libs.androidx.navigation.compose)
         }
-        iosMain.dependencies {
-            implementation(libs.androidx.navigation.compose)
-        }
+        iosMain.dependencies {}
     }
 }

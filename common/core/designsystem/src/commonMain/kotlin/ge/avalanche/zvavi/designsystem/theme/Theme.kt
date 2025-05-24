@@ -41,6 +41,8 @@ fun AppTheme(
     val isDark by isDarkState
     val colors = if (!isDark) LightColors else DarkColors
     val shadow = if (!isDark) LightShadow else DarkShadow
+//    val colors =  DarkColors
+//    val shadow = DarkShadow
     val typography: ZvaviTypography = CreateZvaviTypography()
 
     CompositionLocalProvider(

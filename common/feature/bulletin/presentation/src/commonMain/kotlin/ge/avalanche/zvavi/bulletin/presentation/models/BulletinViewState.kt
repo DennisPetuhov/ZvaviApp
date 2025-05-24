@@ -3,26 +3,24 @@ package ge.avalanche.zvavi.bulletin.presentation.models
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 
 data class BulletinViewState(
-    val riskLevelOverall: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
+    val riskLevelOverall: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val overallInformation: String = "",
-    val avalancheRiskLevel: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
+    val avalancheRiskLevel: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val travelAdvice: String = "",
-    val riskLevelHighAlpine: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
-    val riskLevelAlpine: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
-    val riskLevelSubAlpine: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
+    val riskLevelHighAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
+    val riskLevelAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
+    val riskLevelSubAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val problems: List<String> = emptyList(),
     val recentAvalanches: List<String> = emptyList(),
-    val snowpack: String = "WOWOWO",
-    val weather: String = "WOWOWOOWOWOWO",
-    val loading: Boolean = false,
+    val snowpack: String = "",
+    val weather: String = "",
+    val loading: Boolean = true,
     val error: String? = null,
-    val topTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
-    val middleTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
-    val bottomTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.GENERAL_INFORMATION,
-    val showBottomSheet :Boolean = false,
-    val isFromBulletinProblemInfoScreen:Boolean = false
+    val topTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
+    val middleTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
+    val bottomTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
 
-) {
+    ) {
     companion object {
         val EMPTY = BulletinViewState()
     }

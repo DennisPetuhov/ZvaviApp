@@ -40,7 +40,7 @@ fun AvalanchesSnowpackWeatherBlock(
     modifier: Modifier = Modifier
 ) {
     var expandedStateAvalanche by remember { mutableStateOf(false) }
-    var expandedStateSnowPack by remember { mutableStateOf(true) }
+    var expandedStateSnowPack by remember { mutableStateOf(false) }
     var expandedStateWeather by remember { mutableStateOf(false) }
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),

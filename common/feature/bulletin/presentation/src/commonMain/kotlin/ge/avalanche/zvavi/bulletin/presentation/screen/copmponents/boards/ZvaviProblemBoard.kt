@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
@@ -45,7 +46,13 @@ fun ZvaviProblemBoard(
             .padding(
                 vertical = ZvaviSpacing.spacing200,
                 horizontal = layoutConfig.contentCompensation
-            ).clickable  (onClick = onClick, enabled = true, role = null, indication = null, interactionSource = null)
+            ).clickable(
+                onClick = onClick,
+                enabled = true,
+                role = null,
+                indication = null,
+                interactionSource = null
+            )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -61,6 +68,7 @@ fun ZvaviProblemBoard(
                     .aspectRatio(1f)
                     .clip(RoundedCornerShape(ZvaviRadius.radius550))
                     .border(BorderStroke(1.dp, ZvaviTheme.colors.contentNeutralTertiary))
+                    .shimmerEffect()
             )
             Spacer(modifier = Modifier.weight(0.12f))
             Text(
@@ -70,7 +78,7 @@ fun ZvaviProblemBoard(
                 modifier = Modifier
                     .wrapContentHeight()
                     .weight(2f)
-                    .padding(vertical = ZvaviSpacing.spacing150)
+                    .padding(vertical = ZvaviSpacing.spacing150).shimmerEffect()
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(

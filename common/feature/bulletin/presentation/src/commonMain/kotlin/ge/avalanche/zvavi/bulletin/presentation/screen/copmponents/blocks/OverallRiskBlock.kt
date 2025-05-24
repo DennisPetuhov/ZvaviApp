@@ -13,6 +13,7 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards.RiskBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -41,6 +42,9 @@ fun OverallRisksBlock(
                     text = viewState.riskLevelOverall.toTravelAdvice(),
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                     maxLines = 6,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shimmerEffect()
                 )
             },
             eventHandler = { event ->
@@ -64,6 +68,9 @@ fun OverallRisksBlock(
                     text = viewState.overallInformation,
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                     maxLines = 6,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shimmerEffect()
                 )
             },
             eventHandler = { event ->

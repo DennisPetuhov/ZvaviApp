@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
@@ -30,7 +31,6 @@ fun RiskBoard(
     modifier: Modifier = Modifier
 ) {
     val layoutConfig = LocalLayoutConfig.current
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -42,7 +42,7 @@ fun RiskBoard(
             .padding(
                 vertical = ZvaviSpacing.spacing350,
                 horizontal = layoutConfig.contentCompensation
-            )
+            ).shimmerEffect()
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -56,13 +56,13 @@ fun RiskBoard(
             Text(
                 text = "High",
                 style = ZvaviTheme.typography.display500Accent.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-                modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
+                modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100).shimmerEffect()
             )
         }
         Image(
             imageVector = avalancheRiskLevel,
             contentDescription = "danger level",
-            modifier = Modifier.weight(1f, fill = false).aspectRatio(1f)
+            modifier = Modifier.weight(1f, fill = false).aspectRatio(1f).shimmerEffect()
         )
     }
 }

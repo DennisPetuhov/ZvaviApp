@@ -2,15 +2,22 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.utill
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -29,7 +36,8 @@ fun StyledPyramidText(text: String) {
         Text(
             text,
             style = ZvaviTheme.typography.compact300Numeric.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-        )
+        modifier = Modifier.shimmerEffect()
+            )
     }
 }
 
@@ -37,7 +45,7 @@ fun StyledPyramidText(text: String) {
 @Composable
 fun AvalancheRiskLevel.toColor(): Color {
     return when (this) {
-        AvalancheRiskLevel.GENERAL_INFORMATION -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
+        AvalancheRiskLevel.NO_INFO -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
         AvalancheRiskLevel.LOW -> Color(ZvaviTheme.colors.backgroundAttentionHigh.value)
         AvalancheRiskLevel.MODERATE -> Color(ZvaviTheme.colors.backgroundPositiveHigh.value)
         AvalancheRiskLevel.CONSIDERABLE -> Color(ZvaviTheme.colors.backgroundWarningHigh.value)
@@ -49,7 +57,7 @@ fun AvalancheRiskLevel.toColor(): Color {
 @Composable
 fun AvalancheRiskLevel.toTravelAdvice(): String {
     return when (this) {
-        AvalancheRiskLevel.GENERAL_INFORMATION -> ""
+        AvalancheRiskLevel.NO_INFO -> ""
         AvalancheRiskLevel.LOW -> "Generally safe. Watch for unstable snow on isolate terrain features"
         AvalancheRiskLevel.MODERATE -> "Heightened avalanche conditions on specific terrain features. Evaluates snow and terrain carefully. Identify features of concern."
         AvalancheRiskLevel.CONSIDERABLE -> "Dangerous avalanche conditions.Careful snowpack evaluation, cautious route-finding, and conservative decision-making essential."
@@ -67,4 +75,29 @@ object CompassRules {
     const val NORTH_OFFSET = 5f
     val LABELS = listOf("N", "NE", "E", "SE", "S", "SW", "W", "NW")
     val PRIMARY_INDICES = setOf(1, 3, 5, 6)
+}
+
+/**
+ * Displays error content with retry button
+ * @param errorMessage Message to be displayed
+ * @param onRetry Callback for retry action
+ */
+@Composable
+internal fun ErrorContent(
+    errorMessage: String,
+    onRetry: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(
+            text = errorMessage,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onRetry) {
+            Text("Retry")
+        }
+    }
 }

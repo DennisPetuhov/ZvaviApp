@@ -71,5 +71,5 @@ fun HazardLevelsEntity.toDomain(): HazardLevels = HazardLevels(
 )
 
 fun AvalancheRiskLevelEntity.toDomain(): AvalancheRiskLevel {
-    return AvalancheRiskLevel.entries.find { it.value == this.value } ?: AvalancheRiskLevel.GENERAL_INFORMATION
+    return AvalancheRiskLevel.entries.find { it.value == this.value } ?: AvalancheRiskLevel.NO_INFO
 }
