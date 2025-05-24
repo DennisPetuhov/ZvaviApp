@@ -10,12 +10,11 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import ge.avalanche.zvavi.App
-import ge.avalanche.zvavi.ScreenSizeJvm.AppSettings
-import ge.avalanche.zvavi.ScreenSizeJvm.LocalAppSettings
-import ge.avalanche.zvavi.ScreenSizeJvm.WindowState
+import ge.avalanche.zvavi.screenSize.AppSettings
+import ge.avalanche.zvavi.screenSize.LocalAppSettings
+import ge.avalanche.zvavi.screenSize.WindowState
 import ge.avalanche.zvavi.database.platform.PlatformConfiguration
 import ge.avalanche.zvavi.di.Inject
-import java.awt.Dimension
 
 fun main() = application {
     val appSettings = remember { AppSettings() }
@@ -47,10 +46,7 @@ fun main() = application {
 
 
             }
-//            window.minimumSize = Dimension(450, 800)
             App(platformConfig)
         }
     }
-
-
 }

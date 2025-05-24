@@ -1,6 +1,6 @@
 plugins {
     id("shared.android.config")
-    id("kmp.base.config")
+    id("kmp.compose.config")
     id("kmp.network.config")
 }
 android {

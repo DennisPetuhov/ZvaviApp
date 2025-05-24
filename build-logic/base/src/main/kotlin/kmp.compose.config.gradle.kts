@@ -16,12 +16,13 @@ kotlin {
             implementation(libs.ui.util)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.androidx.navigation.composee)
+            implementation(libs.androidx.navigation.compose)
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
-            implementation(libs.multiplatformSettings)
-            implementation(libs.kotlinx.datetime)
             implementation(libs.androidx.ui.text.google.fonts)
+            implementation(libs.androidx.navigation.compose)
+
+
         }
 
         androidMain.dependencies {
@@ -30,10 +31,11 @@ kotlin {
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
-
             implementation(libs.ui.util)
+            implementation(libs.androidx.navigation.compose)
         }
         iosMain.dependencies {
+            implementation(libs.androidx.navigation.compose)
         }
     }
 }

@@ -44,18 +44,24 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.multiplatformSettings)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.androidx.lifecycle.viewmodel)
+
+
+
         }
         androidMain.dependencies {
             implementation(libs.koin.android)
             implementation(libs.androidx.runtime.android)
             implementation(libs.kotlinx.coroutines.android)
+
+
         }
         jvmMain.dependencies {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
+
         }
         iosMain.dependencies {
+            implementation(libs.androidx.navigation.compose)
         }
     }
 }

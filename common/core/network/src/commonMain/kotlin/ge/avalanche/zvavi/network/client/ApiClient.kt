@@ -1,7 +1,7 @@
 package ge.avalanche.zvavi.network.client
 
 import co.touchlab.kermit.Logger
-import ge.avalanche.zvavi.foundation.response.ApiResponse
+import ge.avalanche.zvavi.foundation.network.ApiResponse
 import ge.avalanche.zvavi.network.config.NetworkConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder

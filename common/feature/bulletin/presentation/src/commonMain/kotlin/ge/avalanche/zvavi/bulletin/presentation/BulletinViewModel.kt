@@ -17,12 +17,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class BulletinViewModel(
+internal class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
-    private val dispatchers: DispatchersProvider
+    private val dispatchers: DispatchersProvider,
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
-
     private val logger = Logger.withTag("BulletinViewModel")
     private var bulletinJob: Job? = null
     private var retryCount = 0
@@ -40,14 +39,30 @@ class BulletinViewModel(
             BulletinEvent.TravelAdviceClicked -> handleTravelAdviceClick()
             BulletinEvent.OverviewClicked -> handleOverviewClick()
             BulletinEvent.SwipeToRefresh -> retryFetchBulletin()
-            BulletinEvent.AvalancheProblemsClicked -> {
-                fetchBulletin()
-            }
-
-            BulletinEvent.InfoClicked -> {
-                viewModelScope.launch { fetchBulletinUseCase.execute() }
-            }
+            BulletinEvent.AvalancheProblemsClicked -> fetchBulletin()
+            BulletinEvent.InfoClicked -> viewModelScope.launch { fetchBulletinUseCase.execute() }
+            BulletinEvent.CloseBottomSheet -> handleCloseBottomSheet()
+            BulletinEvent.OpenBottomSheet -> handleOpenBottomSheet()
+            BulletinEvent.ProblemInfoClicked -> handleNavigateToBulletinProblemInfoScreen()
+            BulletinEvent.ReturnFromBulletinProblemInfoScreen -> handleReturnFromBulletinProblemScreen()
         }
+    }
+
+    fun handleReturnFromBulletinProblemScreen() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    fun handleOpenBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = true)
+    }
+
+    private fun handleNavigateToBulletinProblemInfoScreen() {
+        viewState = viewState.copy(showBottomSheet = false)
+        viewAction = BulletinAction.OpenProblemInfoScreen
+    }
+
+    private fun handleCloseBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = false)
     }
 
     fun fetchBulletin() {
@@ -62,25 +77,15 @@ class BulletinViewModel(
     }
 
     fun observeBulletinData() {
-        // Cancel any existing job
         bulletinJob?.cancel()
-
-        // Reset retry count for new fetch
         retryCount = 0
-
-        // Start new job
         bulletinJob = viewModelScope.launch {
-//            viewState = viewState.copy(loading = false, error = null)
-
-            // First try to fetch new data
             try {
                 fetchBulletinUseCase.execute()
                 logger.d { "Successfully fetched bulletin data" }
             } catch (e: Exception) {
                 logger.e(e) { "Error fetching bulletin data" }
             }
-
-            // Then observe the data flow
             observeBulletinUseCase.execute()
                 .onEach { bulletin ->
                     logger.d { "Received bulletin from database: $bulletin" }
@@ -96,10 +101,9 @@ class BulletinViewModel(
                         snowpack = bulletin.snowpack,
                         weather = bulletin.weather,
                         topTriangleColor = bulletin.hazardLevels.highAlpine,
-                        middleTriangleColor =  bulletin.hazardLevels.highAlpine,
+                        middleTriangleColor = bulletin.hazardLevels.highAlpine,
                         bottomTriangleColor = bulletin.hazardLevels.highAlpine,
                     )
-                    // Reset retry count on success
                     retryCount = 0
                 }
                 .catch { e ->
@@ -116,16 +120,14 @@ class BulletinViewModel(
             logger.i { "Retrying fetch (attempt $retryCount of $maxRetries) after $delayMillis ms" }
 
             viewModelScope.launch {
-//                delay(delayMillis)
+                delay(delayMillis)
                 observeBulletinData()
             }
         } else {
-            // Show error after max retries
             val errorMessage = when (e) {
                 is NoDataException -> "No bulletin data available"
                 else -> "Failed to load bulletin: ${e.message}"
             }
-
             viewState = viewState.copy(
                 loading = false,
                 error = errorMessage
@@ -134,7 +136,6 @@ class BulletinViewModel(
     }
 
     fun retryFetchBulletin() {
-        // Manual retry from UI
         retryCount = 0
         observeBulletinData()
     }

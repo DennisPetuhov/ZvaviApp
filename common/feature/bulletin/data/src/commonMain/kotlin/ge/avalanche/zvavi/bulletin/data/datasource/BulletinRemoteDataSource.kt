@@ -1,6 +1,6 @@
 package ge.avalanche.zvavi.bulletin.data.datasource
 
-import ge.avalanche.zvavi.foundation.response.ApiResponse
+import ge.avalanche.zvavi.foundation.network.ApiResponse
 import ge.avalanche.zvavi.network.client.ApiClient
 import ge.avalanche.zvavi.network.models.BulletinApi
 import io.ktor.http.HttpMethod
