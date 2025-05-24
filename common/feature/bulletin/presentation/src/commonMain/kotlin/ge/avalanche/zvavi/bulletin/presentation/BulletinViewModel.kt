@@ -60,7 +60,7 @@ internal class BulletinViewModel(
         viewState = viewState.copy(showBottomSheet = false)
         viewAction = BulletinAction.OpenProblemInfoScreen
     }
-
+//opo
     private fun handleCloseBottomSheet() {
         viewState = viewState.copy(showBottomSheet = false)
     }
