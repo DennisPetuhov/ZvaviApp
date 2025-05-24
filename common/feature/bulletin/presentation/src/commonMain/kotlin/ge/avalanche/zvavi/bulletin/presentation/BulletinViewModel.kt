@@ -45,24 +45,24 @@ internal class BulletinViewModel(
             BulletinEvent.OpenBottomSheet -> handleOpenBottomSheet()
             BulletinEvent.ProblemInfoClicked -> handleNavigateToBulletinProblemInfoScreen()
             BulletinEvent.ReturnFromBulletinProblemInfoScreen -> handleReturnFromBulletinProblemScreen()
+            BulletinEvent.Retry -> {}
         }
     }
 
     fun handleReturnFromBulletinProblemScreen() {
-        viewState = viewState.copy(showBottomSheet = true)
+
     }
 
     fun handleOpenBottomSheet() {
-        viewState = viewState.copy(showBottomSheet = true)
+
     }
 
     private fun handleNavigateToBulletinProblemInfoScreen() {
-        viewState = viewState.copy(showBottomSheet = false)
-        viewAction = BulletinAction.OpenProblemInfoScreen
+
     }
 
     private fun handleCloseBottomSheet() {
-        viewState = viewState.copy(showBottomSheet = false)
+
     }
 
     fun fetchBulletin() {
@@ -75,7 +75,6 @@ internal class BulletinViewModel(
             }
         }
     }
-
     fun observeBulletinData() {
         bulletinJob?.cancel()
         retryCount = 0
