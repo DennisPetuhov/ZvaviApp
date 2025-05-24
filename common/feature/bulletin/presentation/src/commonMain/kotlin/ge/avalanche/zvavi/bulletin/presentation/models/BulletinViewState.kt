@@ -19,6 +19,7 @@ data class BulletinViewState(
     val topTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val middleTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val bottomTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
+    val showBottomSheet: Boolean = false
 
     ) {
     companion object {

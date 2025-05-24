@@ -12,5 +12,6 @@ sealed class BulletinEvent {
     object OpenBottomSheet : BulletinEvent()
     object CloseBottomSheet : BulletinEvent()
     object ProblemInfoClicked : BulletinEvent()
-    object ReturnFromBulletinProblemInfoScreen: BulletinEvent()
+    object ReturnFromBulletinProblemInfoScreen : BulletinEvent()
+    object Retry : BulletinEvent()
 }
