@@ -56,6 +56,6 @@ private fun LocationText(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = ZvaviSpacing.spacing200, vertical = ZvaviSpacing.spacing100).shimmerEffect()
+            .padding(horizontal = ZvaviSpacing.spacing200, vertical = ZvaviSpacing.spacing100)
     )
 }

@@ -11,10 +11,10 @@ data class HazardLevels(
 ){
     companion object{
         val EMPTY = HazardLevels(
-            alpine = AvalancheRiskLevel.GENERAL_INFORMATION,
-            overall = AvalancheRiskLevel.GENERAL_INFORMATION,
-            subAlpine = AvalancheRiskLevel.GENERAL_INFORMATION,
-            highAlpine = AvalancheRiskLevel.GENERAL_INFORMATION
+            alpine = AvalancheRiskLevel.NO_INFO,
+            overall = AvalancheRiskLevel.NO_INFO,
+            subAlpine = AvalancheRiskLevel.NO_INFO,
+            highAlpine = AvalancheRiskLevel.NO_INFO
         )
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -35,7 +36,8 @@ fun StyledPyramidText(text: String) {
         Text(
             text,
             style = ZvaviTheme.typography.compact300Numeric.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-        )
+        modifier = Modifier.shimmerEffect()
+            )
     }
 }
 
@@ -43,7 +45,7 @@ fun StyledPyramidText(text: String) {
 @Composable
 fun AvalancheRiskLevel.toColor(): Color {
     return when (this) {
-        AvalancheRiskLevel.GENERAL_INFORMATION -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
+        AvalancheRiskLevel.NO_INFO -> Color(ZvaviTheme.colors.backgroundInfoHigh.value)
         AvalancheRiskLevel.LOW -> Color(ZvaviTheme.colors.backgroundAttentionHigh.value)
         AvalancheRiskLevel.MODERATE -> Color(ZvaviTheme.colors.backgroundPositiveHigh.value)
         AvalancheRiskLevel.CONSIDERABLE -> Color(ZvaviTheme.colors.backgroundWarningHigh.value)
@@ -55,7 +57,7 @@ fun AvalancheRiskLevel.toColor(): Color {
 @Composable
 fun AvalancheRiskLevel.toTravelAdvice(): String {
     return when (this) {
-        AvalancheRiskLevel.GENERAL_INFORMATION -> ""
+        AvalancheRiskLevel.NO_INFO -> ""
         AvalancheRiskLevel.LOW -> "Generally safe. Watch for unstable snow on isolate terrain features"
         AvalancheRiskLevel.MODERATE -> "Heightened avalanche conditions on specific terrain features. Evaluates snow and terrain carefully. Identify features of concern."
         AvalancheRiskLevel.CONSIDERABLE -> "Dangerous avalanche conditions.Careful snowpack evaluation, cautious route-finding, and conservative decision-making essential."

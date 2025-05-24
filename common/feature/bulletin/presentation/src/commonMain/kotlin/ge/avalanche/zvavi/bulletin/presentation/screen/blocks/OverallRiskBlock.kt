@@ -28,7 +28,7 @@ fun OverallRisksBlock(
 ) {
     RiskBoard(
         modifier = modifier
-            .fillMaxWidth().shimmerEffect()
+            .fillMaxWidth()
     )
     Row(
         modifier = Modifier
@@ -42,7 +42,9 @@ fun OverallRisksBlock(
                     text = viewState.riskLevelOverall.toTravelAdvice(),
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                     maxLines = 6,
-                    modifier= Modifier.shimmerEffect()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shimmerEffect()
                 )
             },
             eventHandler = { event ->
@@ -66,7 +68,9 @@ fun OverallRisksBlock(
                     text = viewState.overallInformation,
                     style = ZvaviTheme.typography.compact300Default.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                     maxLines = 6,
-                    modifier= Modifier.shimmerEffect()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shimmerEffect()
                 )
             },
             eventHandler = { event ->
@@ -77,7 +81,7 @@ fun OverallRisksBlock(
             layoutConfig = layoutConfig,
             modifier = Modifier
                 .weight(0.95f, fill = false)
-                .fillMaxHeight().shimmerEffect()
+                .fillMaxHeight()
         )
     }
 }
