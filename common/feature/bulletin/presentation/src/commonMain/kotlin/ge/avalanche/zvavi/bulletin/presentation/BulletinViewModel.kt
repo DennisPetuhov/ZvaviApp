@@ -21,6 +21,7 @@ internal class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
     private val dispatchers: DispatchersProvider,
+
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
     private val logger = Logger.withTag("BulletinViewModel")
     private var bulletinJob: Job? = null
@@ -60,7 +61,7 @@ internal class BulletinViewModel(
     private fun handleNavigateToBulletinProblemInfoScreen() {
 
     }
-
+//opo
     private fun handleCloseBottomSheet() {
 
     }

@@ -21,7 +21,7 @@ data class BulletinViewState(
     val bottomTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val showBottomSheet: Boolean = false
 
-    ) {
+) {
     companion object {
         val EMPTY = BulletinViewState()
     }
