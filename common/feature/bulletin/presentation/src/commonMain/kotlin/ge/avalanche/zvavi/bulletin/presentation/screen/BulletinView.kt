@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
@@ -30,7 +29,7 @@ internal fun BulletinView(
     viewState: BulletinViewState,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
-    ) {
+) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
     Column(
@@ -39,6 +38,7 @@ internal fun BulletinView(
             .background(ZvaviTheme.colors.layerFloor0)
     ) {
         DataLocationBlock(
+            viewState = viewState,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = ZvaviSpacing.spacing400, vertical = ZvaviSpacing.spacing100)
@@ -48,7 +48,6 @@ internal fun BulletinView(
             layoutConfig = layoutConfig,
             scrollState = scrollState,
             eventHandler = eventHandler,
-            onInfoProblemClicked
         )
     }
 }
@@ -69,7 +68,11 @@ private fun ContentBlocks(
             )
             .verticalScroll(scrollState)
     ) {
-        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler,layoutConfig= layoutConfig)
+        OverallRisksBlock(
+            viewState = viewState,
+            eventHandler = eventHandler,
+            layoutConfig = layoutConfig
+        )
         RiskByHeightBlock(viewState = viewState, layoutConfig = layoutConfig)
         ProblemsBlock(
             viewState = viewState,

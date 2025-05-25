@@ -26,12 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ColoredCirclesGrid
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemAspectElevation
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemSensitivity
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemTimeOfDay
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ProblemTrend
-import ge.avalanche.zvavi.bulletin.presentation.screen.views.problem.ZvaviProblemSize
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ColoredCirclesGrid
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemAspectElevation
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemSensitivity
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTimeOfDay
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTrend
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ZvaviProblemSize
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -117,7 +117,7 @@ private fun ModalContainer(
                     modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
                 )
             }
-            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig, onInfoClicked = onInfoClicked)
+            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig)
 
             Text(
                 text = "Persistent slab",
@@ -160,8 +160,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 eventHandler = { event ->
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
-                        ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.ProblemInfoClicked)
-                    }
+                                   }
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 modifier = Modifier.weight(1f, fill = false)
