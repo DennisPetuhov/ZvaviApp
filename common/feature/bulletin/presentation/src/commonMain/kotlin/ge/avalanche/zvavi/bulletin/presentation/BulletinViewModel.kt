@@ -50,10 +50,6 @@ internal class BulletinViewModel(
     }
 
     fun handleReturnFromBulletinProblemScreen() {
-
-    }
-
-    fun handleReturnFromBulletinProblemScreen() {
         viewState = viewState.copy(showBottomSheet = true)
     }
 
