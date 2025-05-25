@@ -21,7 +21,7 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.Pentago
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.RectangleView
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toColor
-import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
+
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
