@@ -29,7 +29,7 @@ internal fun BulletinView(
     viewState: BulletinViewState,
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
-    ) {
+) {
     val layoutConfig = LocalLayoutConfig.current
     val scrollState = rememberScrollState()
     Column(
@@ -38,6 +38,7 @@ internal fun BulletinView(
             .background(ZvaviTheme.colors.layerFloor0)
     ) {
         DataLocationBlock(
+            viewState = viewState,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = ZvaviSpacing.spacing400, vertical = ZvaviSpacing.spacing100)
@@ -46,7 +47,7 @@ internal fun BulletinView(
             viewState = viewState,
             layoutConfig = layoutConfig,
             scrollState = scrollState,
-            eventHandler = eventHandler
+            eventHandler = eventHandler,
         )
     }
 }
@@ -67,7 +68,11 @@ private fun ContentBlocks(
             )
             .verticalScroll(scrollState)
     ) {
-        OverallRisksBlock(viewState = viewState, eventHandler = eventHandler,layoutConfig= layoutConfig)
+        OverallRisksBlock(
+            viewState = viewState,
+            eventHandler = eventHandler,
+            layoutConfig = layoutConfig
+        )
         RiskByHeightBlock(viewState = viewState, layoutConfig = layoutConfig)
         ProblemsBlock(
             viewState = viewState,

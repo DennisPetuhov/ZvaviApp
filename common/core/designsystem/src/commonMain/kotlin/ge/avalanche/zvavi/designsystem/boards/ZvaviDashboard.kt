@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,8 +26,10 @@ import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
+import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
+import org.jetbrains.compose.resources.stringResource
 
 interface ZvaviDashboardEvent {
     object InfoClicked : ZvaviDashboardEvent
@@ -98,7 +99,7 @@ private fun DashboardHeader(
         ) {
             Icon(
                 imageVector = ZvaviIcons.InfoIcon,
-                contentDescription = "Info",
+                contentDescription = stringResource(ZvaviStrings.info),
                 tint = ZvaviTheme.colors.contentNeutralTertiary,
                 modifier = Modifier.size(16.dp)
             )

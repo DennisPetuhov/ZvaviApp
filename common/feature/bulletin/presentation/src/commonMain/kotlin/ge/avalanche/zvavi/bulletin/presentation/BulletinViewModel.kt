@@ -8,6 +8,7 @@ import ge.avalanche.zvavi.bulletin.data.repository.NoDataException
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinAction
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
+import ge.avalanche.zvavi.bulletin.presentation.screen.utill.shortName
 import ge.avalanche.zvavi.foundation.base.BaseViewModel
 import ge.avalanche.zvavi.foundation.dispatchers.DispatchersProvider
 import kotlinx.coroutines.Job
@@ -16,12 +17,16 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 internal class BulletinViewModel(
     private val observeBulletinUseCase: ObserveBulletinUseCase,
     private val fetchBulletinUseCase: FetchBulletinUseCase,
     private val dispatchers: DispatchersProvider,
-
 ) : BaseViewModel<BulletinViewState, BulletinAction, BulletinEvent>(BulletinViewState.EMPTY) {
     private val logger = Logger.withTag("BulletinViewModel")
     private var bulletinJob: Job? = null
@@ -51,19 +56,20 @@ internal class BulletinViewModel(
     }
 
     fun handleReturnFromBulletinProblemScreen() {
-
+        viewState = viewState.copy(showBottomSheet = true)
     }
 
     fun handleOpenBottomSheet() {
-
+        viewState = viewState.copy(showBottomSheet = true)
     }
 
     private fun handleNavigateToBulletinProblemInfoScreen() {
-
+        viewState = viewState.copy(showBottomSheet = false)
+        viewAction = BulletinAction.OpenProblemInfoScreen
     }
-//opo
-    private fun handleCloseBottomSheet() {
 
+    private fun handleCloseBottomSheet() {
+        viewState = viewState.copy(showBottomSheet = false)
     }
 
     fun fetchBulletin() {
@@ -76,6 +82,7 @@ internal class BulletinViewModel(
             }
         }
     }
+
     fun observeBulletinData() {
         bulletinJob?.cancel()
         retryCount = 0
@@ -103,6 +110,7 @@ internal class BulletinViewModel(
                         topTriangleColor = bulletin.hazardLevels.highAlpine,
                         middleTriangleColor = bulletin.hazardLevels.highAlpine,
                         bottomTriangleColor = bulletin.hazardLevels.highAlpine,
+                        bulletinData = getCurrentDateTime()
                     )
                     retryCount = 0
                 }
@@ -163,4 +171,10 @@ internal class BulletinViewModel(
     private fun handleOverviewClick() {
         // Implementation for overview click
     }
+
+    fun getCurrentDateTime() =
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.shortMonthDay
+
+    private val LocalDate.shortMonthDay: String
+        get() = "${month.shortName} $dayOfMonth"
 }

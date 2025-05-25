@@ -12,14 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
+import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LocalLayoutConfig
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun DataLocationBlock(modifier: Modifier = Modifier) {
+fun DataLocationBlock(viewState: BulletinViewState, modifier: Modifier = Modifier) {
     val layoutConfig = LocalLayoutConfig.current
 
     Column(
@@ -30,12 +34,12 @@ fun DataLocationBlock(modifier: Modifier = Modifier) {
             .padding(horizontal = layoutConfig.marginHorizontal, vertical = ZvaviSpacing.spacing100)
     ) {
         LocationText(
-            text = "Feb 10",
+            text = viewState.bulletinData,
             style = ZvaviTheme.typography.compact250Default,
-            color = ZvaviTheme.colors.contentNeutralSecondary
+            color = ZvaviTheme.colors.contentNeutralSecondary,
         )
         LocationText(
-            text = "Gudauri",
+            text = stringResource(ZvaviStrings.gudauri),
             style = ZvaviTheme.typography.compact400Accent,
             color = ZvaviTheme.colors.contentNeutralPrimary
         )
@@ -57,5 +61,6 @@ private fun LocationText(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(horizontal = ZvaviSpacing.spacing200, vertical = ZvaviSpacing.spacing100)
+            .shimmerEffect()
     )
 }

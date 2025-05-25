@@ -15,8 +15,10 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards.ZvaviProblemBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.dialogs.AvalancheProblemsBottomSheet
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +40,7 @@ fun ProblemsBlock(
             .padding(top = ZvaviSpacing.spacing350)
     ) {
         Text(
-            text = "Problems",
+            text = stringResource(ZvaviStrings.problems),
             style = ZvaviTheme.typography.display400Accent.copy(
                 color = ZvaviTheme.colors.contentNeutralPrimary
             ),

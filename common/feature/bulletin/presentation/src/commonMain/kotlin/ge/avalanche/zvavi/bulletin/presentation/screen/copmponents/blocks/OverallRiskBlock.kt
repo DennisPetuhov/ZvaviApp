@@ -16,8 +16,11 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
 import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
+import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
+import org.jetbrains.compose.resources.stringResource
+
 
 @Composable
 fun OverallRisksBlock(
@@ -27,6 +30,7 @@ fun OverallRisksBlock(
     modifier: Modifier = Modifier
 ) {
     RiskBoard(
+        viewState = viewState,
         modifier = modifier
             .fillMaxWidth()
     )
@@ -36,7 +40,7 @@ fun OverallRisksBlock(
             .height(IntrinsicSize.Min)
     ) {
         ZvaviDashboard(
-            name = "Travel Advice",
+            name = stringResource(ZvaviStrings.travelAdvice),
             mainBlock = {
                 Text(
                     text = viewState.riskLevelOverall.toTravelAdvice(),
@@ -62,7 +66,7 @@ fun OverallRisksBlock(
                 .weight(0.02f)
         )
         ZvaviDashboard(
-            name = "Overview",
+            name = stringResource(ZvaviStrings.overview),
             mainBlock = {
                 Text(
                     text = viewState.overallInformation,

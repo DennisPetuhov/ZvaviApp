@@ -160,7 +160,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 eventHandler = { event ->
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
-                    }
+                                   }
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 modifier = Modifier.weight(1f, fill = false)
