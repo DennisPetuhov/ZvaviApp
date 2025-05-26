@@ -1,9 +1,11 @@
 package ge.avalanche.zvavi.bulletin.presentation.screen.utill
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,7 +22,11 @@ import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
+import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
+import kotlinx.datetime.Month
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.PI
 import kotlin.math.tan
 
@@ -36,8 +42,8 @@ fun StyledPyramidText(text: String) {
         Text(
             text,
             style = ZvaviTheme.typography.compact300Numeric.copy(color = ZvaviTheme.colors.contentStaticDarkPrimary),
-        modifier = Modifier.shimmerEffect()
-            )
+            modifier = Modifier.shimmerEffect()
+        )
     }
 }
 
@@ -101,3 +107,60 @@ internal fun ErrorContent(
         }
     }
 }
+
+@Composable
+fun RiskLevelIcon(riskLevel: AvalancheRiskLevel, modifier: Modifier) {
+    val icon = when (riskLevel) {
+        AvalancheRiskLevel.EXTREME -> ZvaviIcons.RiskLevelExtreme
+        AvalancheRiskLevel.HIGH -> ZvaviIcons.RiskLevelHigh
+        AvalancheRiskLevel.CONSIDERABLE -> ZvaviIcons.RiskLevelConsiderable
+        AvalancheRiskLevel.MODERATE -> ZvaviIcons.RiskLevelModerate
+        AvalancheRiskLevel.LOW -> ZvaviIcons.RiskLevelLow
+        AvalancheRiskLevel.NO_INFO -> ZvaviIcons.RiskLevelExtreme
+    }
+    Image(
+        imageVector = icon,
+        contentDescription = stringResource(ZvaviStrings.dangerLevel),
+        modifier = modifier.aspectRatio(1f).shimmerEffect()
+    )
+}
+@Composable
+fun RiskLevelColor(riskLevel: AvalancheRiskLevel, modifier: Modifier) {
+    val icon = when (riskLevel) {
+        AvalancheRiskLevel.EXTREME -> ZvaviTheme.colors.backgroundNeutralHigh
+        AvalancheRiskLevel.HIGH -> ZvaviTheme.colors.backgroundNegativeHigh
+        AvalancheRiskLevel.CONSIDERABLE -> ZvaviTheme.colors.backgroundWarningHigh
+        AvalancheRiskLevel.MODERATE -> ZvaviTheme.colors.backgroundAttentionHigh
+        AvalancheRiskLevel.LOW -> ZvaviTheme.colors.backgroundPositiveHigh
+        AvalancheRiskLevel.NO_INFO -> ZvaviTheme.colors.backgroundNeutralHigh
+    }
+}
+@Composable
+fun Modifier.overallRiskBackgroundColor(riskLevel: AvalancheRiskLevel) = this.then(
+    Modifier.background(
+        when (riskLevel) {
+            AvalancheRiskLevel.EXTREME -> ZvaviTheme.colors.backgroundNeutralHigh
+            AvalancheRiskLevel.HIGH -> ZvaviTheme.colors.backgroundNegativeHigh
+            AvalancheRiskLevel.CONSIDERABLE -> ZvaviTheme.colors.backgroundWarningHigh
+            AvalancheRiskLevel.MODERATE -> ZvaviTheme.colors.backgroundAttentionHigh
+            AvalancheRiskLevel.LOW -> ZvaviTheme.colors.backgroundPositiveHigh
+            AvalancheRiskLevel.NO_INFO -> ZvaviTheme.colors.backgroundNeutralHigh
+        }
+    )
+)
+internal val Month.shortName: String
+    get() = when (this) {
+        Month.JANUARY -> "Jan"
+        Month.FEBRUARY -> "Feb"
+        Month.MARCH -> "Mar"
+        Month.APRIL -> "Apr"
+        Month.MAY -> "May"
+        Month.JUNE -> "Jun"
+        Month.JULY -> "Jul"
+        Month.AUGUST -> "Aug"
+        Month.SEPTEMBER -> "Sep"
+        Month.OCTOBER -> "Oct"
+        Month.NOVEMBER -> "Nov"
+        Month.DECEMBER -> "Dec"
+        else -> "error"
+    }

@@ -1,0 +1,16 @@
+<resources>
+    <string name="overall_risk_level">Overall risk level</string>
+    <string name="danger_level">Danger level</string>
+    <string name="travel_advice">Travel Advice</string>
+    <string name="overview">Overview</string>
+    <string name="Gudauri">Gudauri</string>
+    <string name="info">info</string>
+    <string name="risk_by_height">Risk by height</string>
+    <string name="high_alpine">High Alpine</string>
+    <string name="alpine">Alpine</string>
+    <string name="sub_alpine">Sub Alpine</string>
+    <string name="height_2600">2 600</string>
+    <string name="height_2000">2 000</string>
+    <string name="height_0">0</string>
+    <string name="Problems">Problems</string>
+</resources>

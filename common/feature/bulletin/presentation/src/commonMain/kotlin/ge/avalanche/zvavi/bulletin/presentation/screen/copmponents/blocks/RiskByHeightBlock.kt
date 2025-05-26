@@ -23,8 +23,10 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toColor
 
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -43,13 +45,13 @@ fun RiskByHeightBlock(
         RiskRow(
             topText = {
                 Text(
-                    text = "Risk by height",
+                    text = stringResource(ZvaviStrings.riskByHeight),
                     style = ZvaviTheme.typography.display400Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                     color = ZvaviTheme.colors.contentNeutralSecondary,
                     modifier = Modifier.fillMaxWidth().padding(vertical = ZvaviSpacing.spacing100)
                 )
             },
-            bottomText = "High Alpine",
+            bottomText = stringResource(ZvaviStrings.highAlpine),
             riskView = {
                 PentagonView(
                     canvasWidth = (152f * layoutConfig.canvasScale).dp,
@@ -65,15 +67,15 @@ fun RiskByHeightBlock(
         RiskRow(
             topText = {
                 Text(
-                    text = "2 600",
+                    text = stringResource(ZvaviStrings.height2600),
                     style = ZvaviTheme.typography.compact200Default,
                     color = ZvaviTheme.colors.contentNeutralSecondary,
                     minLines = 1,
                     modifier = Modifier.wrapContentSize()
                 )
-            }, bottomText = "Alpine", riskView = {
-
-                val a = viewState.riskLevelAlpine.name
+            },
+            bottomText = stringResource(ZvaviStrings.alpine),
+            riskView = {
                 RectangleView(
                     canvasWidth = (182f * layoutConfig.canvasScale).dp,
                     canvasHeight = (50f * layoutConfig.canvasScale).dp,
@@ -89,14 +91,14 @@ fun RiskByHeightBlock(
         RiskRow(
             topText = {
                 Text(
-                    text = "2 000",
+                    text = stringResource(ZvaviStrings.height2000),
                     style = ZvaviTheme.typography.compact200Default,
                     color = ZvaviTheme.colors.contentNeutralSecondary,
                     minLines = 1,
                     modifier = Modifier.wrapContentSize()
                 )
             },
-            bottomText = "Sub Alpine",
+            bottomText = stringResource(ZvaviStrings.subAlpine),
             riskView = {
                 RectangleView(
                     canvasWidth = (212f * layoutConfig.canvasScale).dp,
@@ -113,7 +115,7 @@ fun RiskByHeightBlock(
             modifier = Modifier.fillMaxWidth().wrapContentHeight()
         ) {
             Text(
-                "0",
+                text = stringResource(ZvaviStrings.height0),
                 style = ZvaviTheme.typography.compact200Default,
                 color = ZvaviTheme.colors.contentNeutralSecondary,
                 modifier = Modifier.wrapContentSize()
@@ -121,6 +123,7 @@ fun RiskByHeightBlock(
         }
     }
 }
+
 @Composable
 private fun RiskRow(
     layoutConfig: LayoutConfig,
