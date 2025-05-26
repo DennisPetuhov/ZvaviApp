@@ -1,24 +1,17 @@
 package ge.avalanche.zvavi.network.models
 
+import ge.avalanche.zvavi.network.models.problems.AvalancheProblemResponse
+import ge.avalanche.zvavi.network.models.addproblems.BulletinResponse
+import ge.avalanche.zvavi.network.models.recentAvalanches.RecentAvalancheResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class BulletinApi(
-    val id: Int,
-    @SerialName("created_at")
-    val createdAt: String,
-    val forecaster: String,
-    val status: String,
-    @SerialName("valid_until")
-    val validUntil: String,
-    val snowpack: String,
-    val summary: String,
-    val weather: String,
-    @SerialName("snow_condition")
-    val snowCondition: String,
-    @SerialName("additional_hazards")
-    val additionalHazards: String,
-    @SerialName("hazard_levels")
-    val hazardLevels: HazardLevelsApi
-) 
+    @SerialName("avalanche_problems")
+    val avalancheProblemsResponse: List<AvalancheProblemResponse>,
+    @SerialName("forecast")
+    val bulletinResponse: BulletinResponse,
+    @SerialName("recent_avalanches")
+    val recentAvalanchesResponse: List<RecentAvalancheResponse>
+)

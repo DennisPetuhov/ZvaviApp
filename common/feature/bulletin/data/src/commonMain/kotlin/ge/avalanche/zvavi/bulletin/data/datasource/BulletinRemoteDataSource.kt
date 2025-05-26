@@ -7,16 +7,16 @@ import io.ktor.http.HttpMethod
 
 
 interface BulletinRemoteDataSource {
-    suspend fun getBulletin(): ApiResponse<List<BulletinApi>>
+    suspend fun getBulletin(): ApiResponse<BulletinApi>
 }
 
 class BulletinRemoteDataSourceImpl(
     private val apiClient: ApiClient
 ) : BulletinRemoteDataSource {
-    override suspend fun getBulletin(): ApiResponse<List<BulletinApi>> {
-        return apiClient.requestList<BulletinApi>(
+    override suspend fun getBulletin(): ApiResponse<BulletinApi> {
+        return apiClient.requestBulletin<BulletinApi>(
             method = HttpMethod.Get,
-            path = "forecasts?order=id.desc&limit=1"
+            path = "rpc/get_latest_published_forecast_with_related"
         )
     }
 }

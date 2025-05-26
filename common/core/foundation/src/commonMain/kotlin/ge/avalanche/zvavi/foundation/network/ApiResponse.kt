@@ -10,10 +10,6 @@ sealed class ApiResponse<out T> {
     ) : ApiResponse<Nothing>()
 
     data object Loading : ApiResponse<Nothing>()
-
-    val isSuccess: Boolean get() = this is Success
-    val isError: Boolean get() = this is Error
-    val isLoading: Boolean get() = this is Loading
 }
 
 inline fun <T> ApiResponse<T>.onSuccess(action: (T) -> Unit): ApiResponse<T> {

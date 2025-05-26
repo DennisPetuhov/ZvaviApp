@@ -1,6 +1,6 @@
 package ge.avalanche.zvavi.bulletin.data.di
 
-import ge.avalanche.zvavi.bulletin.api.models.BulletinRepository
+import ge.avalanche.zvavi.bulletin.api.BulletinRepository
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSourceImpl
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource

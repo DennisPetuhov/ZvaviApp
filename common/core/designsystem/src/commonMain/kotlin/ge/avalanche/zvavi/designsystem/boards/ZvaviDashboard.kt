@@ -61,12 +61,12 @@ fun ZvaviDashboard(
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing50),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth()
         ) {
             DashboardHeader(name = name, eventHandler = eventHandler)
             Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
+                contentAlignment = Alignment.BottomEnd,
+                modifier = Modifier.fillMaxWidth()
             ) { mainBlock() }
         }
     }

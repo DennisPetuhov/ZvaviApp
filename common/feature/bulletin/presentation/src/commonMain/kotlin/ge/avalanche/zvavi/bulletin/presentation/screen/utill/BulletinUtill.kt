@@ -80,7 +80,6 @@ object CompassRules {
     const val SEGMENT_ANGLE = 45.0
     const val NORTH_OFFSET = 5f
     val LABELS = listOf("N", "NE", "E", "SE", "S", "SW", "W", "NW")
-    val PRIMARY_INDICES = setOf(1, 3, 5, 6)
 }
 
 /**

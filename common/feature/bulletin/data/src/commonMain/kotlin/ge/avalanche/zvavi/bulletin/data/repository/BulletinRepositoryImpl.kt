@@ -2,7 +2,7 @@ package ge.avalanche.zvavi.bulletin.data.repository
 
 import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.bulletin.api.models.Bulletin
-import ge.avalanche.zvavi.bulletin.api.models.BulletinRepository
+import ge.avalanche.zvavi.bulletin.api.BulletinRepository
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinLocalDataSource
 import ge.avalanche.zvavi.bulletin.data.datasource.BulletinRemoteDataSource
 import ge.avalanche.zvavi.bulletin.data.domain.mapper.toDomain
@@ -26,18 +26,15 @@ class BulletinRepositoryImpl(
 ) : BaseRepository(dispatchers, Logger.withTag("BulletinRepository")), BulletinRepository {
     override suspend fun fetchBulletin() {
         try {
-            // 1. Try to fetch from remote
             logger.d { "Fetching bulletin from remote" }
             val remoteResponse = withContext(dispatchers.io) {
                 remoteDataSource.getBulletin()
             }
-            // 2. Handle remote response
+            println( "Fetching bulletin from remote $remoteResponse ")
             remoteResponse
-                .onSuccess { bulletinApis ->
-                    // 3. Process remote data
-                    bulletinApis.firstOrNull()?.let { bulletinApi ->
+                .onSuccess { bulletinApi ->
+                    bulletinApi?.let { bulletinApi ->
                         logger.d { "Received bulletin from remote: $bulletinApi" }
-                        // 4. Save to local database and wait for completion
                         withContext(dispatchers.io) {
                             try {
                                 dao.clearBulletins()

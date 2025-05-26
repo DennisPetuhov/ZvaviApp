@@ -25,6 +25,7 @@ class BulletinLocalDataSourceImpl(
     override suspend fun saveBulletin(bulletins: BulletinEntity) {
         logger.d { "Saving bulletin to database: $bulletins" }
         try {
+            bulletinDao.clearBulletins()
             bulletinDao.insertBulletins(bulletins)
             logger.d { "Successfully saved bulletin to database" }
         } catch (e: Exception) {

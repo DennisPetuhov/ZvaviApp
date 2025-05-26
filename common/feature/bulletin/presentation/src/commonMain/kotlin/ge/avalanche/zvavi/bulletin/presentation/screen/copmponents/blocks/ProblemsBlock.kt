@@ -28,9 +28,9 @@ fun ProblemsBlock(
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
 ) {
-    var bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = false
-    )
+    var bottomSheetState =
+        rememberModalBottomSheetState(skipPartiallyExpanded = true, confirmValueChange = { true })
+    val problems = viewState.avalancheProblems
 
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),        // fix after network implementation
@@ -58,28 +58,22 @@ fun ProblemsBlock(
             verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier.fillMaxWidth().wrapContentHeight()
         ) {
-            ZvaviProblemBoard(
-                text = "Persistent slab",
-                layoutConfig = layoutConfig,
-                onClick = { eventHandler(BulletinEvent.OpenBottomSheet) }
-            )
-            ZvaviProblemBoard(
-                text = "Wind slab",
-                layoutConfig = layoutConfig,
-                onClick = { eventHandler(BulletinEvent.OpenBottomSheet) }
-            )
-            ZvaviProblemBoard(
-                text = "Wet loose",
-                layoutConfig = layoutConfig,
-                onClick = { eventHandler(BulletinEvent.OpenBottomSheet) }
-            )
+            for (problem in problems) {
+                ZvaviProblemBoard(
+                    problem = problem,
+                    layoutConfig = layoutConfig,
+                    onClick = { eventHandler(BulletinEvent.OpenBottomSheet(problem = problem)) })
+
+            }
         }
     }
     if (viewState.showBottomSheet) {
         AvalancheProblemsBottomSheet(
+            viewState=viewState,
+            problem = viewState.selectedProblem,
             sheetState = bottomSheetState,
             layoutConfig = layoutConfig,
-            onDismiss = {eventHandler(BulletinEvent.CloseBottomSheet)},
+            onDismiss = { eventHandler(BulletinEvent.CloseBottomSheet) },
             eventHandler = eventHandler
         )
     }
