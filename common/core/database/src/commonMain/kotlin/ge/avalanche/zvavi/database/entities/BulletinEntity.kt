@@ -13,7 +13,7 @@ const val BULLETIN_TABLE = "bulletin"
 @Serializable
 data class BulletinEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 1,
+    val id: Int = 0,
     val createdAt: String,
     val forecaster: String,
     val status: String,
