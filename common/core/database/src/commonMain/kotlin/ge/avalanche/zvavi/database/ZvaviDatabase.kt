@@ -13,7 +13,7 @@ import ge.avalanche.zvavi.database.entities.BulletinEntity
 internal const val dbFileName = "appzvavi.db"
 
 @Database(entities = [BulletinEntity::class], version = 6)
-@TypeConverters(AvalancheRiskLevelConverter::class,BulletinConverters ::class)
+@TypeConverters(AvalancheRiskLevelConverter::class, BulletinConverters::class)
 @ConstructedBy(ZvaviDatabaseConstructor::class)
 abstract class ZvaviDatabase : RoomDatabase() {
     abstract fun getBulletinDao(): BulletinDao
