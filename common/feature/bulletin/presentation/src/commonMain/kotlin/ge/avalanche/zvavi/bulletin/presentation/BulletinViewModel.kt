@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
@@ -48,7 +47,7 @@ internal class BulletinViewModel(
             BulletinEvent.AvalancheProblemsClicked -> fetchBulletin()
             BulletinEvent.InfoClicked -> viewModelScope.launch { fetchBulletinUseCase.execute() }
             BulletinEvent.CloseBottomSheet -> handleCloseBottomSheet()
-            BulletinEvent.OpenBottomSheet -> handleOpenBottomSheet()
+            is BulletinEvent.OpenBottomSheet -> handleOpenBottomSheet(viewEvent)
             BulletinEvent.ProblemInfoClicked -> handleNavigateToBulletinProblemInfoScreen()
             BulletinEvent.ReturnFromBulletinProblemInfoScreen -> handleReturnFromBulletinProblemScreen()
             BulletinEvent.Retry -> {}
@@ -59,8 +58,8 @@ internal class BulletinViewModel(
         viewState = viewState.copy(showBottomSheet = true)
     }
 
-    fun handleOpenBottomSheet() {
-        viewState = viewState.copy(showBottomSheet = true)
+    fun handleOpenBottomSheet(viewEvent: BulletinEvent.OpenBottomSheet) {
+        viewState = viewState.copy(showBottomSheet = true, selectedProblem = viewEvent.problem)
     }
 
     private fun handleNavigateToBulletinProblemInfoScreen() {
@@ -69,7 +68,7 @@ internal class BulletinViewModel(
     }
 
     private fun handleCloseBottomSheet() {
-        viewState = viewState.copy(showBottomSheet = false)
+        viewState = viewState.copy(showBottomSheet = false, selectedProblem = null)
     }
 
     fun fetchBulletin() {
@@ -105,11 +104,14 @@ internal class BulletinViewModel(
                         riskLevelHighAlpine = bulletin.hazardLevels.highAlpine,
                         riskLevelAlpine = bulletin.hazardLevels.alpine,
                         riskLevelSubAlpine = bulletin.hazardLevels.subAlpine,
-                        snowpack = bulletin.snowpack,
-                        weather = bulletin.weather,
                         topTriangleColor = bulletin.hazardLevels.highAlpine,
                         middleTriangleColor = bulletin.hazardLevels.highAlpine,
                         bottomTriangleColor = bulletin.hazardLevels.highAlpine,
+                        avalancheProblems = bulletin.avalancheProblems,
+                        recentAvalanches = bulletin.recentAvalanches,
+                        snowpack = bulletin.snowpack,
+                        weather = bulletin.weather,
+
                         bulletinData = getCurrentDateTime()
                     )
                     retryCount = 0

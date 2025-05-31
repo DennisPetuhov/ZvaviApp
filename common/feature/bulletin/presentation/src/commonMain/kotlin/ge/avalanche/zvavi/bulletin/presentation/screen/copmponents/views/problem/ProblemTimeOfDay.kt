@@ -14,15 +14,33 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-private const val CLOCK_SIZE_DP = 96
-private const val CLOCK_DIVISIONS = 12
-private const val DEGREES_PER_DIVISION = 30f
-private const val INNER_CIRCLE_RATIO = 2.4f
-private const val LINE_LENGTH_MULTIPLIER = 1.5f
-private const val LINE_STROKE_WIDTH = 5f
+/**
+ * Constants for the ProblemTimeOfDay component.
+ * Contains all configuration values for the clock visualization.
+ */
+private object ProblemTimeOfDayConstants {
+    /** Number of divisions in the clock */
+    const val CLOCK_DIVISIONS: Int = 12
+    
+    /** Degrees per division in the clock */
+    const val DEGREES_PER_DIVISION: Float = 30f
+    
+    /** Ratio for inner circle size */
+    const val INNER_CIRCLE_RATIO: Float = 2.4f
+    
+    /** Multiplier for line length */
+    const val LINE_LENGTH_MULTIPLIER: Float = 1.5f
+    
+    /** Width of the clock division lines */
+    const val LINE_STROKE_WIDTH: Float = 5f
+    
+    /** Size of the canvas in dp */
+    val CANVAS_SIZE_DP = 100.dp
+}
 
 /**
  * A composable that renders a clock-like visualization for problem time of day.
+ * Shows a circular clock face with division lines and an inner circle.
  *
  * @param modifier The modifier to be applied to the layout
  * @param mainColor The primary color for the inner circle
@@ -36,14 +54,14 @@ fun ProblemTimeOfDay(
     secondaryColor: Color = ZvaviTheme.colors.overlayBrand,
     delimiterColor: Color = ZvaviTheme.colors.layerFloor1
 ) {
-    Box(modifier = modifier.size(CLOCK_SIZE_DP.dp)) {
+    Box(modifier = modifier.size(ProblemTimeOfDayConstants.CANVAS_SIZE_DP)) {
         Canvas(
-            modifier = Modifier.size(CLOCK_SIZE_DP.dp)
+            modifier = Modifier.size(ProblemTimeOfDayConstants.CANVAS_SIZE_DP)
         ) {
             drawMainClock(secondaryColor)
             drawCircle(
                 color = mainColor,
-                radius = size.minDimension / INNER_CIRCLE_RATIO,
+                radius = size.minDimension / ProblemTimeOfDayConstants.INNER_CIRCLE_RATIO,
                 center = center
             )
             drawClockDivisions(delimiterColor)
@@ -53,39 +71,41 @@ fun ProblemTimeOfDay(
 
 /**
  * Draws the clock division lines.
+ * Creates evenly spaced lines around the clock face.
  *
  * @param delimiterColor The color for the division lines
  */
 private fun DrawScope.drawClockDivisions(delimiterColor: Color) {
-    val outerRadius = size.minDimension / 2
-    val innerRadius = size.minDimension / INNER_CIRCLE_RATIO
-    val gap = outerRadius - innerRadius
-    val lineLength = gap * LINE_LENGTH_MULTIPLIER
-    val startRadius = outerRadius - lineLength
+    val outerRadius: Float = size.minDimension / 2
+    val innerRadius: Float = size.minDimension / ProblemTimeOfDayConstants.INNER_CIRCLE_RATIO
+    val gap: Float = outerRadius - innerRadius
+    val lineLength: Float = gap * ProblemTimeOfDayConstants.LINE_LENGTH_MULTIPLIER
+    val startRadius: Float = outerRadius - lineLength
 
-    for (i in 0 until CLOCK_DIVISIONS) {
-        val angle = (i * DEGREES_PER_DIVISION) * (PI / 180f).toFloat()
-        val startX = center.x + startRadius * cos(angle)
-        val startY = center.y + startRadius * sin(angle)
-        val endX = center.x + outerRadius * cos(angle)
-        val endY = center.y + outerRadius * sin(angle)
+    for (i in 0 until ProblemTimeOfDayConstants.CLOCK_DIVISIONS) {
+        val angle: Float = (i * ProblemTimeOfDayConstants.DEGREES_PER_DIVISION) * (PI / 180f).toFloat()
+        val startX: Float = center.x + startRadius * cos(angle)
+        val startY: Float = center.y + startRadius * sin(angle)
+        val endX: Float = center.x + outerRadius * cos(angle)
+        val endY: Float = center.y + outerRadius * sin(angle)
 
         drawLine(
             color = delimiterColor,
             start = Offset(startX, startY),
             end = Offset(endX, endY),
-            strokeWidth = LINE_STROKE_WIDTH
+            strokeWidth = ProblemTimeOfDayConstants.LINE_STROKE_WIDTH
         )
     }
 }
 
 /**
  * Draws the main outer circle of the clock.
+ * Creates the base circle for the clock face.
  *
  * @param mainColor The color for the outer circle
  */
 private fun DrawScope.drawMainClock(mainColor: Color) {
-    val radius = size.minDimension / 2
+    val radius: Float = size.minDimension / 2
     drawCircle(
         color = mainColor,
         radius = radius,

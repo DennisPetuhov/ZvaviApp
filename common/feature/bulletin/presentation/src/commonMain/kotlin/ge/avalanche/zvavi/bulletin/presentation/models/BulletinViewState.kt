@@ -1,6 +1,8 @@
 package ge.avalanche.zvavi.bulletin.presentation.models
 
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
+import ge.avalanche.zvavi.bulletin.api.models.RecentAvalanches
 
 data class BulletinViewState(
     val riskLevelOverall: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
@@ -10,8 +12,8 @@ data class BulletinViewState(
     val riskLevelHighAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val riskLevelAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val riskLevelSubAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
-    val problems: List<String> = emptyList(),
-    val recentAvalanches: List<String> = emptyList(),
+    val avalancheProblems: List<AvalancheProblem> = emptyList(),
+    val recentAvalanches: List<RecentAvalanches > = emptyList(),
     val snowpack: String = "",
     val weather: String = "",
     val loading: Boolean = true,
@@ -21,6 +23,7 @@ data class BulletinViewState(
     val bottomTriangleColor: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val showBottomSheet: Boolean = false,
     val bulletinData: String = "",
+    val selectedProblem: AvalancheProblem? = null,
 ) {
     companion object {
         val EMPTY = BulletinViewState()

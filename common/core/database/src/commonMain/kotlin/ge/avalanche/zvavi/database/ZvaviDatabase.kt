@@ -6,13 +6,14 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import ge.avalanche.zvavi.database.converters.AvalancheRiskLevelConverter
+import ge.avalanche.zvavi.database.converters.BulletinConverters
 import ge.avalanche.zvavi.database.dao.BulletinDao
 import ge.avalanche.zvavi.database.entities.BulletinEntity
 
 internal const val dbFileName = "appzvavi.db"
 
-@Database(entities = [BulletinEntity::class], version = 2)
-@TypeConverters(AvalancheRiskLevelConverter::class)
+@Database(entities = [BulletinEntity::class], version = 6)
+@TypeConverters(AvalancheRiskLevelConverter::class, BulletinConverters::class)
 @ConstructedBy(ZvaviDatabaseConstructor::class)
 abstract class ZvaviDatabase : RoomDatabase() {
     abstract fun getBulletinDao(): BulletinDao

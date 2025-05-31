@@ -1,5 +1,6 @@
-package ge.avalanche.zvavi.bulletin.api.models
+package ge.avalanche.zvavi.bulletin.api
 
+import ge.avalanche.zvavi.bulletin.api.models.Bulletin
 import kotlinx.coroutines.flow.Flow
 
 interface BulletinRepository {

@@ -47,7 +47,7 @@ fun ProblemSensitivity(
     val meterValue: Int = getMeterValue(inputValue)
     val fillSwipeAngle: Float = (meterValue / 100f) * DEFAULT_SWEEP_ANGLE
 
-    Box(modifier = modifier.size(96.dp, 56.dp)) {
+    Box(modifier = modifier.size(100.dp, 100.dp)) {
         Canvas(modifier = Modifier.size(width = 96.dp, height = 56.dp)) {
             val height: Float = size.height
             val width: Float = size.width

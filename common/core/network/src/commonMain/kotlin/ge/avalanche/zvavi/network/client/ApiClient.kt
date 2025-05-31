@@ -19,11 +19,11 @@ class ApiClient(
 ) {
 val logger = Logger.withTag("ApiClient")
 
-    suspend inline fun <reified T> requestList(
+    suspend inline fun <reified T> requestBulletin(
         method: HttpMethod,
         path: String,
         crossinline block: HttpRequestBuilder.() -> Unit = {}
-    ): ApiResponse<List<T>> = try {
+    ): ApiResponse<T> = try {
         logger.d { "Making network request to: ${networkConfig.baseUrl}$path" }
         withTimeout(networkConfig.connectTimeout) {
             val response = httpClient.request("${networkConfig.baseUrl}$path") {
@@ -37,7 +37,7 @@ val logger = Logger.withTag("ApiClient")
                     try {
                         val responseText = response.bodyAsText()
                         logger.d { "Response body: $responseText" }
-                        val data = json.decodeFromString<List<T>>(responseText)
+                        val data = json.decodeFromString<T>(responseText)
                         logger.d { "Successfully parsed response: $data" }
                         ApiResponse.Success(data, response.status.value)
                     } catch (e: Exception) {

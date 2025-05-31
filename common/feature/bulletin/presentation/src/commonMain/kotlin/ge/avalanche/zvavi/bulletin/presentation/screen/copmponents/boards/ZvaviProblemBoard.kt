@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -32,7 +33,7 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
 @Composable
 fun ZvaviProblemBoard(
-    text: String,
+    problem: AvalancheProblem,
     layoutConfig: LayoutConfig,
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -72,7 +73,7 @@ fun ZvaviProblemBoard(
             )
             Spacer(modifier = Modifier.weight(0.12f))
             Text(
-                text = text,
+                text = problem.type,
                 style = ZvaviTheme.typography.compact300Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                 maxLines = 1,
                 modifier = Modifier

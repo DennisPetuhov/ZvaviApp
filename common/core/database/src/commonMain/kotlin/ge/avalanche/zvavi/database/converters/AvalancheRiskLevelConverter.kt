@@ -15,13 +15,13 @@ class AvalancheRiskLevelConverter {
     @TypeConverter
     fun toAvalancheRiskLevel(value: Int): AvalancheRiskLevelEntity {
         return when (value) {
-            0 -> AvalancheRiskLevelEntity.GENERAL_INFORMATION
+            0 -> AvalancheRiskLevelEntity.NO_INFO
             1 -> AvalancheRiskLevelEntity.LOW
             2 -> AvalancheRiskLevelEntity.MODERATE
             3 -> AvalancheRiskLevelEntity.CONSIDERABLE
             4 -> AvalancheRiskLevelEntity.HIGH
             5 -> AvalancheRiskLevelEntity.EXTREME
-            else -> AvalancheRiskLevelEntity.GENERAL_INFORMATION
+            else -> AvalancheRiskLevelEntity.NO_INFO
         }
     }
 } 

@@ -2,6 +2,7 @@ package ge.avalanche.zvavi.designsystem.strings
 
 import org.jetbrains.compose.resources.StringResource
 import zvaviapp.common.core.designsystem.generated.resources.Gudauri
+//import zvaviapp.common.core.designsystem.generated.resources.gudauri
 import zvaviapp.common.core.designsystem.generated.resources.Problems
 import zvaviapp.common.core.designsystem.generated.resources.Res
 import zvaviapp.common.core.designsystem.generated.resources.alpine

@@ -3,11 +3,13 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.dialogs
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -25,7 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
+import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ColoredCirclesGrid
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemAspectElevation
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemSensitivity
@@ -43,6 +47,8 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AvalancheProblemsBottomSheet(
+    viewState: BulletinViewState,
+    problem: AvalancheProblem?,
     sheetState: SheetState,
     layoutConfig: LayoutConfig,
     onDismiss: () -> Unit,
@@ -58,15 +64,26 @@ internal fun AvalancheProblemsBottomSheet(
         sheetState = sheetState,
         modifier = modifier
             .fillMaxWidth()
-            .fillMaxHeight(),
-        containerColor = ZvaviTheme.colors.layerFloor1
+            .wrapContentHeight(),
+        containerColor = ZvaviTheme.colors.layerFloor1,
+        dragHandle = null,
     ) {
-        ModalContainer(layoutConfig, eventHandler)
+        problem?.let {
+            ModalContainer(
+                viewState = viewState,
+                problem = it,
+                layoutConfig,
+                eventHandler,
+                modifier = Modifier.fillMaxHeight(0.9f)
+            )
+        }
     }
 }
 
 @Composable
 private fun ModalContainer(
+    viewState: BulletinViewState,
+    problem: AvalancheProblem,
     layoutConfig: LayoutConfig,
     eventHandler: (BulletinEvent) -> Unit,
     modifier: Modifier = Modifier,
@@ -82,7 +99,7 @@ private fun ModalContainer(
                 )
         ) {
             Text(
-                text = "Wet Loose",
+                text = problem.type,
                 style = ZvaviTheme.typography.compact400Accent,
                 color = ZvaviTheme.colors.contentNeutralPrimary
             )
@@ -95,54 +112,42 @@ private fun ModalContainer(
 
         }
         Column(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(
-                top = ZvaviSpacing.spacing100,
-                bottom = ZvaviSpacing.spacing350,
-                start = layoutConfig.marginHorizontal,
-                end = layoutConfig.marginHorizontal,
-            )
+            modifier = Modifier.fillMaxWidth()
+                .padding(
+                    top = ZvaviSpacing.spacing100,
+                    bottom = ZvaviSpacing.spacing350,
+                    start = layoutConfig.marginHorizontal,
+                    end = layoutConfig.marginHorizontal,
+                )
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth().wrapContentHeight()
                     .padding(horizontal = layoutConfig.contentCompensation)
             ) {
                 Text(
-                    text =
-                        "One or more layers of recent storm snow that have consolidated into a slab above weak layer " +
-                                "100 cm of snow has fallen over the last 7 days, above crusts and weak layers at higher elevations. " +
-                                "Be wary of steep areas where these layers could fail under your weight or from smaller movements of " +
-                                "surface snow — large avalanches could happen if deeper layers are broken.",
+                    text = problem.description,
                     style = ZvaviTheme.typography.text300Default,
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
                 )
             }
-            DashBoard(eventHandler = eventHandler, layoutConfig = layoutConfig)
-
-            Text(
-                text = "Persistent slab",
-                style = ZvaviTheme.typography.compact300Accent,
-                color = ZvaviTheme.colors.contentNeutralPrimary,
-                modifier = Modifier.padding(bottom = ZvaviSpacing.spacing200)
-            )
-            Text(
-                text = "Wind slab",
-                style = ZvaviTheme.typography.compact300Accent,
-                color = ZvaviTheme.colors.contentNeutralPrimary,
-                modifier = Modifier.padding(bottom = ZvaviSpacing.spacing200)
-            )
-            Text(
-                text = "Wet loose",
-                style = ZvaviTheme.typography.compact300Accent,
-                color = ZvaviTheme.colors.contentNeutralPrimary,
-                modifier = Modifier.padding(bottom = ZvaviSpacing.spacing200)
+            DashBoard(
+                viewState = viewState,
+                problem = problem,
+                eventHandler = eventHandler,
+                layoutConfig = layoutConfig
             )
         }
     }
 }
 
 @Composable
-private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) -> Unit) {
+private fun DashBoard(
+    viewState: BulletinViewState,
+    problem: AvalancheProblem,
+    layoutConfig: LayoutConfig,
+    eventHandler: (BulletinEvent) -> Unit
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
         modifier = Modifier.fillMaxSize()
@@ -151,7 +156,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f, fill = false)
+                .height(IntrinsicSize.Min)
         ) {
             ZvaviDashboard(
                 name = "Size",
@@ -160,23 +165,23 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 eventHandler = { event ->
                     when (event) {
                         ZvaviDashboardEvent.InfoClicked -> eventHandler(BulletinEvent.CloseBottomSheet)
-                                   }
+                    }
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 modifier = Modifier.weight(1f, fill = false)
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "D2",
-                        style = ZvaviTheme.typography.display500Accent,
-                        color = ZvaviTheme.colors.contentNeutralPrimary,
-                        modifier = Modifier.weight(1f)
-                    )
-                    ZvaviProblemSize(modifier = Modifier.weight(1f))
-                }
+
+                Text(
+                    text = " ${problem.avalancheSize}",
+                    style = ZvaviTheme.typography.display500Accent,
+                    color = ZvaviTheme.colors.contentNeutralPrimary,
+                    modifier = Modifier.align(Alignment.TopStart)
+                )
+                ZvaviProblemSize(
+                    avalancheSize = problem.avalancheSize,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
+
             }
             ZvaviDashboard(
                 name = "Aspect / elevation",
@@ -190,12 +195,17 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 layoutConfig = layoutConfig,
                 modifier = Modifier
                     .weight(1f, fill = false)
-            ) { ProblemAspectElevation(modifier = Modifier.align(Alignment.TopCenter)) }
+            ) {
+                ProblemAspectElevation(
+                    problem = problem,
+                    modifier = Modifier.align(Alignment.TopEnd)
+                )
+            }
 
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
-            modifier = Modifier.fillMaxWidth().weight(1f, fill = false)
+            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)
         ) {
             ZvaviDashboard(
                 name = "Sensitivity to human triggered",
@@ -207,15 +217,18 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
-                modifier = Modifier.weight(1f, fill = false)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Difficulty",
+                    text = problem.sensitivity.keys.first(),
                     style = ZvaviTheme.typography.display350Accent,
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
-                ProblemSensitivity(modifier = Modifier.align(Alignment.BottomEnd))
+                ProblemSensitivity(
+                    problem = problem,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
             }
             ZvaviDashboard(
                 name = "Distribution",
@@ -227,16 +240,16 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                     eventHandler(BulletinEvent.ProblemInfoClicked)
                 },
                 layoutConfig = layoutConfig,
-                modifier = Modifier.weight(1f, fill = false)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Widespread",
+                    text = problem.distribution.keys.first(),
                     style = ZvaviTheme.typography.display350Accent,
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
                 ColoredCirclesGrid(
-                    bluePercentage = 0.4f,
+                    bluePercentage = problem.distribution.values.first(),
                     modifier = Modifier.align(Alignment.BottomEnd)
                 )
             }
@@ -245,7 +258,7 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f, fill = false)
+                .height(IntrinsicSize.Min)
         ) {
             ZvaviDashboard(
                 name = "Trend",
@@ -260,12 +273,15 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 modifier = Modifier.weight(1f, fill = false)
             ) {
                 Text(
-                    text = "Deteriorating",
+                    text = problem.trend.direction,
                     style = ZvaviTheme.typography.display350Accent,
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
-                ProblemTrend(modifier = Modifier.align(Alignment.BottomEnd))
+                ProblemTrend(
+                    direction = problem.trend,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
             }
             ZvaviDashboard(
                 name = "Time of day",
@@ -280,13 +296,12 @@ private fun DashBoard(layoutConfig: LayoutConfig, eventHandler: (BulletinEvent) 
                 modifier = Modifier.weight(1f, fill = false)
             ) {
                 Text(
-                    text = "6-12 \n AM",
+                    text = "${problem.timeOfDay.start} \n ${problem.timeOfDay.end} ",
                     style = ZvaviTheme.typography.display350Accent,
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
                 ProblemTimeOfDay(modifier = Modifier.align(Alignment.BottomEnd))
-
             }
         }
     }
