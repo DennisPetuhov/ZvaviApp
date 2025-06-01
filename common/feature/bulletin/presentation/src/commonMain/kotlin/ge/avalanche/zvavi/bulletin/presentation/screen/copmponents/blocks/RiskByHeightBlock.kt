@@ -57,6 +57,7 @@ fun RiskByHeightBlock(
                     canvasWidth = (152f * layoutConfig.canvasScale).dp,
                     canvasHeight = (100f * layoutConfig.canvasScale).dp,
                     color = viewState.riskLevelHighAlpine.toColor(),
+                    contentCenterOffsetFromXMax = 100.dp,
                     content = { StyledPyramidText(text = viewState.riskLevelHighAlpine.name) },
                     modifier = Modifier,
                 )

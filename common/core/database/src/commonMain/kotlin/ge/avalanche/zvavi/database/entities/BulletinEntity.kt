@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import ge.avalanche.zvavi.database.converters.AvalancheRiskLevelConverter
+
 import kotlinx.serialization.Serializable
 
 const val BULLETIN_TABLE = "bulletin"
@@ -60,7 +61,7 @@ data class AvalancheProblemEntity(
     @Embedded(prefix = "time_of_day_")
     val timeOfDay: TimeOfDayEntity,
     val trend: TrendEntity,
-    val type: String
+    val type: AvalancheProblemTypeEntity
 )
 
 /**
@@ -88,8 +89,8 @@ data class AspectsEntity(
 @Serializable
 data class TimeOfDayEntity(
     val isAllDay: Boolean,
-    val end: String,
-    val start: String,
+    val end: Int,
+    val start: Int,
 )
 
 @Serializable
@@ -100,4 +101,54 @@ enum class AvalancheRiskLevelEntity(val value: Int) {
     CONSIDERABLE(3),
     HIGH(4),
     EXTREME(5)
+}
+
+@Serializable
+sealed class AvalancheProblemTypeEntity{
+    @Serializable
+    object WindSlab : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object WetSlab : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object LooseDry : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object LooseWet : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object PersistentSlab : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object StormSlab : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object Cornice : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object Glide : AvalancheProblemTypeEntity()
+
+    @Serializable
+    object DeepSlab : AvalancheProblemTypeEntity()
+
+    @Serializable
+    data class Unknown(val unknownValue: String) : AvalancheProblemTypeEntity()
+
+    companion object {
+        fun fromString(value: String): AvalancheProblemTypeEntity {
+            return when (value.lowercase()) {
+                "windslab" -> WindSlab
+                "wetslab" -> WetSlab
+                "loosedry" -> LooseDry
+                "loosewet" -> LooseWet
+                "persistentslab" -> PersistentSlab
+                "stormslab" -> StormSlab
+                "cornice" -> Cornice
+                "glide" -> Glide
+                "deepslab" -> DeepSlab
+                else -> Unknown(value)
+            }
+        }
+    }
 }

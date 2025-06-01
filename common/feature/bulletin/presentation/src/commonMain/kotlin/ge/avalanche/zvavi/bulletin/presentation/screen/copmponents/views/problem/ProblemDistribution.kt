@@ -20,27 +20,27 @@ import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 private object ProblemDistributionConstants {
     /** Radius of each circle in the grid in dp */
     const val CIRCLE_RADIUS_DP: Int = 4
-    
+
     /** Gap between circles in dp */
     const val GAP_DP: Int = 8
-    
+
     /** Number of columns in the grid */
     const val COLUMNS: Int = 7
-    
+
     /** Number of rows in the grid */
     const val ROWS: Int = 4
-    
+
     /** Width of the grid in dp */
-    const val GRID_WIDTH_DP: Int = 104
-    
+    const val CANVAS_WIDTH_DP: Int = 104
+
     /** Height of the grid in dp */
-    const val GRID_HEIGHT_DP: Int = 56
-    
+    const val CANVAS_HEIGHT_DP: Int = 60
+
     /** Width of the container in dp */
-    const val CONTAINER_WIDTH_DP: Int = 100
-    
+    const val CONTAINER_WIDTH_DP: Int = 104
+
     /** Height of the container in dp */
-    const val CONTAINER_HEIGHT_DP: Int = 100
+    const val CONTAINER_HEIGHT_DP: Int = 90
 }
 
 /**
@@ -50,52 +50,96 @@ private object ProblemDistributionConstants {
  * @return A Pair containing the x and y coordinates for the grid start
  */
 private fun DrawScope.calculateGridStartPosition(): Pair<Float, Float> {
-    val circleRadius: Float = ProblemDistributionConstants.CIRCLE_RADIUS_DP.dp.toPx()
-    val gap: Float = ProblemDistributionConstants.GAP_DP.dp.toPx()
-    val diameter: Float = circleRadius * 2
-    val totalWidth: Float = ProblemDistributionConstants.COLUMNS * diameter + (ProblemDistributionConstants.COLUMNS - 1) * gap
-    val totalHeight: Float = ProblemDistributionConstants.ROWS * diameter + (ProblemDistributionConstants.ROWS - 1) * gap
-    val startX: Float = (size.width - totalWidth) / 2 + circleRadius
-    val startY: Float = (size.height - totalHeight) / 2 + circleRadius
+    val circleRadius = ProblemDistributionConstants.CIRCLE_RADIUS_DP.dp.toPx()
+    val gap = ProblemDistributionConstants.GAP_DP.dp.toPx()
+    val diameter = circleRadius * 2
+
+    val totalWidth = ProblemDistributionConstants.COLUMNS * diameter +
+            (ProblemDistributionConstants.COLUMNS - 1) * gap
+    val totalHeight = ProblemDistributionConstants.ROWS * diameter +
+            (ProblemDistributionConstants.ROWS - 1) * gap
+
+    val startX = (size.width - totalWidth) / 2 + circleRadius
+    val startY = (size.height - totalHeight) / 2 + circleRadius
+
     return Pair(startX, startY)
 }
 
 /**
  * Draws a grid of colored circles representing the distribution.
- * The number of colored circles is determined by the bluePercentage parameter.
+ * The number of colored circles is determined by the percentage parameter.
  *
- * @param bluePercentage The percentage of circles to be colored (0.0 to 1.0)
- * @param mainColor The color for the active circles
- * @param secondaryColor The color for the inactive circles
+ * @param percentage The percentage of circles to be colored (0 to 100)
+ * @param activeColor The color for the active circles
+ * @param inactiveColor The color for the inactive circles
  */
-private fun DrawScope.drawColoredCirclesGrid(
-    bluePercentage: Int,
-    mainColor: Color,
-    secondaryColor: Color
+private fun DrawScope.drawIsolatedAndWideSpreadPattern(
+    percentage: Int,
+    activeColor: Color,
+    inactiveColor: Color
 ) {
-    val circleRadius: Float = ProblemDistributionConstants.CIRCLE_RADIUS_DP.dp.toPx()
-    val gap: Float = ProblemDistributionConstants.GAP_DP.dp.toPx()
-    val diameter: Float = circleRadius * 2
-    val totalDots: Int = ProblemDistributionConstants.COLUMNS * ProblemDistributionConstants.ROWS
+    val circleRadius = ProblemDistributionConstants.CIRCLE_RADIUS_DP.dp.toPx()
+    val gap = ProblemDistributionConstants.GAP_DP.dp.toPx()
+    val diameter = circleRadius * 2
+    val totalDots = ProblemDistributionConstants.COLUMNS * ProblemDistributionConstants.ROWS
     val (startX, startY) = calculateGridStartPosition()
-    val blueDotsCount: Int = (totalDots * bluePercentage).toInt()/100
-    val blueIndices: Set<Int> = (0 until totalDots)
+    val activeDotsCount = (totalDots * percentage) / 100
+    val activeIndices = (0 until totalDots)
         .toMutableList()
         .apply { shuffle() }
-        .take(blueDotsCount)
+        .take(activeDotsCount)
         .toSet()
-    var dotIndex: Int = 0
+
     for (row in 0 until ProblemDistributionConstants.ROWS) {
         for (col in 0 until ProblemDistributionConstants.COLUMNS) {
-            val x: Float = startX + col * (diameter + gap)
-            val y: Float = startY + row * (diameter + gap)
-            val color: Color = if (blueIndices.contains(dotIndex)) mainColor else secondaryColor
+            val x = startX + col * (diameter + gap)
+            val y = startY + row * (diameter + gap)
+            val dotIndex = row * ProblemDistributionConstants.COLUMNS + col
+            val color = if (activeIndices.contains(dotIndex)) activeColor else inactiveColor
+
             drawCircle(
                 color = color,
                 radius = circleRadius,
                 center = Offset(x, y)
             )
-            dotIndex++
+        }
+    }
+}
+
+/**
+ * Draws a grid of circles with a specific pattern of secondary colors.
+ * Pattern:
+ * Row 1: only 6th circle is secondary
+ * Row 2: 5th, 6th and 7th circles are secondary (all between and including 5th and 7th)
+ * Row 3: 4th through last circles are secondary (all between and including 4th and last)
+ * Row 4: 3rd through 7th circles are secondary (all between and including 3rd and 7th)
+ */
+private fun DrawScope.drawSpecificPattern(
+    activeColor: Color,
+    inactiveColor: Color
+) {
+    val circleRadius = ProblemDistributionConstants.CIRCLE_RADIUS_DP.dp.toPx()
+    val gap = ProblemDistributionConstants.GAP_DP.dp.toPx()
+    val diameter = circleRadius * 2
+    val (startX, startY) = calculateGridStartPosition()
+
+    for (row in 0 until ProblemDistributionConstants.ROWS) {
+        for (col in 0 until ProblemDistributionConstants.COLUMNS) {
+            val x = startX + col * (diameter + gap)
+            val y = startY + row * (diameter + gap)
+            val isInactive = when (row) {
+                0 -> col == 5
+                1 -> col in 4..6
+                2 -> col in 3 until ProblemDistributionConstants.COLUMNS
+                3 -> col in 2..6
+                else -> false
+            }
+
+            drawCircle(
+                color = if (isInactive) inactiveColor else activeColor,
+                radius = circleRadius,
+                center = Offset(x, y)
+            )
         }
     }
 }
@@ -104,35 +148,42 @@ private fun DrawScope.drawColoredCirclesGrid(
  * A composable that displays a grid of circles representing the distribution of an avalanche problem.
  * The grid shows the percentage of affected areas through colored circles.
  *
- * @param bluePercentage The percentage of circles to be colored (0.0 to 1.0)
- * @param mainColor The color for the active circles
- * @param secondaryColor The color for the inactive circles
+ * @param distributionPercentage The percentage of circles to be colored (0 to 100)
+ * @param activeColor The color for the active circles
+ * @param inactiveColor The color for the inactive circles
  * @param modifier Modifier for the composable
  */
 @Composable
-internal fun ColoredCirclesGrid(
-    bluePercentage: Int,
-    mainColor: Color = ZvaviTheme.colors.backgroundBrandHigh,
-    secondaryColor: Color = ZvaviTheme.colors.overlayBrand,
+internal fun ProblemDistribution(
+    distributionPercentage: Int,
+    activeColor: Color = ZvaviTheme.colors.backgroundBrandHigh,
+    inactiveColor: Color = ZvaviTheme.colors.overlayBrand,
     modifier: Modifier = Modifier
 ) {
-    val normalizedPercentage: Int = bluePercentage.coerceIn(0, 100)
-    Box(
-        contentAlignment = Alignment.BottomEnd,
+    val normalizedPercentage = distributionPercentage.coerceIn(0, 100)
+    Box(contentAlignment = Alignment.BottomEnd,
         modifier = modifier
             .width(ProblemDistributionConstants.CONTAINER_WIDTH_DP.dp)
             .height(ProblemDistributionConstants.CONTAINER_HEIGHT_DP.dp)
     ) {
         Canvas(
             modifier = Modifier
-                .width(ProblemDistributionConstants.GRID_WIDTH_DP.dp)
-                .height(ProblemDistributionConstants.GRID_HEIGHT_DP.dp)
+                .width(ProblemDistributionConstants.CANVAS_WIDTH_DP.dp)
+                .height(ProblemDistributionConstants.CANVAS_HEIGHT_DP.dp)
         ) {
-            drawColoredCirclesGrid(
-                normalizedPercentage,
-                mainColor = mainColor,
-                secondaryColor = secondaryColor
-            )
+            if (normalizedPercentage == 50) {
+                drawSpecificPattern(
+                    activeColor = inactiveColor,
+                    inactiveColor = activeColor
+                )
+
+            } else {
+                drawIsolatedAndWideSpreadPattern(
+                    percentage = normalizedPercentage,
+                    activeColor = activeColor,
+                    inactiveColor = inactiveColor
+                )
+            }
         }
     }
 }

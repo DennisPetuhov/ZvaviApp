@@ -2,7 +2,9 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.proble
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +19,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.Aspects
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemAspectElevationConstants.CONTAINER_HEIGHT_DP
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemAspectElevationConstants.CONTAINER_WIDTH_DP
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.CompassRules
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toRadians
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -29,9 +33,6 @@ import kotlin.math.sin
  * Contains all configuration values for the compass visualization.
  */
 private object ProblemAspectElevationConstants {
-    /** Size of the compass in dp */
-    const val COMPASS_SIZE_DP: Int = 110
-    
     /** Multiplier for the main radius */
     const val RADIUS_MULTIPLIER: Float = 2.37f
     
@@ -70,6 +71,14 @@ private object ProblemAspectElevationConstants {
     
     /** Offset for segment index */
     const val SEGMENT_INDEX_OFFSET: Int = 1
+    /** Width of the container in dp */
+    const val CONTAINER_WIDTH_DP: Int = 120
+
+    /** Height of the container in dp */
+    const val CONTAINER_HEIGHT_DP: Int = 100
+    /** Size of the compass in dp */
+    const val CANVAS_SIZE_DP: Int = 100
+
 }
 
 /**
@@ -96,12 +105,13 @@ fun ProblemAspectElevation(
     labelSecondaryColor: Color = ZvaviTheme.colors.contentNeutralTertiary,
     textStyle: TextStyle = ZvaviTheme.typography.text150Accent
 ) {
-    Box(
-        contentAlignment = Alignment.TopStart,
-        modifier = modifier.size(ProblemAspectElevationConstants.COMPASS_SIZE_DP.dp)
+    Box(contentAlignment = Alignment.BottomEnd,
+        modifier = modifier
+            .width(CONTAINER_WIDTH_DP.dp)
+            .height(CONTAINER_HEIGHT_DP.dp)
     ) {
         Canvas(
-            modifier = Modifier.size(ProblemAspectElevationConstants.COMPASS_SIZE_DP.dp)
+            modifier = Modifier.size(ProblemAspectElevationConstants.CANVAS_SIZE_DP.dp)
         ) {
             val centerX: Float = size.width / 2
             val centerY: Float = size.height / 2

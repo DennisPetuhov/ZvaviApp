@@ -2,7 +2,9 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.proble
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +18,8 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemSizeConstants.CONTAINER_HEIGHT_DP
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemSizeConstants.CONTAINER_WIDTH_DP
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.getTan45
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
@@ -25,13 +29,18 @@ import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
  */
 private object ProblemSizeConstants {
     /** Size of the canvas in dp */
-    val CANVAS_SIZE_DP: Dp = 100.dp
+    val CANVAS_SIZE_DP: Dp = 90.dp
     
     /** Default gap between levels in dp */
     val DEFAULT_GAP_DP: Dp = 4.dp
     
     /** Default number of levels */
     const val DEFAULT_QUANTITY: Int = 5
+    /** Width of the container in dp */
+    const val CONTAINER_WIDTH_DP: Int = 104
+
+    /** Height of the container in dp */
+    const val CONTAINER_HEIGHT_DP: Int = 90
 }
 
 /**
@@ -50,9 +59,10 @@ fun ZvaviProblemSize(
     color: Color = ZvaviTheme.colors.backgroundBrandHigh,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        contentAlignment = Alignment.CenterEnd,
-        modifier = modifier.size(ProblemSizeConstants.CANVAS_SIZE_DP)
+    Box(contentAlignment = Alignment.BottomEnd,
+        modifier = modifier
+            .width(CONTAINER_WIDTH_DP.dp)
+            .height(CONTAINER_HEIGHT_DP.dp)
     ) {
         Canvas(modifier = Modifier.size(ProblemSizeConstants.CANVAS_SIZE_DP)) {
             val problemSizeShape = ProblemSizeShape()

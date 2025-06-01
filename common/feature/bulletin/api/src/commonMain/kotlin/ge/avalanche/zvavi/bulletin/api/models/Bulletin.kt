@@ -53,7 +53,7 @@ data class AvalancheProblem(
     val sensitivity: Map<String, Int>,
     val timeOfDay: TimeOfDay,
     val trend: Trend,
-    val type: String
+    val type: AvalancheProblemType
 )
 
 /**
@@ -79,8 +79,8 @@ data class Aspects(
 
 data class TimeOfDay(
     val isAllDay: Boolean,
-    val end: String,
-    val start: String,
+    val end: Int,
+    val start: Int,
 )
 
 enum class AvalancheRiskLevel(val value: Int) {

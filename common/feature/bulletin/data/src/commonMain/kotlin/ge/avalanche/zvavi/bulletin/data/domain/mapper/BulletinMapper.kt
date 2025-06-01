@@ -2,6 +2,7 @@ package ge.avalanche.zvavi.bulletin.data.domain.mapper
 
 import ge.avalanche.zvavi.bulletin.api.models.Aspects
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblemType
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.bulletin.api.models.Bulletin
 import ge.avalanche.zvavi.bulletin.api.models.HazardLevels
@@ -10,6 +11,7 @@ import ge.avalanche.zvavi.bulletin.api.models.TimeOfDay
 import ge.avalanche.zvavi.bulletin.api.models.Trend
 import ge.avalanche.zvavi.database.entities.AspectsEntity
 import ge.avalanche.zvavi.database.entities.AvalancheProblemEntity
+import ge.avalanche.zvavi.database.entities.AvalancheProblemTypeEntity
 import ge.avalanche.zvavi.database.entities.AvalancheRiskLevelEntity
 import ge.avalanche.zvavi.database.entities.BulletinEntity
 import ge.avalanche.zvavi.database.entities.HazardLevelsEntity
@@ -58,7 +60,7 @@ fun AvalancheProblemApi.toEntity(): AvalancheProblemEntity = AvalancheProblemEnt
     sensitivity = sensitivity.toReadableFormat().toSensitivityMap(),
     timeOfDay = timeOfDay.toEntity(isAllDay),
     trend = trend.toTrendEntity(),
-    type = type.toReadableFormat()
+    type = type.toAvalancheProblemTypeEntity()
 )
 
 private fun String.toTrendEntity(): TrendEntity {
@@ -70,11 +72,15 @@ private fun String.toTrendEntity(): TrendEntity {
     }
 }
 
+private fun String.toAvalancheProblemTypeEntity(): AvalancheProblemTypeEntity {
+    return AvalancheProblemTypeEntity.fromString(this)
+}
+
 private fun String.toDistributionMap(): Map<String, Int> {
     val distribution = mapOf<String, Int>(
         "Widespread" to 80,
-        "Specific" to 60,
-        "Isolated" to 40
+        "Specific" to 50,
+        "Isolated" to 20
     )
     return distribution.filterKeys { distribution -> distribution in this }
 }
@@ -138,8 +144,8 @@ private fun List<String>.toAspectsEntity(): Map<String, Int> {
  */
 private fun TimeOfDayApi.toEntity(isAllDay: Boolean): TimeOfDayEntity = TimeOfDayEntity(
     isAllDay = isAllDay,
-    end = end ?: "",
-    start = start ?: ""
+    end = end?.formatHour()?.toInt() ?: 0,
+    start = start?.formatHour()?.toInt() ?: 0
 )
 
 /**
@@ -248,7 +254,7 @@ private fun AvalancheProblemEntity.toDomain(): AvalancheProblem = AvalancheProbl
     sensitivity = sensitivity,
     timeOfDay = timeOfDay.toDomain(),
     trend = trend.toDomain(),
-    type = type
+    type = type.toDomain()
 )
 
 private fun TrendEntity.toDomain(): Trend {
@@ -256,6 +262,21 @@ private fun TrendEntity.toDomain(): Trend {
         TrendEntity.IMPROVING -> Trend.IMPROVING
         TrendEntity.DETERIORATING -> Trend.DETERIORATING
         TrendEntity.NO_CHANGES -> Trend.NO_CHANGES
+    }
+}
+
+private fun AvalancheProblemTypeEntity.toDomain(): AvalancheProblemType {
+    return when (this) {
+        is AvalancheProblemTypeEntity.WindSlab -> AvalancheProblemType.WindSlab
+        is AvalancheProblemTypeEntity.WetSlab -> AvalancheProblemType.WetSlab
+        is AvalancheProblemTypeEntity.LooseDry -> AvalancheProblemType.LooseDry
+        is AvalancheProblemTypeEntity.LooseWet -> AvalancheProblemType.LooseWet
+        is AvalancheProblemTypeEntity.PersistentSlab -> AvalancheProblemType.PersistentSlab
+        is AvalancheProblemTypeEntity.StormSlab -> AvalancheProblemType.StormSlab
+        is AvalancheProblemTypeEntity.Cornice -> AvalancheProblemType.Cornice
+        is AvalancheProblemTypeEntity.Glide -> AvalancheProblemType.Glide
+        is AvalancheProblemTypeEntity.DeepSlab -> AvalancheProblemType.DeepSlab
+        is AvalancheProblemTypeEntity.Unknown -> AvalancheProblemType.Unknown(this.unknownValue)
     }
 }
 
@@ -301,3 +322,18 @@ private val List<AvalancheProblemEntity>.toAvalancheProblemDomainList: List<Aval
  */
 private val List<RecentAvalanchesEntity>.toRecentAvalanchesDomainList: List<RecentAvalanches>
     get() = map { it.toDomain() }
+
+/**
+ * Formats ISO 8601 date string to extract and round up hours
+ * @param dateString ISO 8601 date string (e.g. "2025-04-10T06:00:00.606Z")
+ * @return Formatted hour string (e.g. "7" for "2025-04-10T06:30:00.606Z")
+ */
+private fun String.formatHour(): String {
+    return try {
+        val hour = this.substringAfter("T").substringBefore(":").toInt()
+        val minutes = this.substringAfter(":").substringBefore(":").toInt()
+        (if (minutes >= 30) hour + 1 else hour).toString()
+    } catch (e: Exception) {
+        ""
+    }
+}

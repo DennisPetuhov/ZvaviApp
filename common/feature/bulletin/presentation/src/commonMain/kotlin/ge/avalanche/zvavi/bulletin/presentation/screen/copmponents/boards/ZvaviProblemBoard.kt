@@ -1,13 +1,9 @@
 package ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -21,13 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
+import ge.avalanche.zvavi.bulletin.presentation.screen.utill.ZvaviProblemIcon
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
-import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
@@ -62,18 +57,10 @@ fun ZvaviProblemBoard(
                 .wrapContentHeight()
                 .padding(vertical = ZvaviSpacing.spacing150)
         ) {
-            Image(
-                ZvaviIcons.AvalancheProblemWetLoose, "persistent slab",
-                modifier = Modifier
-                    .weight(0.6f, fill = false)
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(ZvaviRadius.radius550))
-                    .border(BorderStroke(1.dp, ZvaviTheme.colors.contentNeutralTertiary))
-                    .shimmerEffect()
-            )
+            ZvaviProblemIcon(problem = problem, modifier = Modifier.weight(0.6f, fill = false))
             Spacer(modifier = Modifier.weight(0.12f))
             Text(
-                text = problem.type,
+                text = problem.type.value,
                 style = ZvaviTheme.typography.compact300Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
                 maxLines = 1,
                 modifier = Modifier

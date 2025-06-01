@@ -3,6 +3,7 @@ package ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
@@ -68,6 +70,7 @@ private fun getTan30(): Float = tan(toRadians(RiskPyramidConstants.PENTAGON_ANGL
  * @param canvasHeight The height of the canvas
  * @param color The color of the pentagon
  * @param modifier Additional modifier for the composable
+ * @param contentCenterOffsetFromXMax The offset from XMax for content positioning
  * @param content The content to be displayed inside the pentagon
  */
 @Composable
@@ -76,12 +79,13 @@ internal fun PentagonView(
     canvasHeight: Dp,
     color: Color,
     modifier: Modifier = Modifier,
+    contentCenterOffsetFromXMax: Dp = (canvasWidth.value * RiskPyramidConstants.PENTAGON_CONTENT_OFFSET_X).dp,
     content: @Composable () -> Unit = {}
 ) {
     Box(
-        contentAlignment = Alignment.BottomCenter,
+        contentAlignment = Alignment.Center,
         modifier = modifier
-            .wrapContentSize()
+            .size(canvasWidth, canvasHeight)
             .padding(bottom = ZvaviSpacing.spacing50)
     ) {
         Canvas(modifier = Modifier.size(canvasWidth, canvasHeight)) {
@@ -101,10 +105,13 @@ internal fun PentagonView(
         }
         
         Box(
+            contentAlignment = Alignment.BottomCenter,
             modifier = Modifier
-                .align(Alignment.BottomEnd)
+//                .align(Alignment.BottomCenter)
+                .fillMaxSize()
                 .offset(
-                    x = -(canvasWidth.value * RiskPyramidConstants.PENTAGON_CONTENT_OFFSET_X).dp,
+//                    x=  (0.07 * canvasWidth.value).dp,
+                    x=  (0.08 * canvasWidth.value).dp,
                     y = -canvasHeight / RiskPyramidConstants.PENTAGON_CONTENT_OFFSET_Y
                 )
         ) {
