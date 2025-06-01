@@ -130,6 +130,18 @@ fun RiskLevelIcon(riskLevel: AvalancheRiskLevel, modifier: Modifier) {
 }
 
 @Composable
+fun RiskLevelColor(riskLevel: AvalancheRiskLevel, modifier: Modifier) {
+    val icon = when (riskLevel) {
+        AvalancheRiskLevel.EXTREME -> ZvaviTheme.colors.backgroundNeutralHigh
+        AvalancheRiskLevel.HIGH -> ZvaviTheme.colors.backgroundNegativeHigh
+        AvalancheRiskLevel.CONSIDERABLE -> ZvaviTheme.colors.backgroundWarningHigh
+        AvalancheRiskLevel.MODERATE -> ZvaviTheme.colors.backgroundAttentionHigh
+        AvalancheRiskLevel.LOW -> ZvaviTheme.colors.backgroundPositiveHigh
+        AvalancheRiskLevel.NO_INFO -> ZvaviTheme.colors.backgroundNeutralHigh
+    }
+}
+
+@Composable
 fun Modifier.overallRiskBackgroundColor(riskLevel: AvalancheRiskLevel) = this.then(
     Modifier.background(
         when (riskLevel) {
@@ -182,10 +194,7 @@ internal fun ZvaviProblemIcon(problem: AvalancheProblem, modifier: Modifier) {
         modifier = modifier
             .aspectRatio(1f)
             .clip(RoundedCornerShape(ZvaviRadius.radius550))
-            .border(
-                border = BorderStroke(1.dp, ZvaviTheme.colors.borderNeutralSecondary),
-                shape = RoundedCornerShape(ZvaviRadius.radius550)
-            )
+            .border(border = BorderStroke(1.dp, ZvaviTheme.colors.borderNeutralSecondary), shape = RoundedCornerShape(ZvaviRadius.radius550))
             .shimmerEffect()
     )
 }

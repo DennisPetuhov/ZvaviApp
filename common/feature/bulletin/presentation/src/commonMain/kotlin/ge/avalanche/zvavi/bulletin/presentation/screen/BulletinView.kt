@@ -37,12 +37,12 @@ internal fun BulletinView(
             .fillMaxSize()
             .background(ZvaviTheme.colors.layerFloor0)
     ) {
-        DataLocationBlock(
-            viewState = viewState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = ZvaviSpacing.spacing500, vertical = ZvaviSpacing.spacing50)
-        )
+//        DataLocationBlock(
+//            viewState = viewState,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = ZvaviSpacing.spacing400, vertical = ZvaviSpacing.spacing100)
+//        )
         ContentBlocks(
             viewState = viewState,
             layoutConfig = layoutConfig,
