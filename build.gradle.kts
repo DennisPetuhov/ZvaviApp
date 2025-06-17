@@ -8,4 +8,3 @@ plugins {
     alias(libs.plugins.ksp).apply(false)
     id("base.plugin")
 }
-
