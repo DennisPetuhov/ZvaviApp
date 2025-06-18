@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.Trend
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTrendConstants.CONTAINER_HEIGHT_DP
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTrendConstants.CONTAINER_WIDTH_DP
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 
 
@@ -40,7 +42,12 @@ private object ProblemTrendConstants {
     val TREND_STROKE_WIDTH_DP: Dp = 7.dp
     
     /** Size of the inner canvas in dp */
-    val INNER_CANVAS_SIZE_DP: Dp = 90.dp
+    val INNER_CANVAS_SIZE_DP: Dp = 70.dp
+    /** Width of the container in dp */
+    const val CONTAINER_WIDTH_DP: Int = 104
+
+    /** Height of the container in dp */
+    const val CONTAINER_HEIGHT_DP: Int = 90
 }
 
 /**
@@ -58,8 +65,11 @@ fun ProblemTrend(
     direction: Trend
 ) {
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier.size(ProblemTrendConstants.CANVAS_SIZE_DP)
+        contentAlignment = Alignment.BottomEnd,
+        modifier = modifier.size(
+            width =CONTAINER_WIDTH_DP.dp,
+            height = CONTAINER_HEIGHT_DP.dp
+        )
     ) {
         Canvas(modifier = Modifier.size(ProblemTrendConstants.INNER_CANVAS_SIZE_DP)) {
             drawTrendPaths(
@@ -126,13 +136,15 @@ class TrendShape : Shape {
 
     /**
      * Creates a path for no changes trend.
-     * Draws two horizontal lines.
+     * Draws two horizontal lines centered vertically from 1/5 to 4/5 width.
      */
     private fun createNoChangesPath(minDimension: Float): Path = Path().apply {
-        moveTo(ProblemTrendConstants.ONE_THIRD * minDimension, ProblemTrendConstants.ONE_THIRD * minDimension)
-        lineTo(ProblemTrendConstants.TWO_THIRDS * minDimension, ProblemTrendConstants.ONE_THIRD * minDimension)
-        moveTo(ProblemTrendConstants.ONE_THIRD * minDimension, ProblemTrendConstants.TWO_THIRDS * minDimension)
-        lineTo(ProblemTrendConstants.TWO_THIRDS * minDimension, ProblemTrendConstants.TWO_THIRDS * minDimension)
+        // First line slightly above center
+        moveTo(0.2f * minDimension, 0.4f * minDimension)
+        lineTo(0.8f * minDimension, 0.4f * minDimension)
+        // Second line slightly below center
+        moveTo(0.2f * minDimension, 0.6f * minDimension)
+        lineTo(0.8f * minDimension, 0.6f * minDimension)
     }
 
     /**

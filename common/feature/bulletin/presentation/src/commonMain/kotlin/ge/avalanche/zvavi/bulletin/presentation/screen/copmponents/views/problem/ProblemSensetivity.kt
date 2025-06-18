@@ -30,13 +30,14 @@ private object ProblemSensitivityConstants {
     const val DEFAULT_STROKE_DP: Int = 16
 
     /** Default size of the component in dp */
-    const val DEFAULT_SIZE_DP: Int = 100
+    const val CANVAS_WIDTH_DP: Int = 104
+    const val CANVAS_HEIGHT_DP: Int = 63
 
     /** Length of the needle from center to tip */
-    const val NEEDLE_LENGTH: Float = 100f
+    const val NEEDLE_LENGTH: Float = 60f
 
     /** Width of the needle base */
-    const val NEEDLE_BASE_WIDTH: Float = 15f
+    const val NEEDLE_BASE_WIDTH: Float = 10f
 
     /** Starting angle for the first arc segment in degrees */
     const val ARC_START_ANGLE: Float = 180f
@@ -57,19 +58,22 @@ private object ProblemSensitivityConstants {
     const val FOURTH_ARC_SWEEP_ANGLE: Float = 45f
 
     /** Radius of the center circle */
-    const val CIRCLE_RADIUS: Float = 12f
+    const val CIRCLE_RADIUS: Float = 8f
 
     /** Stroke width for the center circle */
-    const val CIRCLE_STROKE_WIDTH: Float = 10f
+    const val CIRCLE_STROKE_WIDTH: Float = 8f
 
     /** Angle offset for needle base points in degrees */
     const val NEEDLE_ANGLE_OFFSET: Int = 90
 
-    /** Height divider for arc positioning */
-    const val HEIGHT_DIVIDER: Float = 2.5f
-
     /** Maximum percentage value for the meter */
     const val MAX_PERCENTAGE: Int = 100
+
+    /** Width of the container in dp */
+    const val CONTAINER_WIDTH_DP: Int = 104
+
+    /** Height of the container in dp */
+    const val CONTAINER_HEIGHT_DP: Int = 90
 }
 
 /**
@@ -91,13 +95,21 @@ fun ProblemSensitivity(
 ) {
     val meterValue: Int = getMeterValue(problem.sensitivity.values.first())
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier.size(ProblemSensitivityConstants.DEFAULT_SIZE_DP.dp)
+        contentAlignment = Alignment.BottomEnd,
+        modifier = modifier.size(
+            width = ProblemSensitivityConstants.CONTAINER_WIDTH_DP.dp,
+            height = ProblemSensitivityConstants.CONTAINER_HEIGHT_DP.dp
+        )
     ) {
-        Canvas(modifier = Modifier.size(ProblemSensitivityConstants.DEFAULT_SIZE_DP.dp)) {
+        Canvas(
+            modifier = Modifier.size(
+                width = ProblemSensitivityConstants.CANVAS_WIDTH_DP.dp,
+                height = ProblemSensitivityConstants.CANVAS_HEIGHT_DP.dp
+            )
+        ) {
             val height: Float = size.height
             val width: Float = size.width
-            val centerOffset: Offset = Offset(width / 2f, height - stroke.toPx())
+            val centerOffset: Offset = Offset(width / 2f, height)
 
             drawArcs(
                 problem = problem,
@@ -150,11 +162,16 @@ private fun DrawScope.drawArcs(
     height: Float,
     width: Float
 ) {
-    val arcSize: Size = Size(width - stroke.toPx(), width - stroke.toPx())
+    val arcSize: Size = Size(
+        width = width - stroke.toPx(),
+        height = (height - stroke.toPx()) * 2
+    )
+    
     val topLeft: Offset = Offset(
         stroke.toPx() / 2,
-        height / ProblemSensitivityConstants.HEIGHT_DIVIDER - stroke.toPx() / 2
+        height - (height - stroke.toPx())
     )
+    
     val strokeStyle: Stroke = Stroke(width = stroke.toPx(), cap = StrokeCap.Butt)
 
     drawArc(
@@ -215,7 +232,7 @@ private fun DrawScope.drawCenterCircle(
     drawCircle(
         color = secondaryColor,
         radius = ProblemSensitivityConstants.CIRCLE_RADIUS,
-        center = Offset(width / 2f, height - stroke.toPx()),
+        center = Offset(width / 2f, height - ProblemSensitivityConstants.CIRCLE_RADIUS),
         style = Stroke(width = ProblemSensitivityConstants.CIRCLE_STROKE_WIDTH.dp.toPx())
     )
 }
@@ -232,20 +249,25 @@ private fun DrawScope.drawNeedle(
     centerOffset: Offset,
     meterValue: Int
 ) {
+    val adjustedCenterOffset = Offset(
+        centerOffset.x,
+        centerOffset.y - ProblemSensitivityConstants.CIRCLE_RADIUS
+    )
+    
     val needleAngle: Float = ProblemSensitivityConstants.ARC_START_ANGLE +
             (meterValue / ProblemSensitivityConstants.MAX_PERCENTAGE.toFloat()) * ProblemSensitivityConstants.ARC_START_ANGLE
     val needlePath: Path = Path().apply {
-        val topX: Float = centerOffset.x + ProblemSensitivityConstants.NEEDLE_LENGTH *
+        val topX: Float = adjustedCenterOffset.x + ProblemSensitivityConstants.NEEDLE_LENGTH *
                 cos(toRadians(needleAngle.toDouble()).toFloat())
-        val topY: Float = centerOffset.y + ProblemSensitivityConstants.NEEDLE_LENGTH *
+        val topY: Float = adjustedCenterOffset.y + ProblemSensitivityConstants.NEEDLE_LENGTH *
                 sin(toRadians(needleAngle.toDouble()).toFloat())
-        val baseLeftX: Float = centerOffset.x + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
+        val baseLeftX: Float = adjustedCenterOffset.x + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
                 cos(toRadians((needleAngle - ProblemSensitivityConstants.NEEDLE_ANGLE_OFFSET).toDouble()).toFloat())
-        val baseLeftY: Float = centerOffset.y + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
+        val baseLeftY: Float = adjustedCenterOffset.y + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
                 sin(toRadians((needleAngle - ProblemSensitivityConstants.NEEDLE_ANGLE_OFFSET).toDouble()).toFloat())
-        val baseRightX: Float = centerOffset.x + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
+        val baseRightX: Float = adjustedCenterOffset.x + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
                 cos(toRadians((needleAngle + ProblemSensitivityConstants.NEEDLE_ANGLE_OFFSET).toDouble()).toFloat())
-        val baseRightY: Float = centerOffset.y + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
+        val baseRightY: Float = adjustedCenterOffset.y + ProblemSensitivityConstants.NEEDLE_BASE_WIDTH *
                 sin(toRadians((needleAngle + ProblemSensitivityConstants.NEEDLE_ANGLE_OFFSET).toDouble()).toFloat())
 
         moveTo(topX, topY)

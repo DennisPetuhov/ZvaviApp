@@ -41,7 +41,7 @@ internal fun BulletinView(
             viewState = viewState,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = ZvaviSpacing.spacing400, vertical = ZvaviSpacing.spacing100)
+                .padding(horizontal = ZvaviSpacing.spacing500, vertical = ZvaviSpacing.spacing50)
         )
         ContentBlocks(
             viewState = viewState,

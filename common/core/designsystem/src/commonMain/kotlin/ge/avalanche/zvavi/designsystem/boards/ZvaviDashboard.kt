@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.designsystem.dimens.Stroke
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -29,6 +31,7 @@ import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
+import kotlinx.datetime.format.Padding
 import org.jetbrains.compose.resources.stringResource
 
 interface ZvaviDashboardEvent {
@@ -41,6 +44,7 @@ fun ZvaviDashboard(
     eventHandler: (ZvaviDashboardEvent) -> Unit,
     layoutConfig: LayoutConfig,
     backgroundColor: Color = ZvaviTheme.colors.layerFloor1,
+    spacing:Dp=ZvaviSpacing.spacing100,
     modifier: Modifier = Modifier,
     mainBlock: @Composable BoxScope. () -> Unit,
 ) {
@@ -60,13 +64,12 @@ fun ZvaviDashboard(
             )
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing50),
-            modifier = Modifier.fillMaxWidth()
+            verticalArrangement = Arrangement.spacedBy(spacing),
+            modifier = Modifier.fillMaxSize()
         ) {
             DashboardHeader(name = name, eventHandler = eventHandler)
             Box(
-                contentAlignment = Alignment.BottomEnd,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxSize()
             ) { mainBlock() }
         }
     }

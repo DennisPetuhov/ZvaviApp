@@ -33,7 +33,7 @@ fun ProblemsBlock(
     val problems = viewState.avalancheProblems
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),        // fix after network implementation
+        verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing200),
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()

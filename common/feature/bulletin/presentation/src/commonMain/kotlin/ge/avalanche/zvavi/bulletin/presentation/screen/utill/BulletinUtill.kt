@@ -1,7 +1,9 @@
 package ge.avalanche.zvavi.bulletin.presentation.screen.utill
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,8 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
+import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblemType
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
@@ -123,17 +128,7 @@ fun RiskLevelIcon(riskLevel: AvalancheRiskLevel, modifier: Modifier) {
         modifier = modifier.aspectRatio(1f).shimmerEffect()
     )
 }
-@Composable
-fun RiskLevelColor(riskLevel: AvalancheRiskLevel, modifier: Modifier) {
-    val icon = when (riskLevel) {
-        AvalancheRiskLevel.EXTREME -> ZvaviTheme.colors.backgroundNeutralHigh
-        AvalancheRiskLevel.HIGH -> ZvaviTheme.colors.backgroundNegativeHigh
-        AvalancheRiskLevel.CONSIDERABLE -> ZvaviTheme.colors.backgroundWarningHigh
-        AvalancheRiskLevel.MODERATE -> ZvaviTheme.colors.backgroundAttentionHigh
-        AvalancheRiskLevel.LOW -> ZvaviTheme.colors.backgroundPositiveHigh
-        AvalancheRiskLevel.NO_INFO -> ZvaviTheme.colors.backgroundNeutralHigh
-    }
-}
+
 @Composable
 fun Modifier.overallRiskBackgroundColor(riskLevel: AvalancheRiskLevel) = this.then(
     Modifier.background(
@@ -147,6 +142,7 @@ fun Modifier.overallRiskBackgroundColor(riskLevel: AvalancheRiskLevel) = this.th
         }
     )
 )
+
 internal val Month.shortName: String
     get() = when (this) {
         Month.JANUARY -> "Jan"
@@ -163,3 +159,33 @@ internal val Month.shortName: String
         Month.DECEMBER -> "Dec"
         else -> "error"
     }
+
+@Composable
+internal fun ZvaviProblemIcon(problem: AvalancheProblem, modifier: Modifier) {
+    val problemType = problem.type
+    val (icon: ImageVector, contentDescription: String) = when (problemType) {
+        is AvalancheProblemType.WindSlab -> ZvaviIcons.AvalancheProblemWindSlab to problemType.value
+        is AvalancheProblemType.WetSlab -> ZvaviIcons.AvalancheProblemWetSlab to problemType.value
+        is AvalancheProblemType.LooseDry -> ZvaviIcons.AvalancheProblemDryLoose to problemType.value
+        is AvalancheProblemType.LooseWet -> ZvaviIcons.AvalancheProblemWetLoose to problemType.value
+        is AvalancheProblemType.PersistentSlab -> ZvaviIcons.AvalancheProblemPersistentSlab to problemType.value
+        is AvalancheProblemType.StormSlab -> ZvaviIcons.AvalancheProblemStormSlab to problemType.value
+        is AvalancheProblemType.Cornice -> ZvaviIcons.AvalancheProblemCorniceFall to problemType.value
+        is AvalancheProblemType.Glide -> ZvaviIcons.AvalancheProblemGlideAvalanche to problemType.value
+        is AvalancheProblemType.DeepSlab -> ZvaviIcons.AvalancheProblemDeepPersistentSlab to problemType.value
+        is AvalancheProblemType.Unknown -> ZvaviIcons.AvalancheProblemWetLoose to problemType.unknownValue
+    }
+
+    Image(
+        imageVector = icon,
+        contentDescription = contentDescription,
+        modifier = modifier
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(ZvaviRadius.radius550))
+            .border(
+                border = BorderStroke(1.dp, ZvaviTheme.colors.borderNeutralSecondary),
+                shape = RoundedCornerShape(ZvaviRadius.radius550)
+            )
+            .shimmerEffect()
+    )
+}

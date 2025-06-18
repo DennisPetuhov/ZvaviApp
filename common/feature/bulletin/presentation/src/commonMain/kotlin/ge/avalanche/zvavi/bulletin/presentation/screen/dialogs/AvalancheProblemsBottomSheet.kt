@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ColoredCirclesGrid
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemAspectElevation
+import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemDistribution
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemSensitivity
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTimeOfDay
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTrend
@@ -63,8 +63,7 @@ internal fun AvalancheProblemsBottomSheet(
         ),
         sheetState = sheetState,
         modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+            .fillMaxWidth(),
         containerColor = ZvaviTheme.colors.layerFloor1,
         dragHandle = null,
     ) {
@@ -74,7 +73,7 @@ internal fun AvalancheProblemsBottomSheet(
                 problem = it,
                 layoutConfig,
                 eventHandler,
-                modifier = Modifier.fillMaxHeight(0.9f)
+                modifier = Modifier.fillMaxHeight(0.8f)
             )
         }
     }
@@ -88,7 +87,7 @@ private fun ModalContainer(
     eventHandler: (BulletinEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.Bottom) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
@@ -99,7 +98,7 @@ private fun ModalContainer(
                 )
         ) {
             Text(
-                text = problem.type,
+                text = problem.type.value,
                 style = ZvaviTheme.typography.compact400Accent,
                 color = ZvaviTheme.colors.contentNeutralPrimary
             )
@@ -198,7 +197,7 @@ private fun DashBoard(
             ) {
                 ProblemAspectElevation(
                     problem = problem,
-                    modifier = Modifier.align(Alignment.TopEnd)
+                    modifier = Modifier.align(Alignment.BottomEnd)
                 )
             }
 
@@ -208,7 +207,7 @@ private fun DashBoard(
             modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)
         ) {
             ZvaviDashboard(
-                name = "Sensitivity to human triggered",
+                name = "Sensitivity",
                 backgroundColor = ZvaviTheme.colors.overlayNeutral,
                 eventHandler = { event ->
                     when (event) {
@@ -248,8 +247,8 @@ private fun DashBoard(
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
-                ColoredCirclesGrid(
-                    bluePercentage = problem.distribution.values.first(),
+                ProblemDistribution(
+                    distributionPercentage = problem.distribution.values.first(),
                     modifier = Modifier.align(Alignment.BottomEnd)
                 )
             }
@@ -296,12 +295,19 @@ private fun DashBoard(
                 modifier = Modifier.weight(1f, fill = false)
             ) {
                 Text(
-                    text = "${problem.timeOfDay.start} \n ${problem.timeOfDay.end} ",
+                    text = if (problem.timeOfDay.isAllDay) {
+                        "All day"
+                    } else {
+                        "${problem.timeOfDay.start}:00\n${problem.timeOfDay.end}:00"
+                    },
                     style = ZvaviTheme.typography.display350Accent,
                     color = ZvaviTheme.colors.contentNeutralPrimary,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
-                ProblemTimeOfDay(modifier = Modifier.align(Alignment.BottomEnd))
+                ProblemTimeOfDay(
+                    timeOfDay = problem.timeOfDay,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
             }
         }
     }
