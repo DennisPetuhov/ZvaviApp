@@ -3,7 +3,7 @@
     <string name="danger_level">Danger level</string>
     <string name="travel_advice">Travel Advice</string>
     <string name="overview">Overview</string>
-    <string name="Gudauri">Gudauri</string>
+    <string name="gudauri">Gudauri</string>
     <string name="info">info</string>
     <string name="risk_by_height">Risk by height</string>
     <string name="high_alpine">High Alpine</string>
@@ -12,5 +12,8 @@
     <string name="height_2600">2 600</string>
     <string name="height_2000">2 000</string>
     <string name="height_0">0</string>
-    <string name="Problems">Problems</string>
+    <string name="problems">Problems</string>
+    <string name="explore">Explore</string>
+    <string name="bulletin">Bulletin</string>
+    <string name="settings">Settings</string>
 </resources>

@@ -8,6 +8,7 @@ import ge.avalanche.zvavi.designsystem.theme.AppTheme
 import ge.avalanche.zvavi.foundation.di.dispatchersProviderModule
 import ge.avalanche.zvavi.foundation.logger.LoggerConfig
 import ge.avalanche.zvavi.network.di.networkModule
+import ge.avalanche.zvavi.splash.presentation.di.splashPresentationModule
 import org.koin.compose.KoinApplication
 
 @Composable
@@ -19,6 +20,7 @@ internal fun App(platformConfiguration: PlatformConfiguration) =
             dispatchersProviderModule,
             networkModule,
             bulletinDataModule,
-            bulletinPresentationModule
+            bulletinPresentationModule,
+            splashPresentationModule
         )
     }) { AppTheme { ZvaviApp() } }

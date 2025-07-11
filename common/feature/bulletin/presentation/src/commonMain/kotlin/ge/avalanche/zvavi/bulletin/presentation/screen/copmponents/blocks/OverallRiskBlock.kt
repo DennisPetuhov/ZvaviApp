@@ -14,8 +14,8 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards.RiskBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
-import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
-import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
+import ge.avalanche.zvavi.designsystem.components.boards.ZvaviDashboard
+import ge.avalanche.zvavi.designsystem.components.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig

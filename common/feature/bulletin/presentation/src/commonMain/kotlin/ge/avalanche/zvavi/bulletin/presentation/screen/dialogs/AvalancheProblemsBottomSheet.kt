@@ -36,8 +36,8 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTimeOfDay
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ProblemTrend
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.problem.ZvaviProblemSize
-import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboard
-import ge.avalanche.zvavi.designsystem.boards.ZvaviDashboardEvent
+import ge.avalanche.zvavi.designsystem.components.boards.ZvaviDashboard
+import ge.avalanche.zvavi.designsystem.components.boards.ZvaviDashboardEvent
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons

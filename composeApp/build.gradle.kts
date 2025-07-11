@@ -14,6 +14,10 @@ plugins {
 
 }
 kotlin {
+    // Add explicit iOS target configuration
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
@@ -43,6 +47,9 @@ kotlin {
             implementation(project(":common:feature:bulletin:presentation"))
             implementation(project(":common:feature:bulletin:api"))
             implementation(project(":common:feature:bulletin:data"))
+            implementation(project(":common:feature:splash:presentation"))
+            implementation(project(":common:feature:settings:presentation"))
+            implementation(project(":common:feature:explore:presentation"))
         }
 
         commonTest.dependencies {

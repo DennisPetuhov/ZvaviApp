@@ -4,9 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.jetbrains.compose.resources.vectorResource
 import zvaviapp.common.core.designsystem.generated.resources.Res
+import zvaviapp.common.core.designsystem.generated.resources.bottom_icon_bulletin
+import zvaviapp.common.core.designsystem.generated.resources.bottom_icon_settings
+import zvaviapp.common.core.designsystem.generated.resources.bottom_item_explore
 import zvaviapp.common.core.designsystem.generated.resources.cornice_fall
 import zvaviapp.common.core.designsystem.generated.resources.cross_button
 import zvaviapp.common.core.designsystem.generated.resources.deep_persistent_slab
+import zvaviapp.common.core.designsystem.generated.resources.drop_down_arrow
 import zvaviapp.common.core.designsystem.generated.resources.dry_loose
 import zvaviapp.common.core.designsystem.generated.resources.glode_avalanche
 import zvaviapp.common.core.designsystem.generated.resources.info_20dp
@@ -54,4 +58,12 @@ object ZvaviIcons {
         @Composable get() = vectorResource(Res.drawable.storm_slam)
     val AvalancheProblemWetSlab: ImageVector
         @Composable get() = vectorResource(Res.drawable.wet_slab)
+    val BulletinIcon: ImageVector
+        @Composable get() = vectorResource(Res.drawable.bottom_icon_bulletin)
+    val SettingsIcon: ImageVector
+        @Composable get() = vectorResource(Res.drawable.bottom_icon_settings)
+    val ExploreIcon: ImageVector
+        @Composable get() = vectorResource(Res.drawable.bottom_item_explore)
+    val DropDownArrow: ImageVector
+        @Composable get() = vectorResource(Res.drawable.drop_down_arrow)
 }

@@ -62,10 +62,7 @@ private fun ContentBlocks(
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
         modifier = Modifier.fillMaxSize()
-            .padding(
-                vertical = ZvaviSpacing.spacing350,
-                horizontal = layoutConfig.marginHorizontal
-            )
+            .padding(horizontal = layoutConfig.marginHorizontal)
             .verticalScroll(scrollState)
     ) {
         OverallRisksBlock(
