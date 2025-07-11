@@ -1,4 +1,4 @@
-package ge.avalanche.zvavi.designsystem.boards
+package ge.avalanche.zvavi.designsystem.components.boards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,7 +30,6 @@ import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
-import kotlinx.datetime.format.Padding
 import org.jetbrains.compose.resources.stringResource
 
 interface ZvaviDashboardEvent {

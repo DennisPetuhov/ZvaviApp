@@ -1,11 +1,13 @@
 package ge.avalanche.zvavi
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import ge.avalanche.zvavi.bulletin.presentation.navigation.bulletinGraph
-import ge.avalanche.zvavi.foundation.navigation.BulletinScreenDestination
+import ge.avalanche.zvavi.foundation.navigation.SplashScreenDestination
 import ge.avalanche.zvavi.foundation.navigation.ZvaviNavHost
 import ge.avalanche.zvavi.foundation.navigation.rememberZvaviNavigationController
+import ge.avalanche.zvavi.screens.main.navigation.mainGraph
+import ge.avalanche.zvavi.splash.presentation.navigation.splashGraph
 
 @Composable
 internal fun ZvaviApp() {
@@ -14,8 +16,10 @@ internal fun ZvaviApp() {
         rememberZvaviNavigationController(navController = navController)
     ZvaviNavHost(
         navController = navController,
-        startDestination = BulletinScreenDestination
+        startDestination = SplashScreenDestination,
+        modifier = Modifier
     ) {
-        bulletinGraph(navigateToDestination = zvaviNavigationController::navigate)
+        splashGraph(navigateToDestination = zvaviNavigationController::navigate)
+        mainGraph(navigateToDestination = zvaviNavigationController::navigate)
     }
 }

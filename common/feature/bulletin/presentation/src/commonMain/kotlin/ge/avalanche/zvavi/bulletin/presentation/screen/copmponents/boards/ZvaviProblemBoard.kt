@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +21,7 @@ import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
@@ -70,7 +69,7 @@ fun ZvaviProblemBoard(
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
-                imageVector = Icons.Filled.KeyboardArrowDown,
+                imageVector = ZvaviIcons.DropDownArrow,
                 contentDescription = "expanded arrow",
                 tint = ZvaviTheme.colors.contentNeutralSecondary,
                 modifier = Modifier

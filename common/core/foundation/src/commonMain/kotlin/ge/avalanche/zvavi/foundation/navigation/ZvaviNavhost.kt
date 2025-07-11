@@ -12,10 +12,11 @@ fun ZvaviNavHost(
     navController: NavHostController,
     startDestination: ZvaviNavDestinations,
     animations: ZvaviNavAnimations = SlidingAnimations,
+    modifier: Modifier,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     NavHost(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         navController = navController,
         startDestination = startDestination.route,
         enterTransition = animations.enterTransition,
