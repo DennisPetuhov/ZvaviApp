@@ -40,17 +40,17 @@ fun RowScope.ZvaviNavigationBarItem(
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = AssNavigationNarColorsDefaults.selectedIconColor(),
-            unselectedIconColor = AssNavigationNarColorsDefaults.unselectedIconAndTextColor(),
-            selectedTextColor = AssNavigationNarColorsDefaults.selectedItemAndTextColor(),
-            unselectedTextColor = AssNavigationNarColorsDefaults.unselectedIconAndTextColor(),
-            indicatorColor = AssNavigationNarColorsDefaults.selectedIndicatorColor(),
+            selectedIconColor = ZvaviNavigationNarColorsDefaults.selectedIconColor(),
+            unselectedIconColor = ZvaviNavigationNarColorsDefaults.unselectedIconAndTextColor(),
+            selectedTextColor = ZvaviNavigationNarColorsDefaults.selectedItemAndTextColor(),
+            unselectedTextColor = ZvaviNavigationNarColorsDefaults.unselectedIconAndTextColor(),
+            indicatorColor = ZvaviNavigationNarColorsDefaults.selectedIndicatorColor(),
 
             ),
     )
 }
 
-object AssNavigationNarColorsDefaults {
+object ZvaviNavigationNarColorsDefaults {
     @Composable
     fun selectedIconColor() = ZvaviTheme.colors.contentBrandPrimary
 
