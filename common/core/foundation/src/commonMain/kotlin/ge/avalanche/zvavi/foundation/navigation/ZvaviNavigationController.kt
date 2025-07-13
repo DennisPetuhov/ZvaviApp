@@ -2,6 +2,7 @@ package ge.avalanche.zvavi.foundation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusManager
+import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 
@@ -15,6 +16,7 @@ expect fun createZvaviNavigationController(navController: NavHostController): Zv
 
 
 expect class ZvaviNavigationController(navController: NavHostController) {
+   val currentDestination: NavDestination?
     fun navigate(
         destinations: ZvaviNavDestinations?,
         route: String? = null,

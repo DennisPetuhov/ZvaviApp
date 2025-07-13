@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviAngle
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
+import ge.avalanche.zvavi.designsystem.icons.ZvaviIcons
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
 import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 
@@ -106,7 +105,7 @@ fun ZvaviExpandableText(
             )
 
             Icon(
-                imageVector =  Icons.Filled.KeyboardArrowDown,
+                imageVector = ZvaviIcons.DropDownArrow,
                 contentDescription = if (isExpanded) "collapse" else "expanded",
                 tint = ZvaviTheme.colors.contentNeutralTertiary,
                 modifier = Modifier.graphicsLayer(rotationZ = rotationAngle.value)

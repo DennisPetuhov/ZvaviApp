@@ -13,7 +13,7 @@ import co.touchlab.kermit.Logger
 actual class ZvaviNavigationController actual constructor(private val navController: NavHostController) {
     private val logger = Logger.withTag("Routing")
 
-    val currentDestinations: NavDestination?
+  actual  val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
     actual fun navigate(
@@ -22,7 +22,7 @@ actual class ZvaviNavigationController actual constructor(private val navControl
         navOptionsBuilder: (NavOptionsBuilder.() -> Unit)?,
     ) {
         logger.d { "routes ${destinations?.route} $route" }
-        navController.navigate(route ?: destinations?.route ?: Routes.BULLETIN_SCREEN) {
+        navController.navigate(route ?: destinations?.route ?: ZvaviRoutes.BULLETIN_SCREEN) {
             navOptionsBuilder?.invoke(this)
         }
     }

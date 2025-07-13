@@ -28,7 +28,7 @@ fun ProblemsBlock(
     modifier: Modifier = Modifier,
     eventHandler: (BulletinEvent) -> Unit,
 ) {
-    var bottomSheetState =
+    val bottomSheetState =
         rememberModalBottomSheetState(skipPartiallyExpanded = true, confirmValueChange = { true })
     val problems = viewState.avalancheProblems
 
