@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
-import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards.RiskBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toTravelAdvice
 import ge.avalanche.zvavi.designsystem.animation.shimmer.shimmerEffect
 import ge.avalanche.zvavi.designsystem.components.boards.ZvaviDashboard
@@ -29,11 +28,6 @@ fun OverallRisksBlock(
     layoutConfig: LayoutConfig,
     modifier: Modifier = Modifier
 ) {
-    RiskBoard(
-        viewState = viewState,
-        modifier = modifier
-            .fillMaxWidth()
-    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
