@@ -1,0 +1,121 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "84bbe460a1bb478e1a2a84ad5dc24a75",
+    "entities": [
+      {
+        "tableName": "bulletin",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `forecaster` TEXT NOT NULL, `status` TEXT NOT NULL, `validUntil` TEXT NOT NULL, `snowpack` TEXT NOT NULL, `summary` TEXT NOT NULL, `weather` TEXT NOT NULL, `snowCondition` TEXT NOT NULL, `additionalHazards` TEXT NOT NULL, `avalancheProblems` TEXT NOT NULL, `recentAvalanches` TEXT NOT NULL, `hazard_alpine` INTEGER NOT NULL, `hazard_overall` INTEGER NOT NULL, `hazard_subAlpine` INTEGER NOT NULL, `hazard_highAlpine` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "forecaster",
+            "columnName": "forecaster",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "validUntil",
+            "columnName": "validUntil",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "snowpack",
+            "columnName": "snowpack",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weather",
+            "columnName": "weather",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "snowCondition",
+            "columnName": "snowCondition",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "additionalHazards",
+            "columnName": "additionalHazards",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avalancheProblems",
+            "columnName": "avalancheProblems",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recentAvalanches",
+            "columnName": "recentAvalanches",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hazardLevels.alpine",
+            "columnName": "hazard_alpine",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hazardLevels.overall",
+            "columnName": "hazard_overall",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hazardLevels.subAlpine",
+            "columnName": "hazard_subAlpine",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hazardLevels.highAlpine",
+            "columnName": "hazard_highAlpine",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '84bbe460a1bb478e1a2a84ad5dc24a75')"
+    ]
+  }
+}

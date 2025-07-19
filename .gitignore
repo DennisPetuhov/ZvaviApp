@@ -2,6 +2,7 @@
 composeApp/build/
 build/
 .gradle/
+ .kotlin/
 
 # Android App packaging
 *.apk
@@ -198,3 +199,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+.kotlin/metadata/kotlinTransformedMetadataLibraries
+.kotlin/metadata
+.kotlin

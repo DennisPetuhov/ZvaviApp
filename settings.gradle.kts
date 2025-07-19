@@ -1,6 +1,7 @@
 rootProject.name = "ZvaviApp"
 
 pluginManagement {
+    includeBuild("build-logic/base")
     repositories {
         google {
             content {
@@ -14,7 +15,6 @@ pluginManagement {
         mavenCentral()
     }
 }
-
 dependencyResolutionManagement {
     repositories {
         google {
@@ -29,3 +29,13 @@ dependencyResolutionManagement {
     }
 }
 include(":composeApp")
+include(":common:feature:bulletin:presentation")
+include(":common:core:foundation")
+include(":common:core:designsystem")
+include(":common:core:network")
+include(":common:core:database")
+include(":common:feature:bulletin:api")
+include(":common:feature:bulletin:data")
+include(":common:feature:splash:presentation")
+include(":common:feature:settings:presentation")
+include(":common:feature:explore:presentation")
