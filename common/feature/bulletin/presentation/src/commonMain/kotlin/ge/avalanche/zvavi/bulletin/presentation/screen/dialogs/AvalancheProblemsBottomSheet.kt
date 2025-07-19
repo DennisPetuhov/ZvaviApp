@@ -73,7 +73,7 @@ internal fun AvalancheProblemsBottomSheet(
                 problem = it,
                 layoutConfig,
                 eventHandler,
-                modifier = Modifier.fillMaxHeight(0.8f)
+                modifier = Modifier.wrapContentHeight()
             )
         }
     }
@@ -87,11 +87,11 @@ private fun ModalContainer(
     eventHandler: (BulletinEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier, verticalArrangement = Arrangement.Bottom) {
+    Column(modifier = modifier.wrapContentHeight(), verticalArrangement = Arrangement.Bottom) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth().wrapContentHeight()
                 .padding(
                     vertical = ZvaviSpacing.spacing300,
                     horizontal = layoutConfig.marginHorizontal + layoutConfig.contentCompensation
@@ -111,7 +111,7 @@ private fun ModalContainer(
 
         }
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().wrapContentHeight()
                 .padding(
                     top = ZvaviSpacing.spacing100,
                     bottom = ZvaviSpacing.spacing350,
@@ -149,7 +149,7 @@ private fun DashBoard(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxWidth().wrapContentHeight()
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
