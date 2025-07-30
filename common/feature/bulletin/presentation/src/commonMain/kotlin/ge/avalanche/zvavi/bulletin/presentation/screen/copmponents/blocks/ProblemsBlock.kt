@@ -69,7 +69,6 @@ fun ProblemsBlock(
     }
     if (viewState.showBottomSheet) {
         AvalancheProblemsBottomSheet(
-            viewState=viewState,
             problem = viewState.selectedProblem,
             sheetState = bottomSheetState,
             layoutConfig = layoutConfig,

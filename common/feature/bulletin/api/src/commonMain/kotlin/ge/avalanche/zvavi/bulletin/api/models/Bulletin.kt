@@ -15,7 +15,7 @@ data class Bulletin(
     val additionalHazards: String,
     val hazardLevels: HazardLevels,
     val avalancheProblems: List<AvalancheProblem>,
-    val recentAvalanches: List<RecentAvalanches>
+    val recentAvalanches: List<RecentAvalanche>
 ) {
     companion object {
         val EMPTY = Bulletin(
@@ -36,7 +36,7 @@ data class Bulletin(
     }
 }
 
-data class RecentAvalanches(
+data class RecentAvalanche(
     val aspects: Aspects,
     val date: String,
     val description: String,

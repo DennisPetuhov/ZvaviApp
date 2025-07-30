@@ -67,7 +67,7 @@ data object ZvaviSpacing {
 }
 
 @Immutable
-data object Stroke {
+data object ZvaviStroke {
     val stroke0 = 0.dp
     val stroke100 = 1.dp
     val stroke200 = 2.dp

@@ -1,12 +1,13 @@
 package ge.avalanche.zvavi.bulletin.data.domain.mapper
 
+import co.touchlab.kermit.Logger
 import ge.avalanche.zvavi.bulletin.api.models.Aspects
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblemType
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
 import ge.avalanche.zvavi.bulletin.api.models.Bulletin
 import ge.avalanche.zvavi.bulletin.api.models.HazardLevels
-import ge.avalanche.zvavi.bulletin.api.models.RecentAvalanches
+import ge.avalanche.zvavi.bulletin.api.models.RecentAvalanche
 import ge.avalanche.zvavi.bulletin.api.models.TimeOfDay
 import ge.avalanche.zvavi.bulletin.api.models.Trend
 import ge.avalanche.zvavi.database.entities.AspectsEntity
@@ -26,6 +27,7 @@ import ge.avalanche.zvavi.network.models.problems.AvalancheProblemApi
 import ge.avalanche.zvavi.network.models.problems.AvalancheProblemResponse
 import ge.avalanche.zvavi.network.models.recentAvalanches.RecentAvalancheResponse
 import ge.avalanche.zvavi.network.models.recentAvalanches.RecentAvalanchesApi
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * Maps [BulletinApi] to [BulletinEntity]
@@ -154,10 +156,28 @@ private fun TimeOfDayApi.toEntity(isAllDay: Boolean): TimeOfDayEntity = TimeOfDa
  */
 private fun RecentAvalanchesApi.toEntity(): RecentAvalanchesEntity = RecentAvalanchesEntity(
     aspects = aspects.toEntity(),
-    date = date,
+    date = date.formatToReadableDate(),
     description = description,
     size = size
 )
+
+/**
+ * Formats ISO 8601 date string to a human-readable format (e.g., "April 13, 2025")
+ * @param dateString ISO 8601 date string (e.g., "2025-05-28T08:34:46+00:00")
+ * @return Formatted date string (e.g., "April 13, 2025")
+ */
+private fun String.formatToReadableDate(): String {
+    return try {
+        val instant = kotlinx.datetime.Instant.parse(this)
+        val localDate = instant.toLocalDateTime(kotlinx.datetime.TimeZone.UTC).date
+
+        val month = localDate.month.name.lowercase().replaceFirstChar { it.uppercase() }
+        "${month} ${localDate.dayOfMonth}, ${localDate.year}"
+    } catch (e: Exception) {
+        Logger.e("Error parsing date: '$this'", e)
+        this
+    }
+}
 
 /**
  * Maps [HazardLevelsApi] to [HazardLevelsEntity]
@@ -218,7 +238,7 @@ fun BulletinEntity.toDomain(): Bulletin = Bulletin(
     additionalHazards = additionalHazards,
     hazardLevels = hazardLevels.toDomain(),
     avalancheProblems = avalancheProblems.toAvalancheProblemDomainList,
-    recentAvalanches = recentAvalanches.toRecentAvalanchesDomainList
+    recentAvalanches = recentAvalanches.toRecentAvalancheDomainLists
 )
 
 /**
@@ -301,10 +321,10 @@ private fun TimeOfDayEntity.toDomain(): TimeOfDay = TimeOfDay(
 )
 
 /**
- * Maps [RecentAvalanchesEntity] to [RecentAvalanches] domain model
- * @return [RecentAvalanches] with mapped data from entity
+ * Maps [RecentAvalanchesEntity] to [RecentAvalanche] domain model
+ * @return [RecentAvalanche] with mapped data from entity
  */
-private fun RecentAvalanchesEntity.toDomain(): RecentAvalanches = RecentAvalanches(
+private fun RecentAvalanchesEntity.toDomain(): RecentAvalanche = RecentAvalanche(
     aspects = aspects.toDomain(),
     date = date,
     description = description,
@@ -318,9 +338,9 @@ private val List<AvalancheProblemEntity>.toAvalancheProblemDomainList: List<Aval
     get() = map { it.toDomain() }
 
 /**
- * Extension property to map list of [RecentAvalanchesEntity] to list of [RecentAvalanches]
+ * Extension property to map list of [RecentAvalanchesEntity] to list of [RecentAvalanche]
  */
-private val List<RecentAvalanchesEntity>.toRecentAvalanchesDomainList: List<RecentAvalanches>
+private val List<RecentAvalanchesEntity>.toRecentAvalancheDomainLists: List<RecentAvalanche>
     get() = map { it.toDomain() }
 
 /**
