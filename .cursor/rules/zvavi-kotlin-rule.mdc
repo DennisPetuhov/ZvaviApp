@@ -135,3 +135,10 @@ Never delete comments until I ask.
 
 - Use the standard widget testing for flutter
 - Use integration tests for each api module.   
+
+### Patterns
+- alwayes say where we can use GOF patterns ar GRASP patterns and propose to implement them and explain why
+- check for waye to make lower coulping and higher cohesion and explain why
+- alwayes check for adherence of Solid principles - propose to implemnt them where possible and explain why
+
+

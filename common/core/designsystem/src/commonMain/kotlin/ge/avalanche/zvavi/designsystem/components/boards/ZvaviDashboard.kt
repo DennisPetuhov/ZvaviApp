@@ -22,7 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ge.avalanche.zvavi.designsystem.dimens.Stroke
+import ge.avalanche.zvavi.designsystem.dimens.ZvaviStroke
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviRadius
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSize
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
@@ -51,7 +51,7 @@ fun ZvaviDashboard(
             .fillMaxSize()
             .clip(RoundedCornerShape(ZvaviRadius.radius550))
             .border(
-                width = Stroke.stroke200,
+                width = ZvaviStroke.stroke200,
                 shape = RoundedCornerShape(ZvaviRadius.radius550),
                 color = ZvaviTheme.colors.borderNeutralTertiary
             )

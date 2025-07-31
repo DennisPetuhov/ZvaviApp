@@ -21,6 +21,7 @@ import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.Pentago
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.views.RectangleView
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.StyledPyramidText
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.toColor
+import ge.avalanche.zvavi.designsystem.components.header.ZvaviHeader
 
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
@@ -44,11 +45,9 @@ fun RiskByHeightBlock(
     ) {
         RiskRow(
             topText = {
-                Text(
-                    text = stringResource(ZvaviStrings.riskByHeight),
-                    style = ZvaviTheme.typography.display400Accent.copy(color = ZvaviTheme.colors.contentNeutralPrimary),
-                    color = ZvaviTheme.colors.contentNeutralSecondary,
-                    modifier = Modifier.fillMaxWidth().padding(vertical = ZvaviSpacing.spacing100)
+                ZvaviHeader(
+                    text = (ZvaviStrings.riskByHeight),
+                    modifier = Modifier.padding(vertical = ZvaviSpacing.spacing100)
                 )
             },
             bottomText = stringResource(ZvaviStrings.highAlpine),

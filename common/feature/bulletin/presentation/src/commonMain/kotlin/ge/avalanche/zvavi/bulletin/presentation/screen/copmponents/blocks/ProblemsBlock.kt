@@ -14,6 +14,7 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.models.BulletinViewState
 import ge.avalanche.zvavi.bulletin.presentation.screen.copmponents.boards.ZvaviProblemBoard
 import ge.avalanche.zvavi.bulletin.presentation.screen.dialogs.AvalancheProblemsBottomSheet
+import ge.avalanche.zvavi.designsystem.components.header.ZvaviHeader
 import ge.avalanche.zvavi.designsystem.dimens.ZvaviSpacing
 import ge.avalanche.zvavi.designsystem.strings.ZvaviStrings
 import ge.avalanche.zvavi.designsystem.theme.ZvaviTheme
@@ -39,20 +40,14 @@ fun ProblemsBlock(
             .wrapContentHeight()
             .padding(top = ZvaviSpacing.spacing350)
     ) {
-        Text(
-            text = stringResource(ZvaviStrings.problems),
-            style = ZvaviTheme.typography.display400Accent.copy(
-                color = ZvaviTheme.colors.contentNeutralPrimary
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(
-                    start = layoutConfig.contentCompensation,
-                    end = layoutConfig.contentCompensation,
-                    bottom = ZvaviSpacing.spacing100,
-                    top = ZvaviSpacing.spacing300
-                )
+        ZvaviHeader(
+            text = ZvaviStrings.problems,
+            modifier = modifier.padding(
+                start = layoutConfig.contentCompensation,
+                end = layoutConfig.contentCompensation,
+                bottom = ZvaviSpacing.spacing100,
+                top = ZvaviSpacing.spacing300
+            )
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(ZvaviSpacing.spacing100),
@@ -69,7 +64,6 @@ fun ProblemsBlock(
     }
     if (viewState.showBottomSheet) {
         AvalancheProblemsBottomSheet(
-            viewState=viewState,
             problem = viewState.selectedProblem,
             sheetState = bottomSheetState,
             layoutConfig = layoutConfig,

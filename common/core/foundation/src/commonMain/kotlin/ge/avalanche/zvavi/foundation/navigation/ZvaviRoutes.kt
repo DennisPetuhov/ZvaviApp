@@ -6,5 +6,6 @@ object ZvaviRoutes {
     const val BULLETIN_SCREEN = "bulletin_screen"
     const val BULLETIN_PROBLEM_INFO_SCREEN = "bulletin_problem_screen"
     const val EXPLORER_SCREEN = "explorer_screen"
+    const val EXPLORER_AVALANCHE_SIZE_INFO_SCREEN = "explorer_avalanche_size_info_screen"
     const val SETTING_SCREEN = "setting_screen"
 } 

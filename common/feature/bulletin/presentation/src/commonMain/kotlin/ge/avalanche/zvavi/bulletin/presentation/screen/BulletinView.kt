@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -71,7 +72,8 @@ internal fun BulletinView(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(ZvaviTheme.colors.layerFloor0)
+            .padding(horizontal = layoutConfig.marginHorizontal)
+             .background(ZvaviTheme.colors.layerFloor0)
     ) {
         Box(
             modifier = Modifier
@@ -140,6 +142,6 @@ private fun ContentBlocks(
             eventHandler = eventHandler,
             layoutConfig = layoutConfig
         )
-        AvalanchesSnowpackWeatherBlock(layoutConfig, viewState = viewState)
+        AvalanchesSnowpackWeatherBlock(layoutConfig, viewState = viewState,eventHandler = eventHandler)
     }
 }

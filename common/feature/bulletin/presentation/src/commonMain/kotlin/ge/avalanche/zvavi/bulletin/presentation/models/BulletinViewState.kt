@@ -2,7 +2,7 @@ package ge.avalanche.zvavi.bulletin.presentation.models
 
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheProblem
 import ge.avalanche.zvavi.bulletin.api.models.AvalancheRiskLevel
-import ge.avalanche.zvavi.bulletin.api.models.RecentAvalanches
+import ge.avalanche.zvavi.bulletin.api.models.RecentAvalanche
 
 data class BulletinViewState(
     val riskLevelOverall: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
@@ -13,7 +13,7 @@ data class BulletinViewState(
     val riskLevelAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val riskLevelSubAlpine: AvalancheRiskLevel = AvalancheRiskLevel.NO_INFO,
     val avalancheProblems: List<AvalancheProblem> = emptyList(),
-    val recentAvalanches: List<RecentAvalanches > = emptyList(),
+    val recentAvalanches: List<RecentAvalanche > = emptyList(),
     val snowpack: String = "",
     val weather: String = "",
     val loading: Boolean = true,

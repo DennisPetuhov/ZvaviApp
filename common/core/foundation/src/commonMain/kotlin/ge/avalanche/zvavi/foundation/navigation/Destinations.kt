@@ -31,3 +31,10 @@ object SettingScreenDestination : ZvaviNavDestinations, ZvaviNavAnimations by Fa
     override val route: String = ZvaviRoutes.SETTING_SCREEN
     override val arguments: List<NamedNavArgument> = emptyList()
 }
+
+object ExploreAvalancheSizeInfoScreenDestination : ZvaviNavDestinations,
+    ZvaviNavAnimations by FadeAnimations {
+    override val route = ZvaviRoutes.EXPLORER_AVALANCHE_SIZE_INFO_SCREEN
+    override val arguments: List<NamedNavArgument>
+        get() = emptyList()
+}

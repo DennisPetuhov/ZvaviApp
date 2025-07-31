@@ -16,11 +16,14 @@ import ge.avalanche.zvavi.bulletin.presentation.models.BulletinEvent
 import ge.avalanche.zvavi.bulletin.presentation.screen.utill.ErrorContent
 import ge.avalanche.zvavi.designsystem.animation.shimmer.ShimmerState
 import ge.avalanche.zvavi.designsystem.animation.shimmer.ZvaviShimmerProvider
+import ge.avalanche.zvavi.foundation.navigation.BulletinProblemInfoScreenDestination
+import ge.avalanche.zvavi.foundation.navigation.ExploreAvalancheSizeInfoScreenDestination
+import ge.avalanche.zvavi.foundation.navigation.ZvaviNavDestinations
 import org.koin.compose.koinInject
 
 @Composable
 internal fun BulletinScreen(
-    onNavigate: () -> Unit,
+    onNavigate: (ZvaviNavDestinations) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: BulletinViewModel = koinInject()
@@ -61,10 +64,13 @@ internal fun BulletinScreen(
     // Handle navigation actions
     when (viewAction) {
         is BulletinAction.OpenProblemInfoScreen -> {
-            onNavigate()
+            onNavigate(BulletinProblemInfoScreenDestination)
             viewModel.clearAction()
         }
-
+        is BulletinAction.OpenAvalancheSizeInfoScreen -> {
+            onNavigate(ExploreAvalancheSizeInfoScreenDestination)
+            viewModel.clearAction()
+        }
         else -> {}
     }
 }

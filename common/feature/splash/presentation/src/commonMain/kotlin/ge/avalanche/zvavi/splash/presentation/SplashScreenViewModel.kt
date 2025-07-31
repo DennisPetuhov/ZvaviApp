@@ -24,7 +24,6 @@ class SplashScreenViewModel : BaseViewModel<SplashViewState, SplashAction, Splas
     
     private fun initializeSplash() {
         viewModelScope.launch {
-            // Simulate splash screen loading time
             delay(2000) // 2 seconds delay
             navigateToMainScreen()
         }
