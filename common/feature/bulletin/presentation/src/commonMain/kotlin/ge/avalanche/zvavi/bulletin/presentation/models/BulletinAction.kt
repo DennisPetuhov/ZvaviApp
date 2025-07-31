@@ -7,4 +7,5 @@ sealed class BulletinAction {
     data object OpenRecentAvalanches : BulletinAction()
     data object OpenSnowpack : BulletinAction()
     data object OpenWeather : BulletinAction()
+    data object OpenAvalancheSizeInfoScreen : BulletinAction()
 }

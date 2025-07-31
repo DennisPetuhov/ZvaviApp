@@ -47,7 +47,6 @@ import ge.avalanche.zvavi.designsystem.tokens.layout.LayoutConfig
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AvalancheProblemsBottomSheet(
-    viewState: BulletinViewState,
     problem: AvalancheProblem?,
     sheetState: SheetState,
     layoutConfig: LayoutConfig,
@@ -69,7 +68,6 @@ internal fun AvalancheProblemsBottomSheet(
     ) {
         problem?.let {
             ModalContainer(
-                viewState = viewState,
                 problem = it,
                 layoutConfig,
                 eventHandler,
@@ -81,7 +79,6 @@ internal fun AvalancheProblemsBottomSheet(
 
 @Composable
 private fun ModalContainer(
-    viewState: BulletinViewState,
     problem: AvalancheProblem,
     layoutConfig: LayoutConfig,
     eventHandler: (BulletinEvent) -> Unit,
@@ -131,7 +128,6 @@ private fun ModalContainer(
                 )
             }
             DashBoard(
-                viewState = viewState,
                 problem = problem,
                 eventHandler = eventHandler,
                 layoutConfig = layoutConfig
@@ -142,7 +138,6 @@ private fun ModalContainer(
 
 @Composable
 private fun DashBoard(
-    viewState: BulletinViewState,
     problem: AvalancheProblem,
     layoutConfig: LayoutConfig,
     eventHandler: (BulletinEvent) -> Unit

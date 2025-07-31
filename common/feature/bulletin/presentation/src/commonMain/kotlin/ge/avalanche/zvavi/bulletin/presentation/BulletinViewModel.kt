@@ -51,6 +51,9 @@ internal class BulletinViewModel(
             BulletinEvent.ProblemInfoClicked -> handleNavigateToBulletinProblemInfoScreen()
             BulletinEvent.ReturnFromBulletinProblemInfoScreen -> handleReturnFromBulletinProblemScreen()
             BulletinEvent.Retry -> {}
+            BulletinEvent.AvalancheSizeInfoClicked -> {
+                handleAvalancheSizeInfoClick()
+            }
         }
     }
 
@@ -172,6 +175,14 @@ internal class BulletinViewModel(
 
     private fun handleOverviewClick() {
         // Implementation for overview click
+    }
+
+    private fun handleAvalancheSizeInfoClick() {
+        viewAction = BulletinAction.OpenAvalancheSizeInfoScreen
+    }
+
+    private fun handleAvalancheProblemsClick() {
+        viewAction = BulletinAction.OpenProblemInfoScreen
     }
 
     fun getCurrentDateTime() =

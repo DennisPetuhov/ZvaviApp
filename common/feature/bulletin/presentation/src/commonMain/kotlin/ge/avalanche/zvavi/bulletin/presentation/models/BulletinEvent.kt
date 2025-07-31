@@ -16,4 +16,5 @@ sealed class BulletinEvent {
     object ProblemInfoClicked : BulletinEvent()
     object ReturnFromBulletinProblemInfoScreen : BulletinEvent()
     object Retry : BulletinEvent()
+    object AvalancheSizeInfoClicked : BulletinEvent()
 }
