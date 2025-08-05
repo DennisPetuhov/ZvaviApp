@@ -2,8 +2,8 @@ package ge.avalanche.zvavi.designsystem.strings
 
 import org.jetbrains.compose.resources.StringResource
 import zvaviapp.common.core.designsystem.generated.resources.Res
-import zvaviapp.common.core.designsystem.generated.resources.alpine
 import zvaviapp.common.core.designsystem.generated.resources.all_day
+import zvaviapp.common.core.designsystem.generated.resources.alpine
 import zvaviapp.common.core.designsystem.generated.resources.aspect_by_elevation
 import zvaviapp.common.core.designsystem.generated.resources.avalanche_safety
 import zvaviapp.common.core.designsystem.generated.resources.avalanche_size_info
@@ -13,9 +13,8 @@ import zvaviapp.common.core.designsystem.generated.resources.collapse
 import zvaviapp.common.core.designsystem.generated.resources.danger_level
 import zvaviapp.common.core.designsystem.generated.resources.detailed_description
 import zvaviapp.common.core.designsystem.generated.resources.expand
-import zvaviapp.common.core.designsystem.generated.resources.explore
-import zvaviapp.common.core.designsystem.generated.resources.explore_uppercase
 import zvaviapp.common.core.designsystem.generated.resources.expanded_arrow
+import zvaviapp.common.core.designsystem.generated.resources.explore
 import zvaviapp.common.core.designsystem.generated.resources.gudauri
 import zvaviapp.common.core.designsystem.generated.resources.height_0
 import zvaviapp.common.core.designsystem.generated.resources.height_2000
@@ -71,5 +70,4 @@ object ZvaviStrings {
     val trend: StringResource get() = Res.string.trend
     val timeOfDay: StringResource get() = Res.string.time_of_day
     val avalancheSizeInfo: StringResource get() = Res.string.avalanche_size_info
-    val exploreUppercase: StringResource get() = Res.string.explore_uppercase
 }
